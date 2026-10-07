@@ -6,10 +6,13 @@ export const options = {
     duration: '30s',
 };
 
+const BASE_URL = __ENV.BASE_URL || 'http://localhost:8080';
+
 export default function () {
-    const res = http.get('http://localhost:8080/api');
+    const res = http.get(`${BASE_URL}/api`);
 
     check(res, {
         'status is 200': (r) => r.status === 200,
     });
 }
+
