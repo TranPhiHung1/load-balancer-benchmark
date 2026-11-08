@@ -1,0 +1,50 @@
+[
+  {
+    "balancer": "direct-backend-1",
+    "workload": "grpc",
+    "exitCode": 0,
+    "summary": "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-39-15-374Z\\backend-1-grpc.json"
+  },
+  {
+    "balancer": "direct-backend-1",
+    "workload": "keepalive-off",
+    "exitCode": 0,
+    "summary": "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-39-15-374Z\\backend-1-keepalive-off.json"
+  },
+  {
+    "balancer": "direct-backend-1",
+    "workload": "keepalive-on",
+    "exitCode": 0,
+    "summary": "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-39-15-374Z\\backend-1-keepalive-on.json"
+  },
+  {
+    "balancer": "direct-backend-1",
+    "workload": "rest",
+    "exitCode": 0,
+    "summary": "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-39-15-374Z\\backend-1-rest.json"
+  },
+  {
+    "balancer": "direct-backend-2",
+    "workload": "grpc",
+    "exitCode": 0,
+    "summary": "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-39-15-374Z\\backend-2-grpc.json"
+  },
+  {
+    "balancer": "direct-backend-2",
+    "workload": "keepalive-off",
+    "exitCode": 0,
+    "summary": "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-39-15-374Z\\backend-2-keepalive-off.json"
+  },
+  {
+    "balancer": "direct-backend-2",
+    "workload": "keepalive-on",
+    "exitCode": 0,
+    "summary": "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-39-15-374Z\\backend-2-keepalive-on.json"
+  },
+  {
+    "balancer": "direct-backend-2",
+    "workload": "rest",
+    "exitCode": 0,
+    "summary": "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-39-15-374Z\\backend-2-rest.json"
+  }
+]

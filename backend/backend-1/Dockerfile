@@ -2,12 +2,14 @@ FROM node:22-alpine
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY backend-1/package*.json ./
 
-RUN npm install
+RUN npm ci --omit=dev
 
-COPY . .
+COPY backend-1/server.js ./
+COPY shared ./shared
+COPY proto ./proto
 
-EXPOSE 3001
+EXPOSE 3001 50051
 
 CMD ["node", "server.js"]

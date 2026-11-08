@@ -1,0 +1,52 @@
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: benchmark/keep-alive.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 2 max VUs, 32s max duration (incl. graceful stop):
+              * default: 2 looping VUs for 2s (gracefulStop: 30s)
+
+
+running (01.0s), 2/2 VUs, 36 complete and 0 interrupted iterations
+default   [  50% ] 2 VUs  1.0s/2s
+
+running (02.0s), 2/2 VUs, 76 complete and 0 interrupted iterations
+default   [ 100% ] 2 VUs  2.0s/2s
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 78      38.402877/s
+    checks_succeeded...: 100.00% 78 out of 78
+    checks_failed......: 0.00%   0 out of 78
+
+    ✓ HTTP status 200
+
+    HTTP
+    http_req_duration..............: avg=558.15µs min=0s   med=574.95µs max=4.06ms  p(90)=989.8µs p(95)=1.12ms
+      { expected_response:true }...: avg=558.15µs min=0s   med=574.95µs max=4.06ms  p(90)=989.8µs p(95)=1.12ms
+    http_req_failed................: 0.00%  0 out of 78
+    http_reqs......................: 78     38.402877/s
+
+    EXECUTION
+    iteration_duration.............: avg=52.07ms  min=50ms med=51.14ms  max=90.78ms p(90)=51.65ms p(95)=52.1ms
+    iterations.....................: 78     38.402877/s
+    vus............................: 2      min=2       max=2
+    vus_max........................: 2      min=2       max=2
+
+    NETWORK
+    data_received..................: 22 kB  11 kB/s
+    data_sent......................: 5.8 kB 2.8 kB/s
+
+
+
+
+running (02.0s), 0/2 VUs, 78 complete and 0 interrupted iterations
+default ✓ [ 100% ] 2 VUs  2s

@@ -1,0 +1,1 @@
+PASS: direct gRPC 40 RPC/backend, plus k6 gRPC 2 VUs/2s/backend with --no-thresholds (single backend); REST and original Keep-Alive on/off scripts at 2 VUs/2s/backend. No load balancer, TLS, HTTP/2 listener or 10 VUs/30s benchmark validated.

@@ -1,0 +1,1310 @@
+diff --git a/.gitignore b/.gitignore
+index 6c61224..77484e1 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -1,5 +1,7 @@
+ # Node.js dependencies
+ node_modules/
++.npm-cache/
++certs/
+ 
+ # Environment variables / secrets
+ .env
+@@ -37,4 +39,4 @@ T├ái Liß╗çu/
+ 
+ *.docx
+ *.pptx
+-*.pdf
+\ No newline at end of file
++*.pdf
+diff --git a/backend/backend-1/Dockerfile b/backend/backend-1/Dockerfile
+index 5eb7c17..39f1343 100644
+--- a/backend/backend-1/Dockerfile
++++ b/backend/backend-1/Dockerfile
+@@ -2,12 +2,14 @@ FROM node:22-alpine
+ 
+ WORKDIR /app
+ 
+-COPY package*.json ./
++COPY backend-1/package*.json ./
+ 
+-RUN npm install
++RUN npm ci --omit=dev
+ 
+-COPY . .
++COPY backend-1/server.js ./
++COPY shared ./shared
++COPY proto ./proto
+ 
+-EXPOSE 3001
++EXPOSE 3001 50051
+ 
+-CMD ["node", "server.js"]
+\ No newline at end of file
++CMD ["node", "server.js"]
+diff --git a/backend/backend-1/package-lock.json b/backend/backend-1/package-lock.json
+index 2ffe536..f729f19 100644
+--- a/backend/backend-1/package-lock.json
++++ b/backend/backend-1/package-lock.json
+@@ -9,9 +9,118 @@
+       "version": "1.0.0",
+       "license": "ISC",
+       "dependencies": {
++        "@grpc/grpc-js": "^1.14.7",
++        "@grpc/proto-loader": "^0.8.1",
+         "express": "^5.2.1"
+       }
+     },
++    "node_modules/@grpc/grpc-js": {
++      "version": "1.14.7",
++      "resolved": "https://registry.npmjs.org/@grpc/grpc-js/-/grpc-js-1.14.7.tgz",
++      "integrity": "sha512-W4W/fcBMGRVtG6dW2c7cw2mnpS3hvbBd+oQXjh2iYFTZDk1JJmcNqkM5KSaPubQpamlUUurrlb7G1s9NJeERmQ==",
++      "license": "Apache-2.0",
++      "dependencies": {
++        "@grpc/proto-loader": "^0.8.0",
++        "@js-sdsl/ordered-map": "^4.4.2"
++      },
++      "engines": {
++        "node": ">=12.10.0"
++      }
++    },
++    "node_modules/@grpc/proto-loader": {
++      "version": "0.8.1",
++      "resolved": "https://registry.npmjs.org/@grpc/proto-loader/-/proto-loader-0.8.1.tgz",
++      "integrity": "sha512-wtF6h+DY6M3YaDBPAmvuuA6jV8Sif9MjtOI5euKFWRgCDl5PeDpPsHR9u2l6St5ceY8AZgoNDww5+HvEsXFsGg==",
++      "license": "Apache-2.0",
++      "dependencies": {
++        "lodash.camelcase": "^4.3.0",
++        "long": "^5.0.0",
++        "protobufjs": "^7.5.5",
++        "yargs": "^17.7.2"
++      },
++      "bin": {
++        "proto-loader-gen-types": "build/bin/proto-loader-gen-types.js"
++      },
++      "engines": {
++        "node": ">=6"
++      }
++    },
++    "node_modules/@js-sdsl/ordered-map": {
++      "version": "4.4.2",
++      "resolved": "https://registry.npmjs.org/@js-sdsl/ordered-map/-/ordered-map-4.4.2.tgz",
++      "integrity": "sha512-iUKgm52T8HOE/makSxjqoWhe95ZJA1/G1sYsGev2JDKUSS14KAgg1LHb+Ba+IPow0xflbnSkOsZcO08C7w1gYw==",
++      "license": "MIT",
++      "funding": {
++        "type": "opencollective",
++        "url": "https://opencollective.com/js-sdsl"
++      }
++    },
++    "node_modules/@protobufjs/aspromise": {
++      "version": "1.1.2",
++      "resolved": "https://registry.npmjs.org/@protobufjs/aspromise/-/aspromise-1.1.2.tgz",
++      "integrity": "sha512-j+gKExEuLmKwvz3OgROXtrJ2UG2x8Ch2YZUxahh+s1F2HZ+wAceUNLkvy6zKCPVRkU++ZWQrdxsUeQXmcg4uoQ==",
++      "license": "BSD-3-Clause"
++    },
++    "node_modules/@protobufjs/base64": {
++      "version": "1.1.2",
++      "resolved": "https://registry.npmjs.org/@protobufjs/base64/-/base64-1.1.2.tgz",
++      "integrity": "sha512-AZkcAA5vnN/v4PDqKyMR5lx7hZttPDgClv83E//FMNhR2TMcLUhfRUBHCmSl0oi9zMgDDqRUJkSxO3wm85+XLg==",
++      "license": "BSD-3-Clause"
++    },
++    "node_modules/@protobufjs/codegen": {
++      "version": "2.0.5",
++      "resolved": "https://registry.npmjs.org/@protobufjs/codegen/-/codegen-2.0.5.tgz",
++      "integrity": "sha512-zgXFLzW3Ap33e6d0Wlj4MGIm6Ce8O89n/apUaGNB/jx+hw+ruWEp7EwGUshdLKVRCxZW12fp9r40E1mQrf/34g==",
++      "license": "BSD-3-Clause"
++    },
++    "node_modules/@protobufjs/eventemitter": {
++      "version": "1.1.1",
++      "resolved": "https://registry.npmjs.org/@protobufjs/eventemitter/-/eventemitter-1.1.1.tgz",
++      "integrity": "sha512-vW1GmwMZNnL+gMRaovlh9yZX74kc+TTU3FObkkurpMaRtBfLP3ldjS9KQWlwZgraRE0+dheEEoAxdzcJQ8eXZg==",
++      "license": "BSD-3-Clause"
++    },
++    "node_modules/@protobufjs/fetch": {
++      "version": "1.1.1",
++      "resolved": "https://registry.npmjs.org/@protobufjs/fetch/-/fetch-1.1.1.tgz",
++      "integrity": "sha512-GpptLrs57adMSuHi3VNj0mAF8dwh36LMaYF6XyJ6JMWlVsc+t42tm1HSEDmOs3A8fC9yyeisgLhsTVQokOZ0zw==",
++      "license": "BSD-3-Clause",
++      "dependencies": {
++        "@protobufjs/aspromise": "^1.1.1"
++      }
++    },
++    "node_modules/@protobufjs/float": {
++      "version": "1.0.2",
++      "resolved": "https://registry.npmjs.org/@protobufjs/float/-/float-1.0.2.tgz",
++      "integrity": "sha512-Ddb+kVXlXst9d+R9PfTIxh1EdNkgoRe5tOX6t01f1lYWOvJnSPDBlG241QLzcyPdoNTsblLUdujGSE4RzrTZGQ==",
++      "license": "BSD-3-Clause"
++    },
++    "node_modules/@protobufjs/path": {
++      "version": "1.1.2",
++      "resolved": "https://registry.npmjs.org/@protobufjs/path/-/path-1.1.2.tgz",
++      "integrity": "sha512-6JOcJ5Tm08dOHAbdR3GrvP+yUUfkjG5ePsHYczMFLq3ZmMkAD98cDgcT2iA1lJ9NVwFd4tH/iSSoe44YWkltEA==",
++      "license": "BSD-3-Clause"
++    },
++    "node_modules/@protobufjs/pool": {
++      "version": "1.1.0",
++      "resolved": "https://registry.npmjs.org/@protobufjs/pool/-/pool-1.1.0.tgz",
++      "integrity": "sha512-0kELaGSIDBKvcgS4zkjz1PeddatrjYcmMWOlAuAPwAeccUrPHdUqo/J6LiymHHEiJT5NrF1UVwxY14f+fy4WQw==",
++      "license": "BSD-3-Clause"
++    },
++    "node_modules/@protobufjs/utf8": {
++      "version": "1.1.2",
++      "resolved": "https://registry.npmjs.org/@protobufjs/utf8/-/utf8-1.1.2.tgz",
++      "integrity": "sha512-b1UQwcEZ4yCnMCD8DAL1VlbvBJE9/IX4FTIp7BG1xYpf29SLazLSrqUkj4w7Y5y7cCVP6E5tcqqcI0xemPkHug==",
++      "license": "BSD-3-Clause"
++    },
++    "node_modules/@types/node": {
++      "version": "26.6.6",
++      "resolved": "https://registry.npmjs.org/@types/node/-/node-26.6.6.tgz",
++      "integrity": "sha512-MzQj+8Kx3XI40OmUAE6Qoh58ZMNstNNMwn2nfd3qWsfe7nDNSqJNzes4njhz6AHwrSHOffSLwXU6yb474Q4aog==",
++      "license": "MIT",
++      "dependencies": {
++        "undici-types": "~8.9.0"
++      }
++    },
+     "node_modules/accepts": {
+       "version": "2.0.0",
+       "resolved": "https://registry.npmjs.org/accepts/-/accepts-2.0.0.tgz",
+@@ -25,6 +134,30 @@
+         "node": ">= 0.6"
+       }
+     },
++    "node_modules/ansi-regex": {
++      "version": "5.0.1",
++      "resolved": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-5.0.1.tgz",
++      "integrity": "sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==",
++      "license": "MIT",
++      "engines": {
++        "node": ">=8"
++      }
++    },
++    "node_modules/ansi-styles": {
++      "version": "4.3.0",
++      "resolved": "https://registry.npmjs.org/ansi-styles/-/ansi-styles-4.3.0.tgz",
++      "integrity": "sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg==",
++      "license": "MIT",
++      "dependencies": {
++        "color-convert": "^2.0.1"
++      },
++      "engines": {
++        "node": ">=8"
++      },
++      "funding": {
++        "url": "https://github.com/chalk/ansi-styles?sponsor=1"
++      }
++    },
+     "node_modules/body-parser": {
+       "version": "2.3.0",
+       "resolved": "https://registry.npmjs.org/body-parser/-/body-parser-2.3.0.tgz",
+@@ -100,6 +233,38 @@
+         "url": "https://github.com/sponsors/ljharb"
+       }
+     },
++    "node_modules/cliui": {
++      "version": "8.0.1",
++      "resolved": "https://registry.npmjs.org/cliui/-/cliui-8.0.1.tgz",
++      "integrity": "sha512-BSeNnyus75C4//NQ9gQt1/csTXyo/8Sb+afLAkzAptFuMsod9HFokGNudZpi/oQV73hnVK+sR+5PVRMd+Dr7YQ==",
++      "license": "ISC",
++      "dependencies": {
++        "string-width": "^4.2.0",
++        "strip-ansi": "^6.0.1",
++        "wrap-ansi": "^7.0.0"
++      },
++      "engines": {
++        "node": ">=12"
++      }
++    },
++    "node_modules/color-convert": {
++      "version": "2.0.1",
++      "resolved": "https://registry.npmjs.org/color-convert/-/color-convert-2.0.1.tgz",
++      "integrity": "sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==",
++      "license": "MIT",
++      "dependencies": {
++        "color-name": "~1.1.4"
++      },
++      "engines": {
++        "node": ">=7.0.0"
++      }
++    },
++    "node_modules/color-name": {
++      "version": "1.1.4",
++      "resolved": "https://registry.npmjs.org/color-name/-/color-name-1.1.4.tgz",
++      "integrity": "sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==",
++      "license": "MIT"
++    },
+     "node_modules/content-disposition": {
+       "version": "1.1.0",
+       "resolved": "https://registry.npmjs.org/content-disposition/-/content-disposition-1.1.0.tgz",
+@@ -186,6 +351,12 @@
+       "integrity": "sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==",
+       "license": "MIT"
+     },
++    "node_modules/emoji-regex": {
++      "version": "8.0.0",
++      "resolved": "https://registry.npmjs.org/emoji-regex/-/emoji-regex-8.0.0.tgz",
++      "integrity": "sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==",
++      "license": "MIT"
++    },
+     "node_modules/encodeurl": {
+       "version": "2.0.0",
+       "resolved": "https://registry.npmjs.org/encodeurl/-/encodeurl-2.0.0.tgz",
+@@ -225,6 +396,15 @@
+         "node": ">= 0.4"
+       }
+     },
++    "node_modules/escalade": {
++      "version": "3.2.0",
++      "resolved": "https://registry.npmjs.org/escalade/-/escalade-3.2.0.tgz",
++      "integrity": "sha512-WUj2qlxaQtO4g6Pq5c29GTcWGDyd8itL8zTlipgECz3JesAiiOKotd8JU6otB3PACgG6xkJUyVhboMS+bje/jA==",
++      "license": "MIT",
++      "engines": {
++        "node": ">=6"
++      }
++    },
+     "node_modules/escape-html": {
+       "version": "1.0.3",
+       "resolved": "https://registry.npmjs.org/escape-html/-/escape-html-1.0.3.tgz",
+@@ -331,6 +511,15 @@
+         "url": "https://github.com/sponsors/ljharb"
+       }
+     },
++    "node_modules/get-caller-file": {
++      "version": "2.0.5",
++      "resolved": "https://registry.npmjs.org/get-caller-file/-/get-caller-file-2.0.5.tgz",
++      "integrity": "sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg==",
++      "license": "ISC",
++      "engines": {
++        "node": "6.* || 8.* || >= 10.*"
++      }
++    },
+     "node_modules/get-intrinsic": {
+       "version": "1.3.0",
+       "resolved": "https://registry.npmjs.org/get-intrinsic/-/get-intrinsic-1.3.0.tgz",
+@@ -455,12 +644,33 @@
+         "node": ">= 0.10"
+       }
+     },
++    "node_modules/is-fullwidth-code-point": {
++      "version": "3.0.0",
++      "resolved": "https://registry.npmjs.org/is-fullwidth-code-point/-/is-fullwidth-code-point-3.0.0.tgz",
++      "integrity": "sha512-zymm5+u+sCsSWyD9qNaejV3DFvhCKclKdizYaJUuHA83RLjb7nSuGnddCHGv0hk+KY7BMAlsWeK4Ueg6EV6XQg==",
++      "license": "MIT",
++      "engines": {
++        "node": ">=8"
++      }
++    },
+     "node_modules/is-promise": {
+       "version": "4.0.0",
+       "resolved": "https://registry.npmjs.org/is-promise/-/is-promise-4.0.0.tgz",
+       "integrity": "sha512-hvpoI6korhJMnej285dSg6nu1+e6uxs7zG3BYAm5byqDsgJNWwxzM6z6iZiAgQR4TJ30JmBTOwqZUw3WlyH3AQ==",
+       "license": "MIT"
+     },
++    "node_modules/lodash.camelcase": {
++      "version": "4.3.0",
++      "resolved": "https://registry.npmjs.org/lodash.camelcase/-/lodash.camelcase-4.3.0.tgz",
++      "integrity": "sha512-TwuEnCnxbc3rAvhf/LbG7tJUDzhqXyFnv3dtzLOPgCG/hODL7WFnsbwktkD7yUV0RrreP/l1PALq/YSg6VvjlA==",
++      "license": "MIT"
++    },
++    "node_modules/long": {
++      "version": "5.3.2",
++      "resolved": "https://registry.npmjs.org/long/-/long-5.3.2.tgz",
++      "integrity": "sha512-mNAgZ1GmyNhD7AuqnTG3/VQ26o760+ZYBPKjPvugO8+nLbYfX6TVpJPseBvopbdY+qpZ/lKUnmEc1LeZYS3QAA==",
++      "license": "Apache-2.0"
++    },
+     "node_modules/math-intrinsics": {
+       "version": "1.1.0",
+       "resolved": "https://registry.npmjs.org/math-intrinsics/-/math-intrinsics-1.1.0.tgz",
+@@ -607,6 +817,29 @@
+         "url": "https://opencollective.com/express"
+       }
+     },
++    "node_modules/protobufjs": {
++      "version": "7.6.6",
++      "resolved": "https://registry.npmjs.org/protobufjs/-/protobufjs-7.6.6.tgz",
++      "integrity": "sha512-dYDWdjSl5RNb7SgPxGQcRU+GtvP7s2fpkrY0r432PcOIaZ0/rBcxEZnQN67iJhFuQiVw754JDoPruPCNdGsbjg==",
++      "hasInstallScript": true,
++      "license": "BSD-3-Clause",
++      "dependencies": {
++        "@protobufjs/aspromise": "^1.1.2",
++        "@protobufjs/base64": "^1.1.2",
++        "@protobufjs/codegen": "^2.0.5",
++        "@protobufjs/eventemitter": "^1.1.1",
++        "@protobufjs/fetch": "^1.1.1",
++        "@protobufjs/float": "^1.0.2",
++        "@protobufjs/path": "^1.1.2",
++        "@protobufjs/pool": "^1.1.0",
++        "@protobufjs/utf8": "^1.1.1",
++        "@types/node": ">=13.7.0",
++        "long": "^5.3.2"
++      },
++      "engines": {
++        "node": ">=12.0.0"
++      }
++    },
+     "node_modules/proxy-addr": {
+       "version": "2.0.7",
+       "resolved": "https://registry.npmjs.org/proxy-addr/-/proxy-addr-2.0.7.tgz",
+@@ -664,6 +897,15 @@
+         "node": ">= 0.10"
+       }
+     },
++    "node_modules/require-directory": {
++      "version": "2.1.1",
++      "resolved": "https://registry.npmjs.org/require-directory/-/require-directory-2.1.1.tgz",
++      "integrity": "sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==",
++      "license": "MIT",
++      "engines": {
++        "node": ">=0.10.0"
++      }
++    },
+     "node_modules/router": {
+       "version": "2.2.0",
+       "resolved": "https://registry.npmjs.org/router/-/router-2.2.0.tgz",
+@@ -818,6 +1060,32 @@
+         "node": ">= 0.8"
+       }
+     },
++    "node_modules/string-width": {
++      "version": "4.2.3",
++      "resolved": "https://registry.npmjs.org/string-width/-/string-width-4.2.3.tgz",
++      "integrity": "sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==",
++      "license": "MIT",
++      "dependencies": {
++        "emoji-regex": "^8.0.0",
++        "is-fullwidth-code-point": "^3.0.0",
++        "strip-ansi": "^6.0.1"
++      },
++      "engines": {
++        "node": ">=8"
++      }
++    },
++    "node_modules/strip-ansi": {
++      "version": "6.0.1",
++      "resolved": "https://registry.npmjs.org/strip-ansi/-/strip-ansi-6.0.1.tgz",
++      "integrity": "sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==",
++      "license": "MIT",
++      "dependencies": {
++        "ansi-regex": "^5.0.1"
++      },
++      "engines": {
++        "node": ">=8"
++      }
++    },
+     "node_modules/toidentifier": {
+       "version": "1.0.1",
+       "resolved": "https://registry.npmjs.org/toidentifier/-/toidentifier-1.0.1.tgz",
+@@ -858,6 +1126,12 @@
+         "url": "https://opencollective.com/express"
+       }
+     },
++    "node_modules/undici-types": {
++      "version": "8.9.0",
++      "resolved": "https://registry.npmjs.org/undici-types/-/undici-types-8.9.0.tgz",
++      "integrity": "sha512-KTDyRTYX8sWmKXAikPHHSyc63CRPETMctyjKFupcC6OBLXT3xsN0e9aF7m+mIXutFWpUXuedtowG7iLOzp0kQg==",
++      "license": "MIT"
++    },
+     "node_modules/unpipe": {
+       "version": "1.0.0",
+       "resolved": "https://registry.npmjs.org/unpipe/-/unpipe-1.0.0.tgz",
+@@ -876,11 +1150,64 @@
+         "node": ">= 0.8"
+       }
+     },
++    "node_modules/wrap-ansi": {
++      "version": "7.0.0",
++      "resolved": "https://registry.npmjs.org/wrap-ansi/-/wrap-ansi-7.0.0.tgz",
++      "integrity": "sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==",
++      "license": "MIT",
++      "dependencies": {
++        "ansi-styles": "^4.0.0",
++        "string-width": "^4.1.0",
++        "strip-ansi": "^6.0.0"
++      },
++      "engines": {
++        "node": ">=10"
++      },
++      "funding": {
++        "url": "https://github.com/chalk/wrap-ansi?sponsor=1"
++      }
++    },
+     "node_modules/wrappy": {
+       "version": "1.0.2",
+       "resolved": "https://registry.npmjs.org/wrappy/-/wrappy-1.0.2.tgz",
+       "integrity": "sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==",
+       "license": "ISC"
++    },
++    "node_modules/y18n": {
++      "version": "5.0.8",
++      "resolved": "https://registry.npmjs.org/y18n/-/y18n-5.0.8.tgz",
++      "integrity": "sha512-0pfFzegeDWJHJIAmTLRP2DwHjdF5s7jo9tuztdQxAhINCdvS+3nGINqPd00AphqJR/0LhANUS6/+7SCb98YOfA==",
++      "license": "ISC",
++      "engines": {
++        "node": ">=10"
++      }
++    },
++    "node_modules/yargs": {
++      "version": "17.7.3",
++      "resolved": "https://registry.npmjs.org/yargs/-/yargs-17.7.3.tgz",
++      "integrity": "sha512-GZtjxm/J/4TSxuL3FNYjCmLktBTnIw/rVmKSIyKeYAZpmJB2ig9VauCC5xsa82GNKVKDAqpOn3KVzNt0zmrU0g==",
++      "license": "MIT",
++      "dependencies": {
++        "cliui": "^8.0.1",
++        "escalade": "^3.1.1",
++        "get-caller-file": "^2.0.5",
++        "require-directory": "^2.1.1",
++        "string-width": "^4.2.3",
++        "y18n": "^5.0.5",
++        "yargs-parser": "^21.1.1"
++      },
++      "engines": {
++        "node": ">=12"
++      }
++    },
++    "node_modules/yargs-parser": {
++      "version": "21.1.1",
++      "resolved": "https://registry.npmjs.org/yargs-parser/-/yargs-parser-21.1.1.tgz",
++      "integrity": "sha512-tVpsJW7DdjecAiFpbIB1e3qxIQsE6NoPc5/eTdrbbIC4h0LVsWhnoa3g+m2HclBIujHzsxZ4VJVA+GUuc2/LBw==",
++      "license": "ISC",
++      "engines": {
++        "node": ">=12"
++      }
+     }
+   }
+ }
+diff --git a/backend/backend-1/package.json b/backend/backend-1/package.json
+index 312c9e2..540310b 100644
+--- a/backend/backend-1/package.json
++++ b/backend/backend-1/package.json
+@@ -11,6 +11,8 @@
+   "license": "ISC",
+   "type": "commonjs",
+   "dependencies": {
++    "@grpc/grpc-js": "^1.14.7",
++    "@grpc/proto-loader": "^0.8.1",
+     "express": "^5.2.1"
+   }
+ }
+diff --git a/backend/backend-1/server.js b/backend/backend-1/server.js
+index 5981355..957cda5 100644
+--- a/backend/backend-1/server.js
++++ b/backend/backend-1/server.js
+@@ -1,8 +1,11 @@
+ const express = require("express");
++const path = require('node:path');
++const shared = require('node:fs').existsSync(path.join(__dirname, 'shared')) ? './shared' : '../shared';
++require(`${shared}/grpc-server`)(require('@grpc/grpc-js'), require('@grpc/proto-loader'), 'backend-1');
+ 
+ const app = express();
+ 
+-const PORT = 3001;
++const PORT = Number(process.env.REST_PORT || 3001);
+ 
+ app.get('/api', (req, res) => {
+     res.json({
+@@ -13,4 +16,4 @@ app.get('/api', (req, res) => {
+ 
+ app.listen(PORT, '0.0.0.0', () => {
+     console.log(`Backend 1 is running on port ${PORT}`);
+-});
+\ No newline at end of file
++});
+diff --git a/backend/backend-2/Dockerfile b/backend/backend-2/Dockerfile
+index 495b3ed..7a24dc3 100644
+--- a/backend/backend-2/Dockerfile
++++ b/backend/backend-2/Dockerfile
+@@ -2,12 +2,14 @@ FROM node:22-alpine
+ 
+ WORKDIR /app
+ 
+-COPY package*.json ./
++COPY backend-2/package*.json ./
+ 
+-RUN npm install
++RUN npm ci --omit=dev
+ 
+-COPY . .
++COPY backend-2/server.js ./
++COPY shared ./shared
++COPY proto ./proto
+ 
+-EXPOSE 3002
++EXPOSE 3002 50051
+ 
+-CMD ["node", "server.js"]
+\ No newline at end of file
++CMD ["node", "server.js"]
+diff --git a/backend/backend-2/package-lock.json b/backend/backend-2/package-lock.json
+index 36d72ef..4a52eb4 100644
+--- a/backend/backend-2/package-lock.json
++++ b/backend/backend-2/package-lock.json
+@@ -9,9 +9,118 @@
+       "version": "1.0.0",
+       "license": "ISC",
+       "dependencies": {
++        "@grpc/grpc-js": "^1.14.7",
++        "@grpc/proto-loader": "^0.8.1",
+         "express": "^5.2.1"
+       }
+     },
++    "node_modules/@grpc/grpc-js": {
++      "version": "1.14.7",
++      "resolved": "https://registry.npmjs.org/@grpc/grpc-js/-/grpc-js-1.14.7.tgz",
++      "integrity": "sha512-W4W/fcBMGRVtG6dW2c7cw2mnpS3hvbBd+oQXjh2iYFTZDk1JJmcNqkM5KSaPubQpamlUUurrlb7G1s9NJeERmQ==",
++      "license": "Apache-2.0",
++      "dependencies": {
++        "@grpc/proto-loader": "^0.8.0",
++        "@js-sdsl/ordered-map": "^4.4.2"
++      },
++      "engines": {
++        "node": ">=12.10.0"
++      }
++    },
++    "node_modules/@grpc/proto-loader": {
++      "version": "0.8.1",
++      "resolved": "https://registry.npmjs.org/@grpc/proto-loader/-/proto-loader-0.8.1.tgz",
++      "integrity": "sha512-wtF6h+DY6M3YaDBPAmvuuA6jV8Sif9MjtOI5euKFWRgCDl5PeDpPsHR9u2l6St5ceY8AZgoNDww5+HvEsXFsGg==",
++      "license": "Apache-2.0",
++      "dependencies": {
++        "lodash.camelcase": "^4.3.0",
++        "long": "^5.0.0",
++        "protobufjs": "^7.5.5",
++        "yargs": "^17.7.2"
++      },
++      "bin": {
++        "proto-loader-gen-types": "build/bin/proto-loader-gen-types.js"
++      },
++      "engines": {
++        "node": ">=6"
++      }
++    },
++    "node_modules/@js-sdsl/ordered-map": {
++      "version": "4.4.2",
++      "resolved": "https://registry.npmjs.org/@js-sdsl/ordered-map/-/ordered-map-4.4.2.tgz",
++      "integrity": "sha512-iUKgm52T8HOE/makSxjqoWhe95ZJA1/G1sYsGev2JDKUSS14KAgg1LHb+Ba+IPow0xflbnSkOsZcO08C7w1gYw==",
++      "license": "MIT",
++      "funding": {
++        "type": "opencollective",
++        "url": "https://opencollective.com/js-sdsl"
++      }
++    },
++    "node_modules/@protobufjs/aspromise": {
++      "version": "1.1.2",
++      "resolved": "https://registry.npmjs.org/@protobufjs/aspromise/-/aspromise-1.1.2.tgz",
++      "integrity": "sha512-j+gKExEuLmKwvz3OgROXtrJ2UG2x8Ch2YZUxahh+s1F2HZ+wAceUNLkvy6zKCPVRkU++ZWQrdxsUeQXmcg4uoQ==",
++      "license": "BSD-3-Clause"
++    },
++    "node_modules/@protobufjs/base64": {
++      "version": "1.1.2",
++      "resolved": "https://registry.npmjs.org/@protobufjs/base64/-/base64-1.1.2.tgz",
++      "integrity": "sha512-AZkcAA5vnN/v4PDqKyMR5lx7hZttPDgClv83E//FMNhR2TMcLUhfRUBHCmSl0oi9zMgDDqRUJkSxO3wm85+XLg==",
++      "license": "BSD-3-Clause"
++    },
++    "node_modules/@protobufjs/codegen": {
++      "version": "2.0.5",
++      "resolved": "https://registry.npmjs.org/@protobufjs/codegen/-/codegen-2.0.5.tgz",
++      "integrity": "sha512-zgXFLzW3Ap33e6d0Wlj4MGIm6Ce8O89n/apUaGNB/jx+hw+ruWEp7EwGUshdLKVRCxZW12fp9r40E1mQrf/34g==",
++      "license": "BSD-3-Clause"
++    },
++    "node_modules/@protobufjs/eventemitter": {
++      "version": "1.1.1",
++      "resolved": "https://registry.npmjs.org/@protobufjs/eventemitter/-/eventemitter-1.1.1.tgz",
++      "integrity": "sha512-vW1GmwMZNnL+gMRaovlh9yZX74kc+TTU3FObkkurpMaRtBfLP3ldjS9KQWlwZgraRE0+dheEEoAxdzcJQ8eXZg==",
++      "license": "BSD-3-Clause"
++    },
++    "node_modules/@protobufjs/fetch": {
++      "version": "1.1.1",
++      "resolved": "https://registry.npmjs.org/@protobufjs/fetch/-/fetch-1.1.1.tgz",
++      "integrity": "sha512-GpptLrs57adMSuHi3VNj0mAF8dwh36LMaYF6XyJ6JMWlVsc+t42tm1HSEDmOs3A8fC9yyeisgLhsTVQokOZ0zw==",
++      "license": "BSD-3-Clause",
++      "dependencies": {
++        "@protobufjs/aspromise": "^1.1.1"
++      }
++    },
++    "node_modules/@protobufjs/float": {
++      "version": "1.0.2",
++      "resolved": "https://registry.npmjs.org/@protobufjs/float/-/float-1.0.2.tgz",
++      "integrity": "sha512-Ddb+kVXlXst9d+R9PfTIxh1EdNkgoRe5tOX6t01f1lYWOvJnSPDBlG241QLzcyPdoNTsblLUdujGSE4RzrTZGQ==",
++      "license": "BSD-3-Clause"
++    },
++    "node_modules/@protobufjs/path": {
++      "version": "1.1.2",
++      "resolved": "https://registry.npmjs.org/@protobufjs/path/-/path-1.1.2.tgz",
++      "integrity": "sha512-6JOcJ5Tm08dOHAbdR3GrvP+yUUfkjG5ePsHYczMFLq3ZmMkAD98cDgcT2iA1lJ9NVwFd4tH/iSSoe44YWkltEA==",
++      "license": "BSD-3-Clause"
++    },
++    "node_modules/@protobufjs/pool": {
++      "version": "1.1.0",
++      "resolved": "https://registry.npmjs.org/@protobufjs/pool/-/pool-1.1.0.tgz",
++      "integrity": "sha512-0kELaGSIDBKvcgS4zkjz1PeddatrjYcmMWOlAuAPwAeccUrPHdUqo/J6LiymHHEiJT5NrF1UVwxY14f+fy4WQw==",
++      "license": "BSD-3-Clause"
++    },
++    "node_modules/@protobufjs/utf8": {
++      "version": "1.1.2",
++      "resolved": "https://registry.npmjs.org/@protobufjs/utf8/-/utf8-1.1.2.tgz",
++      "integrity": "sha512-b1UQwcEZ4yCnMCD8DAL1VlbvBJE9/IX4FTIp7BG1xYpf29SLazLSrqUkj4w7Y5y7cCVP6E5tcqqcI0xemPkHug==",
++      "license": "BSD-3-Clause"
++    },
++    "node_modules/@types/node": {
++      "version": "26.6.6",
++      "resolved": "https://registry.npmjs.org/@types/node/-/node-26.6.6.tgz",
++      "integrity": "sha512-MzQj+8Kx3XI40OmUAE6Qoh58ZMNstNNMwn2nfd3qWsfe7nDNSqJNzes4njhz6AHwrSHOffSLwXU6yb474Q4aog==",
++      "license": "MIT",
++      "dependencies": {
++        "undici-types": "~8.9.0"
++      }
++    },
+     "node_modules/accepts": {
+       "version": "2.0.0",
+       "resolved": "https://registry.npmjs.org/accepts/-/accepts-2.0.0.tgz",
+@@ -25,6 +134,30 @@
+         "node": ">= 0.6"
+       }
+     },
++    "node_modules/ansi-regex": {
++      "version": "5.0.1",
++      "resolved": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-5.0.1.tgz",
++      "integrity": "sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==",
++      "license": "MIT",
++      "engines": {
++        "node": ">=8"
++      }
++    },
++    "node_modules/ansi-styles": {
++      "version": "4.3.0",
++      "resolved": "https://registry.npmjs.org/ansi-styles/-/ansi-styles-4.3.0.tgz",
++      "integrity": "sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg==",
++      "license": "MIT",
++      "dependencies": {
++        "color-convert": "^2.0.1"
++      },
++      "engines": {
++        "node": ">=8"
++      },
++      "funding": {
++        "url": "https://github.com/chalk/ansi-styles?sponsor=1"
++      }
++    },
+     "node_modules/body-parser": {
+       "version": "2.3.0",
+       "resolved": "https://registry.npmjs.org/body-parser/-/body-parser-2.3.0.tgz",
+@@ -100,6 +233,38 @@
+         "url": "https://github.com/sponsors/ljharb"
+       }
+     },
++    "node_modules/cliui": {
++      "version": "8.0.1",
++      "resolved": "https://registry.npmjs.org/cliui/-/cliui-8.0.1.tgz",
++      "integrity": "sha512-BSeNnyus75C4//NQ9gQt1/csTXyo/8Sb+afLAkzAptFuMsod9HFokGNudZpi/oQV73hnVK+sR+5PVRMd+Dr7YQ==",
++      "license": "ISC",
++      "dependencies": {
++        "string-width": "^4.2.0",
++        "strip-ansi": "^6.0.1",
++        "wrap-ansi": "^7.0.0"
++      },
++      "engines": {
++        "node": ">=12"
++      }
++    },
++    "node_modules/color-convert": {
++      "version": "2.0.1",
++      "resolved": "https://registry.npmjs.org/color-convert/-/color-convert-2.0.1.tgz",
++      "integrity": "sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==",
++      "license": "MIT",
++      "dependencies": {
++        "color-name": "~1.1.4"
++      },
++      "engines": {
++        "node": ">=7.0.0"
++      }
++    },
++    "node_modules/color-name": {
++      "version": "1.1.4",
++      "resolved": "https://registry.npmjs.org/color-name/-/color-name-1.1.4.tgz",
++      "integrity": "sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==",
++      "license": "MIT"
++    },
+     "node_modules/content-disposition": {
+       "version": "1.1.0",
+       "resolved": "https://registry.npmjs.org/content-disposition/-/content-disposition-1.1.0.tgz",
+@@ -186,6 +351,12 @@
+       "integrity": "sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==",
+       "license": "MIT"
+     },
++    "node_modules/emoji-regex": {
++      "version": "8.0.0",
++      "resolved": "https://registry.npmjs.org/emoji-regex/-/emoji-regex-8.0.0.tgz",
++      "integrity": "sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==",
++      "license": "MIT"
++    },
+     "node_modules/encodeurl": {
+       "version": "2.0.0",
+       "resolved": "https://registry.npmjs.org/encodeurl/-/encodeurl-2.0.0.tgz",
+@@ -225,6 +396,15 @@
+         "node": ">= 0.4"
+       }
+     },
++    "node_modules/escalade": {
++      "version": "3.2.0",
++      "resolved": "https://registry.npmjs.org/escalade/-/escalade-3.2.0.tgz",
++      "integrity": "sha512-WUj2qlxaQtO4g6Pq5c29GTcWGDyd8itL8zTlipgECz3JesAiiOKotd8JU6otB3PACgG6xkJUyVhboMS+bje/jA==",
++      "license": "MIT",
++      "engines": {
++        "node": ">=6"
++      }
++    },
+     "node_modules/escape-html": {
+       "version": "1.0.3",
+       "resolved": "https://registry.npmjs.org/escape-html/-/escape-html-1.0.3.tgz",
+@@ -331,6 +511,15 @@
+         "url": "https://github.com/sponsors/ljharb"
+       }
+     },
++    "node_modules/get-caller-file": {
++      "version": "2.0.5",
++      "resolved": "https://registry.npmjs.org/get-caller-file/-/get-caller-file-2.0.5.tgz",
++      "integrity": "sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg==",
++      "license": "ISC",
++      "engines": {
++        "node": "6.* || 8.* || >= 10.*"
++      }
++    },
+     "node_modules/get-intrinsic": {
+       "version": "1.3.0",
+       "resolved": "https://registry.npmjs.org/get-intrinsic/-/get-intrinsic-1.3.0.tgz",
+@@ -455,12 +644,33 @@
+         "node": ">= 0.10"
+       }
+     },
++    "node_modules/is-fullwidth-code-point": {
++      "version": "3.0.0",
++      "resolved": "https://registry.npmjs.org/is-fullwidth-code-point/-/is-fullwidth-code-point-3.0.0.tgz",
++      "integrity": "sha512-zymm5+u+sCsSWyD9qNaejV3DFvhCKclKdizYaJUuHA83RLjb7nSuGnddCHGv0hk+KY7BMAlsWeK4Ueg6EV6XQg==",
++      "license": "MIT",
++      "engines": {
++        "node": ">=8"
++      }
++    },
+     "node_modules/is-promise": {
+       "version": "4.0.0",
+       "resolved": "https://registry.npmjs.org/is-promise/-/is-promise-4.0.0.tgz",
+       "integrity": "sha512-hvpoI6korhJMnej285dSg6nu1+e6uxs7zG3BYAm5byqDsgJNWwxzM6z6iZiAgQR4TJ30JmBTOwqZUw3WlyH3AQ==",
+       "license": "MIT"
+     },
++    "node_modules/lodash.camelcase": {
++      "version": "4.3.0",
++      "resolved": "https://registry.npmjs.org/lodash.camelcase/-/lodash.camelcase-4.3.0.tgz",
++      "integrity": "sha512-TwuEnCnxbc3rAvhf/LbG7tJUDzhqXyFnv3dtzLOPgCG/hODL7WFnsbwktkD7yUV0RrreP/l1PALq/YSg6VvjlA==",
++      "license": "MIT"
++    },
++    "node_modules/long": {
++      "version": "5.3.2",
++      "resolved": "https://registry.npmjs.org/long/-/long-5.3.2.tgz",
++      "integrity": "sha512-mNAgZ1GmyNhD7AuqnTG3/VQ26o760+ZYBPKjPvugO8+nLbYfX6TVpJPseBvopbdY+qpZ/lKUnmEc1LeZYS3QAA==",
++      "license": "Apache-2.0"
++    },
+     "node_modules/math-intrinsics": {
+       "version": "1.1.0",
+       "resolved": "https://registry.npmjs.org/math-intrinsics/-/math-intrinsics-1.1.0.tgz",
+@@ -607,6 +817,29 @@
+         "url": "https://opencollective.com/express"
+       }
+     },
++    "node_modules/protobufjs": {
++      "version": "7.6.6",
++      "resolved": "https://registry.npmjs.org/protobufjs/-/protobufjs-7.6.6.tgz",
++      "integrity": "sha512-dYDWdjSl5RNb7SgPxGQcRU+GtvP7s2fpkrY0r432PcOIaZ0/rBcxEZnQN67iJhFuQiVw754JDoPruPCNdGsbjg==",
++      "hasInstallScript": true,
++      "license": "BSD-3-Clause",
++      "dependencies": {
++        "@protobufjs/aspromise": "^1.1.2",
++        "@protobufjs/base64": "^1.1.2",
++        "@protobufjs/codegen": "^2.0.5",
++        "@protobufjs/eventemitter": "^1.1.1",
++        "@protobufjs/fetch": "^1.1.1",
++        "@protobufjs/float": "^1.0.2",
++        "@protobufjs/path": "^1.1.2",
++        "@protobufjs/pool": "^1.1.0",
++        "@protobufjs/utf8": "^1.1.1",
++        "@types/node": ">=13.7.0",
++        "long": "^5.3.2"
++      },
++      "engines": {
++        "node": ">=12.0.0"
++      }
++    },
+     "node_modules/proxy-addr": {
+       "version": "2.0.7",
+       "resolved": "https://registry.npmjs.org/proxy-addr/-/proxy-addr-2.0.7.tgz",
+@@ -664,6 +897,15 @@
+         "node": ">= 0.10"
+       }
+     },
++    "node_modules/require-directory": {
++      "version": "2.1.1",
++      "resolved": "https://registry.npmjs.org/require-directory/-/require-directory-2.1.1.tgz",
++      "integrity": "sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==",
++      "license": "MIT",
++      "engines": {
++        "node": ">=0.10.0"
++      }
++    },
+     "node_modules/router": {
+       "version": "2.2.0",
+       "resolved": "https://registry.npmjs.org/router/-/router-2.2.0.tgz",
+@@ -818,6 +1060,32 @@
+         "node": ">= 0.8"
+       }
+     },
++    "node_modules/string-width": {
++      "version": "4.2.3",
++      "resolved": "https://registry.npmjs.org/string-width/-/string-width-4.2.3.tgz",
++      "integrity": "sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==",
++      "license": "MIT",
++      "dependencies": {
++        "emoji-regex": "^8.0.0",
++        "is-fullwidth-code-point": "^3.0.0",
++        "strip-ansi": "^6.0.1"
++      },
++      "engines": {
++        "node": ">=8"
++      }
++    },
++    "node_modules/strip-ansi": {
++      "version": "6.0.1",
++      "resolved": "https://registry.npmjs.org/strip-ansi/-/strip-ansi-6.0.1.tgz",
++      "integrity": "sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==",
++      "license": "MIT",
++      "dependencies": {
++        "ansi-regex": "^5.0.1"
++      },
++      "engines": {
++        "node": ">=8"
++      }
++    },
+     "node_modules/toidentifier": {
+       "version": "1.0.1",
+       "resolved": "https://registry.npmjs.org/toidentifier/-/toidentifier-1.0.1.tgz",
+@@ -858,6 +1126,12 @@
+         "url": "https://opencollective.com/express"
+       }
+     },
++    "node_modules/undici-types": {
++      "version": "8.9.0",
++      "resolved": "https://registry.npmjs.org/undici-types/-/undici-types-8.9.0.tgz",
++      "integrity": "sha512-KTDyRTYX8sWmKXAikPHHSyc63CRPETMctyjKFupcC6OBLXT3xsN0e9aF7m+mIXutFWpUXuedtowG7iLOzp0kQg==",
++      "license": "MIT"
++    },
+     "node_modules/unpipe": {
+       "version": "1.0.0",
+       "resolved": "https://registry.npmjs.org/unpipe/-/unpipe-1.0.0.tgz",
+@@ -876,11 +1150,64 @@
+         "node": ">= 0.8"
+       }
+     },
++    "node_modules/wrap-ansi": {
++      "version": "7.0.0",
++      "resolved": "https://registry.npmjs.org/wrap-ansi/-/wrap-ansi-7.0.0.tgz",
++      "integrity": "sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==",
++      "license": "MIT",
++      "dependencies": {
++        "ansi-styles": "^4.0.0",
++        "string-width": "^4.1.0",
++        "strip-ansi": "^6.0.0"
++      },
++      "engines": {
++        "node": ">=10"
++      },
++      "funding": {
++        "url": "https://github.com/chalk/wrap-ansi?sponsor=1"
++      }
++    },
+     "node_modules/wrappy": {
+       "version": "1.0.2",
+       "resolved": "https://registry.npmjs.org/wrappy/-/wrappy-1.0.2.tgz",
+       "integrity": "sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==",
+       "license": "ISC"
++    },
++    "node_modules/y18n": {
++      "version": "5.0.8",
++      "resolved": "https://registry.npmjs.org/y18n/-/y18n-5.0.8.tgz",
++      "integrity": "sha512-0pfFzegeDWJHJIAmTLRP2DwHjdF5s7jo9tuztdQxAhINCdvS+3nGINqPd00AphqJR/0LhANUS6/+7SCb98YOfA==",
++      "license": "ISC",
++      "engines": {
++        "node": ">=10"
++      }
++    },
++    "node_modules/yargs": {
++      "version": "17.7.3",
++      "resolved": "https://registry.npmjs.org/yargs/-/yargs-17.7.3.tgz",
++      "integrity": "sha512-GZtjxm/J/4TSxuL3FNYjCmLktBTnIw/rVmKSIyKeYAZpmJB2ig9VauCC5xsa82GNKVKDAqpOn3KVzNt0zmrU0g==",
++      "license": "MIT",
++      "dependencies": {
++        "cliui": "^8.0.1",
++        "escalade": "^3.1.1",
++        "get-caller-file": "^2.0.5",
++        "require-directory": "^2.1.1",
++        "string-width": "^4.2.3",
++        "y18n": "^5.0.5",
++        "yargs-parser": "^21.1.1"
++      },
++      "engines": {
++        "node": ">=12"
++      }
++    },
++    "node_modules/yargs-parser": {
++      "version": "21.1.1",
++      "resolved": "https://registry.npmjs.org/yargs-parser/-/yargs-parser-21.1.1.tgz",
++      "integrity": "sha512-tVpsJW7DdjecAiFpbIB1e3qxIQsE6NoPc5/eTdrbbIC4h0LVsWhnoa3g+m2HclBIujHzsxZ4VJVA+GUuc2/LBw==",
++      "license": "ISC",
++      "engines": {
++        "node": ">=12"
++      }
+     }
+   }
+ }
+diff --git a/backend/backend-2/package.json b/backend/backend-2/package.json
+index 56493ea..9055ebb 100644
+--- a/backend/backend-2/package.json
++++ b/backend/backend-2/package.json
+@@ -12,6 +12,8 @@
+   "license": "ISC",
+   "type": "commonjs",
+   "dependencies": {
++    "@grpc/grpc-js": "^1.14.7",
++    "@grpc/proto-loader": "^0.8.1",
+     "express": "^5.2.1"
+   }
+ }
+diff --git a/backend/backend-2/server.js b/backend/backend-2/server.js
+index 7782d52..75e1254 100644
+--- a/backend/backend-2/server.js
++++ b/backend/backend-2/server.js
+@@ -1,8 +1,11 @@
+ const express = require("express");
++const path = require('node:path');
++const shared = require('node:fs').existsSync(path.join(__dirname, 'shared')) ? './shared' : '../shared';
++require(`${shared}/grpc-server`)(require('@grpc/grpc-js'), require('@grpc/proto-loader'), 'backend-2');
+ 
+ const app = express();
+ 
+-const PORT = 3002;
++const PORT = Number(process.env.REST_PORT || 3002);
+ 
+ app.get('/api', (req, res) => {
+     res.json({
+@@ -13,4 +16,4 @@ app.get('/api', (req, res) => {
+ 
+ app.listen(PORT, '0.0.0.0', () => {
+     console.log(`Backend 2 is running on port ${PORT}`);
+-});
+\ No newline at end of file
++});
+diff --git a/docker-compose.yml b/docker-compose.yml
+index 8064ef5..4078c28 100644
+--- a/docker-compose.yml
++++ b/docker-compose.yml
+@@ -1,12 +1,16 @@
+ services:
+   backend-1:
+-    build: ./backend/backend-1
++    build:
++      context: ./backend
++      dockerfile: backend-1/Dockerfile
+     container_name: backend-1
+     ports:
+       - "3001:3001"
+ 
+   backend-2:
+-    build: ./backend/backend-2
++    build:
++      context: ./backend
++      dockerfile: backend-2/Dockerfile
+     container_name: backend-2
+     ports:
+       - "3002:3002"
+@@ -16,8 +20,14 @@ services:
+     container_name: nginx-lb
+     ports:
+       - "8080:80"
++      - "8440:443"
++      - "9440:9443"
+     volumes:
+       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
++      - ./certs:/etc/lb-certs:ro
++    depends_on:
++      - backend-1
++      - backend-2
+ 
+ 
+   haproxy:
+@@ -25,8 +35,11 @@ services:
+     container_name: haproxy-lb
+     ports:
+       - "8081:80"
++      - "8441:443"
++      - "9441:9443"
+     volumes:
+       - ./haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
++      - ./certs:/etc/lb-certs:ro
+     depends_on:
+       - backend-1
+       - backend-2
+@@ -36,8 +49,11 @@ services:
+     container_name: envoy-lb
+     ports:
+       - "8082:80"
++      - "8442:443"
++      - "9442:9443"
+     volumes:
+       - ./envoy/envoy.yaml:/etc/envoy/envoy.yaml:ro
++      - ./certs:/etc/lb-certs:ro
+     depends_on:
+       - backend-1
+-      - backend-2
+\ No newline at end of file
++      - backend-2
+diff --git a/envoy/envoy.yaml b/envoy/envoy.yaml
+index e5d2695..0442cc9 100644
+--- a/envoy/envoy.yaml
++++ b/envoy/envoy.yaml
+@@ -5,43 +5,121 @@ static_resources:
+         socket_address:
+           address: 0.0.0.0
+           port_value: 80
+-
+       filter_chains:
+         - filters:
+             - name: envoy.filters.network.http_connection_manager
+               typed_config:
+                 "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+                 stat_prefix: ingress_http
+-
+                 route_config:
+                   name: local_route
+                   virtual_hosts:
+                     - name: backend_service
+-                      domains: ["*"]
++                      domains:
++                        - "*"
+                       routes:
+                         - match:
+-                            prefix: "/"
++                            prefix: /
+                           route:
+                             cluster: backend_cluster
+-
+                 http_filters:
+                   - name: envoy.filters.http.router
+                     typed_config:
+                       "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
+-
++    - name: https_h2_listener
++      address:
++        socket_address:
++          address: 0.0.0.0
++          port_value: 443
++      filter_chains:
++        - filters:
++            - name: envoy.filters.network.http_connection_manager
++              typed_config:
++                "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
++                stat_prefix: https_h2_listener
++                route_config:
++                  name: local_route
++                  virtual_hosts:
++                    - name: backend_service
++                      domains:
++                        - "*"
++                      routes:
++                        - match:
++                            prefix: /
++                          route:
++                            cluster: backend_cluster
++                http_filters:
++                  - name: envoy.filters.http.router
++                    typed_config:
++                      "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
++                codec_type: AUTO
++          transport_socket:
++            name: envoy.transport_sockets.tls
++            typed_config:
++              "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.DownstreamTlsContext
++              common_tls_context:
++                alpn_protocols:
++                  - h2
++                  - http/1.1
++                tls_params:
++                  tls_minimum_protocol_version: TLSv1_2
++                tls_certificates:
++                  - certificate_chain:
++                      filename: /etc/lb-certs/localhost.crt
++                    private_key:
++                      filename: /etc/lb-certs/localhost.key
++    - name: grpc_listener
++      address:
++        socket_address:
++          address: 0.0.0.0
++          port_value: 9443
++      filter_chains:
++        - filters:
++            - name: envoy.filters.network.http_connection_manager
++              typed_config:
++                "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
++                stat_prefix: grpc_listener
++                route_config:
++                  name: local_route
++                  virtual_hosts:
++                    - name: backend_service
++                      domains:
++                        - "*"
++                      routes:
++                        - match:
++                            prefix: /
++                          route:
++                            cluster: grpc_cluster
++                http_filters:
++                  - name: envoy.filters.http.router
++                    typed_config:
++                      "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
++                codec_type: AUTO
++          transport_socket:
++            name: envoy.transport_sockets.tls
++            typed_config:
++              "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.DownstreamTlsContext
++              common_tls_context:
++                alpn_protocols:
++                  - h2
++                tls_params:
++                  tls_minimum_protocol_version: TLSv1_2
++                tls_certificates:
++                  - certificate_chain:
++                      filename: /etc/lb-certs/localhost.crt
++                    private_key:
++                      filename: /etc/lb-certs/localhost.key
+   clusters:
+     - name: backend_cluster
+       connect_timeout: 5s
+       type: STRICT_DNS
+       lb_policy: ROUND_ROBIN
+-
+       health_checks:
+         - timeout: 2s
+           interval: 2s
+           unhealthy_threshold: 3
+           healthy_threshold: 2
+           tcp_health_check: {}
+-
+       load_assignment:
+         cluster_name: backend_cluster
+         endpoints:
+@@ -51,9 +129,37 @@ static_resources:
+                     socket_address:
+                       address: backend-1
+                       port_value: 3001
+-
+               - endpoint:
+                   address:
+                     socket_address:
+                       address: backend-2
+-                      port_value: 3002
+\ No newline at end of file
++                      port_value: 3002
++    - name: grpc_cluster
++      connect_timeout: 5s
++      type: STRICT_DNS
++      lb_policy: ROUND_ROBIN
++      health_checks:
++        - timeout: 2s
++          interval: 2s
++          unhealthy_threshold: 3
++          healthy_threshold: 2
++          tcp_health_check: {}
++      load_assignment:
++        cluster_name: grpc_cluster
++        endpoints:
++          - lb_endpoints:
++              - endpoint:
++                  address:
++                    socket_address:
++                      address: backend-1
++                      port_value: 50051
++              - endpoint:
++                  address:
++                    socket_address:
++                      address: backend-2
++                      port_value: 50051
++      typed_extension_protocol_options:
++        envoy.extensions.upstreams.http.v3.HttpProtocolOptions:
++          "@type": type.googleapis.com/envoy.extensions.upstreams.http.v3.HttpProtocolOptions
++          explicit_http_config:
++            http2_protocol_options: {}
+diff --git a/haproxy/haproxy.cfg b/haproxy/haproxy.cfg
+index fa77b16..07c51ee 100644
+--- a/haproxy/haproxy.cfg
++++ b/haproxy/haproxy.cfg
+@@ -18,3 +18,16 @@ backend app_backends
+     server backend1 backend-1:3001 check inter 2s fall 3 rise 2
+     server backend2 backend-2:3002 check inter 2s fall 3 rise 2
+ 
++frontend https_h2_front
++    bind *:443 ssl crt /etc/lb-certs/localhost.pem alpn h2,http/1.1
++    default_backend app_backends
++
++frontend grpc_front
++    bind *:9443 ssl crt /etc/lb-certs/localhost.pem alpn h2
++    default_backend grpc_backends
++
++backend grpc_backends
++    balance roundrobin
++    server grpc1 backend-1:50051 check proto h2
++    server grpc2 backend-2:50051 check proto h2
++
+diff --git a/nginx/nginx.conf b/nginx/nginx.conf
+index 674e533..3d95c48 100644
+--- a/nginx/nginx.conf
++++ b/nginx/nginx.conf
+@@ -2,6 +2,37 @@ events {
+ }
+ 
+ http {
++    upstream grpc_backends {
++        server backend-1:50051;
++        server backend-2:50051;
++    }
++
++    server {
++        listen 443 ssl;
++        http2 on;
++        ssl_certificate /etc/lb-certs/localhost.crt;
++        ssl_certificate_key /etc/lb-certs/localhost.key;
++        ssl_protocols TLSv1.2 TLSv1.3;
++        location /api {
++            proxy_pass http://backend_servers;
++            proxy_http_version 1.1;
++            proxy_set_header Connection "";
++            proxy_set_header Host $host;
++            proxy_set_header X-Real-IP $remote_addr;
++        }
++    }
++
++    server {
++        listen 9443 ssl;
++        http2 on;
++        ssl_certificate /etc/lb-certs/localhost.crt;
++        ssl_certificate_key /etc/lb-certs/localhost.key;
++        ssl_protocols TLSv1.2 TLSv1.3;
++        location /benchmark.GreeterService/ {
++            grpc_pass grpc://grpc_backends;
++        }
++    }
++
+     upstream backend_servers {
+         server backend-1:3001 max_fails=3 fail_timeout=5s;
+         server backend-2:3002 max_fails=3 fail_timeout=5s;
+@@ -17,4 +48,4 @@ http {
+             proxy_set_header X-Real-IP $remote_addr;
+         }
+     }
+-}
+\ No newline at end of file
++}

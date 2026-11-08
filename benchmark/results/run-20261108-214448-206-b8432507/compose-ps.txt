@@ -1,0 +1,6 @@
+NAME         IMAGE                           COMMAND                  SERVICE     CREATED          STATUS          PORTS
+backend-1    6nchuynngnh-backend-1           "docker-entrypoint.sΓÇª"   backend-1   27 seconds ago   Up 19 seconds   0.0.0.0:3001->3001/tcp, [::]:3001->3001/tcp
+backend-2    6nchuynngnh-backend-2           "docker-entrypoint.sΓÇª"   backend-2   27 seconds ago   Up 19 seconds   0.0.0.0:3002->3002/tcp, [::]:3002->3002/tcp
+envoy-lb     envoyproxy/envoy:v1.39-latest   "/docker-entrypoint.ΓÇª"   envoy       23 seconds ago   Up 18 seconds   0.0.0.0:8082->80/tcp, [::]:8082->80/tcp, 0.0.0.0:8442->443/tcp, [::]:8442->443/tcp, 0.0.0.0:9442->9443/tcp, [::]:9442->9443/tcp
+haproxy-lb   haproxy:latest                  "docker-entrypoint.sΓÇª"   haproxy     22 seconds ago   Up 18 seconds   0.0.0.0:8081->80/tcp, [::]:8081->80/tcp, 0.0.0.0:8441->443/tcp, [::]:8441->443/tcp, 0.0.0.0:9441->9443/tcp, [::]:9441->9443/tcp
+nginx-lb     nginx:latest                    "/docker-entrypoint.ΓÇª"   nginx       22 seconds ago   Up 19 seconds   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp, 0.0.0.0:8440->443/tcp, [::]:8440->443/tcp, 0.0.0.0:9440->9443/tcp, [::]:9440->9443/tcp

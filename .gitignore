@@ -1,5 +1,15 @@
 # Node.js dependencies
 node_modules/
+.npm-cache/
+certs/
+*.key
+*.pem
+*.p12
+*.pfx
+*.p8
+*.jks
+id_rsa
+id_ed25519
 
 # Environment variables / secrets
 .env
@@ -25,8 +35,7 @@ Desktop.ini
 *.tmp
 *.temp
 
-# Benchmark generated results
-benchmark/results/
+# Benchmark evidence is versioned after checking size and sensitive content.
 
 # Docker local override
 docker-compose.override.yml

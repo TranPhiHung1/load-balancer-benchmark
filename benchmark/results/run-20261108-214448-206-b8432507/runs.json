@@ -1,0 +1,92 @@
+[
+  {
+    "balancer": "nginx",
+    "workload": "http2",
+    "exitCode": 0,
+    "summary": "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\nginx-http2.json"
+  },
+  {
+    "balancer": "nginx",
+    "workload": "grpc",
+    "exitCode": 0,
+    "summary": "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\nginx-grpc.json"
+  },
+  {
+    "balancer": "nginx",
+    "workload": "rest",
+    "exitCode": 0,
+    "summary": "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\nginx-rest.json"
+  },
+  {
+    "balancer": "nginx",
+    "workload": "keepalive-on",
+    "exitCode": 0,
+    "summary": "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\nginx-keepalive-on.json"
+  },
+  {
+    "balancer": "nginx",
+    "workload": "keepalive-off",
+    "exitCode": 0,
+    "summary": "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\nginx-keepalive-off.json"
+  },
+  {
+    "balancer": "haproxy",
+    "workload": "http2",
+    "exitCode": 0,
+    "summary": "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\haproxy-http2.json"
+  },
+  {
+    "balancer": "haproxy",
+    "workload": "grpc",
+    "exitCode": 0,
+    "summary": "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\haproxy-grpc.json"
+  },
+  {
+    "balancer": "haproxy",
+    "workload": "rest",
+    "exitCode": 0,
+    "summary": "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\haproxy-rest.json"
+  },
+  {
+    "balancer": "haproxy",
+    "workload": "keepalive-on",
+    "exitCode": 0,
+    "summary": "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\haproxy-keepalive-on.json"
+  },
+  {
+    "balancer": "haproxy",
+    "workload": "keepalive-off",
+    "exitCode": 0,
+    "summary": "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\haproxy-keepalive-off.json"
+  },
+  {
+    "balancer": "envoy",
+    "workload": "http2",
+    "exitCode": 0,
+    "summary": "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\envoy-http2.json"
+  },
+  {
+    "balancer": "envoy",
+    "workload": "grpc",
+    "exitCode": 0,
+    "summary": "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\envoy-grpc.json"
+  },
+  {
+    "balancer": "envoy",
+    "workload": "rest",
+    "exitCode": 0,
+    "summary": "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\envoy-rest.json"
+  },
+  {
+    "balancer": "envoy",
+    "workload": "keepalive-on",
+    "exitCode": 0,
+    "summary": "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\envoy-keepalive-on.json"
+  },
+  {
+    "balancer": "envoy",
+    "workload": "keepalive-off",
+    "exitCode": 0,
+    "summary": "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\envoy-keepalive-off.json"
+  }
+]

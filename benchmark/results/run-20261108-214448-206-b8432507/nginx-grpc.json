@@ -1,0 +1,98 @@
+{
+    "root_group": {
+        "groups": {},
+        "checks": {
+                "gRPC status OK": {
+                    "name": "gRPC status OK",
+                    "path": "::gRPC status OK",
+                    "id": "b59b27e3359b32fdaa328b512d21492f",
+                    "passes": 84291,
+                    "fails": 0
+                },
+                "Unary payload": {
+                    "fails": 0,
+                    "name": "Unary payload",
+                    "path": "::Unary payload",
+                    "id": "96a47c0c5b482ee1ad608fb783aa3296",
+                    "passes": 84291
+                }
+            },
+        "name": "",
+        "path": "",
+        "id": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "metrics": {
+        "data_received": {
+            "count": 23533160,
+            "rate": 784364.7219897757
+        },
+        "backend_1_responses": {
+            "count": 42146,
+            "rate": 1404.7342376876325,
+            "thresholds": {
+                "count>0": false
+            }
+        },
+        "backend_2_responses": {
+            "count": 42145,
+            "rate": 1404.7009074964474,
+            "thresholds": {
+                "count>0": false
+            }
+        },
+        "checks": {
+            "fails": 0,
+            "passes": 168582,
+            "thresholds": {
+                "rate==1": false
+            },
+            "value": 1
+        },
+        "workload_errors": {
+            "passes": 0,
+            "fails": 84291,
+            "thresholds": {
+                "rate==0": false
+            },
+            "value": 0
+        },
+        "grpc_req_duration": {
+            "avg": 3.3546835071360093,
+            "min": 0.5392,
+            "med": 3.2585,
+            "max": 30.7426,
+            "p(90)": 4.4025,
+            "p(95)": 4.98935
+        },
+        "iterations": {
+            "rate": 2809.43514518408,
+            "count": 84291
+        },
+        "vus_max": {
+            "value": 10,
+            "min": 10,
+            "max": 10
+        },
+        "iteration_duration": {
+            "avg": 3.5439954716399096,
+            "min": 0.5392,
+            "med": 3.314,
+            "max": 67.2326,
+            "p(90)": 4.5142,
+            "p(95)": 5.143599999999999
+        },
+        "vus": {
+            "max": 10,
+            "value": 10,
+            "min": 10
+        },
+        "unary_requests": {
+            "count": 84291,
+            "rate": 2809.43514518408
+        },
+        "data_sent": {
+            "count": 10120191,
+            "rate": 337307.9008598263
+        }
+    }
+}

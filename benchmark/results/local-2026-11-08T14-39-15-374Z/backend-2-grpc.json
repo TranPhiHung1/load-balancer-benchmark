@@ -1,0 +1,82 @@
+{
+    "root_group": {
+        "name": "",
+        "path": "",
+        "id": "d41d8cd98f00b204e9800998ecf8427e",
+        "groups": {},
+        "checks": {
+                "gRPC status OK": {
+                    "name": "gRPC status OK",
+                    "path": "::gRPC status OK",
+                    "id": "b59b27e3359b32fdaa328b512d21492f",
+                    "passes": 5194,
+                    "fails": 0
+                },
+                "Unary payload": {
+                    "name": "Unary payload",
+                    "path": "::Unary payload",
+                    "id": "96a47c0c5b482ee1ad608fb783aa3296",
+                    "passes": 5194,
+                    "fails": 0
+                }
+            }
+    },
+    "metrics": {
+        "checks": {
+            "passes": 10388,
+            "fails": 0,
+            "value": 1
+        },
+        "backend_2_responses": {
+            "count": 5194,
+            "rate": 2595.7633783265655
+        },
+        "data_received": {
+            "count": 436684,
+            "rate": 218238.03140184018
+        },
+        "iterations": {
+            "count": 5194,
+            "rate": 2595.7633783265655
+        },
+        "unary_requests": {
+            "count": 5194,
+            "rate": 2595.7633783265655
+        },
+        "data_sent": {
+            "count": 380139,
+            "rate": 189978.99400725495
+        },
+        "iteration_duration": {
+            "avg": 0.7630461108971921,
+            "min": 0,
+            "med": 0.6075,
+            "max": 38.462,
+            "p(90)": 1.1891,
+            "p(95)": 1.309635
+        },
+        "vus": {
+            "value": 2,
+            "min": 2,
+            "max": 2
+        },
+        "workload_errors": {
+            "fails": 5194,
+            "passes": 0,
+            "value": 0
+        },
+        "vus_max": {
+            "max": 2,
+            "value": 2,
+            "min": 2
+        },
+        "grpc_req_duration": {
+            "p(95)": 1.208335,
+            "avg": 0.6602542934154816,
+            "min": 0,
+            "med": 0.57455,
+            "max": 3.081,
+            "p(90)": 1.08827
+        }
+    }
+}

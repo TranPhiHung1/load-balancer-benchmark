@@ -1,0 +1,155 @@
+{
+    "metrics": {
+        "http_req_receiving": {
+            "med": 0,
+            "max": 2.1775,
+            "p(90)": 0,
+            "p(95)": 0.5447,
+            "avg": 0.052266590877376826,
+            "min": 0
+        },
+        "iterations": {
+            "count": 121829,
+            "rate": 4060.73418963431
+        },
+        "workload_errors": {
+            "fails": 121829,
+            "passes": 0,
+            "thresholds": {
+                "rate==0": false
+            },
+            "value": 0
+        },
+        "http_req_duration{expected_response:true}": {
+            "avg": 2.295042265798768,
+            "min": 0.5263,
+            "med": 2.1805,
+            "max": 58.9982,
+            "p(90)": 3.150579999999999,
+            "p(95)": 3.7513
+        },
+        "http_reqs": {
+            "count": 121829,
+            "rate": 4060.73418963431
+        },
+        "http_req_duration": {
+            "p(95)": 3.7513,
+            "avg": 2.295042265798768,
+            "min": 0.5263,
+            "med": 2.1805,
+            "max": 58.9982,
+            "p(90)": 3.150579999999999
+        },
+        "http_req_waiting": {
+            "p(95)": 3.450839999999997,
+            "avg": 2.1267173292073127,
+            "min": 0,
+            "med": 1.8846,
+            "max": 58.9982,
+            "p(90)": 2.8636
+        },
+        "data_received": {
+            "count": 25980667,
+            "rate": 865972.6563987545
+        },
+        "http_req_blocked": {
+            "min": 0,
+            "med": 0,
+            "max": 46.9171,
+            "p(90)": 0,
+            "p(95)": 0,
+            "avg": 0.004288499454152956
+        },
+        "http_req_sending": {
+            "max": 2.0819,
+            "p(90)": 0.5473,
+            "p(95)": 0.5652,
+            "avg": 0.11605834571407576,
+            "min": 0,
+            "med": 0
+        },
+        "data_sent": {
+            "rate": 148340.97414589682,
+            "count": 4450484
+        },
+        "vus_max": {
+            "value": 10,
+            "min": 10,
+            "max": 10
+        },
+        "checks": {
+            "passes": 365487,
+            "fails": 0,
+            "thresholds": {
+                "rate==1": false
+            },
+            "value": 1
+        },
+        "http_req_tls_handshaking": {
+            "avg": 0.000576356204187837,
+            "min": 0,
+            "med": 0,
+            "max": 7.8466,
+            "p(90)": 0,
+            "p(95)": 0
+        },
+        "vus": {
+            "value": 10,
+            "min": 10,
+            "max": 10
+        },
+        "iteration_duration": {
+            "avg": 2.4481222689179383,
+            "min": 0.5328,
+            "med": 2.22,
+            "max": 59.3891,
+            "p(90)": 3.3182199999999997,
+            "p(95)": 3.8956999999999957
+        },
+        "http_req_connecting": {
+            "med": 0,
+            "max": 1.6223,
+            "p(90)": 0,
+            "p(95)": 0,
+            "avg": 0.00013316205501153253,
+            "min": 0
+        },
+        "http_req_failed": {
+            "passes": 0,
+            "fails": 121829,
+            "thresholds": {
+                "rate==0": false
+            },
+            "value": 0
+        }
+    },
+    "root_group": {
+        "id": "d41d8cd98f00b204e9800998ecf8427e",
+        "groups": {},
+        "checks": {
+                "HTTP 200": {
+                    "name": "HTTP 200",
+                    "path": "::HTTP 200",
+                    "id": "b70aee8a9f7a77d66dd70844a901558a",
+                    "passes": 121829,
+                    "fails": 0
+                },
+                "actual HTTP/2": {
+                    "id": "e63bf61853c369a841e85cfec16d16a5",
+                    "passes": 121829,
+                    "fails": 0,
+                    "name": "actual HTTP/2",
+                    "path": "::actual HTTP/2"
+                },
+                "REST response unchanged": {
+                    "passes": 121829,
+                    "fails": 0,
+                    "name": "REST response unchanged",
+                    "path": "::REST response unchanged",
+                    "id": "6c50451befd7beaa70b832fa8c742e97"
+                }
+            },
+        "name": "",
+        "path": ""
+    }
+}

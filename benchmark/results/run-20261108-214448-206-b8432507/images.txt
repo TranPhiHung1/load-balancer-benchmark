@@ -1,0 +1,6 @@
+CONTAINER           REPOSITORY              TAG                 PLATFORM            IMAGE ID            SIZE                CREATED
+backend-1           6nchuynngnh-backend-1   latest              linux/amd64         72caee1dee1b        67.4MB              29 seconds ago
+backend-2           6nchuynngnh-backend-2   latest              linux/amd64         5090ea03e7f4        67.4MB              29 seconds ago
+envoy-lb            envoyproxy/envoy        v1.39-latest        linux/amd64         dd85940439de        80.5MB              4 weeks ago
+haproxy-lb          haproxy                 latest              linux/amd64         e273915691a8        47.2MB              4 weeks ago
+nginx-lb            nginx                   latest              linux/amd64         8f029c543423        63.3MB              2 months ago

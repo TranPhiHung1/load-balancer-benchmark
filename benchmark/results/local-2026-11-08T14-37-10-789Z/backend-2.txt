@@ -1,0 +1,2 @@
+Backend 2 is running on port 13002
+backend-2 gRPC listening on 15052 (h2c)

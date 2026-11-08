@@ -1,0 +1,52 @@
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: benchmark/rest-api.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 2 max VUs, 32s max duration (incl. graceful stop):
+              * default: 2 looping VUs for 2s (gracefulStop: 30s)
+
+
+running (01.0s), 2/2 VUs, 3460 complete and 0 interrupted iterations
+default   [  50% ] 2 VUs  1.0s/2s
+
+running (02.0s), 2/2 VUs, 6791 complete and 0 interrupted iterations
+default   [ 100% ] 2 VUs  2.0s/2s
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 6796    3396.49705/s
+    checks_succeeded...: 100.00% 6796 out of 6796
+    checks_failed......: 0.00%   0 out of 6796
+
+    ✓ status is 200
+
+    HTTP
+    http_req_duration..............: avg=514.06µs min=0s med=541.2µs  max=11.09ms p(90)=1.08ms p(95)=1.29ms
+      { expected_response:true }...: avg=514.06µs min=0s med=541.2µs  max=11.09ms p(90)=1.08ms p(95)=1.29ms
+    http_req_failed................: 0.00%  0 out of 6796
+    http_reqs......................: 6796   3396.49705/s
+
+    EXECUTION
+    iteration_duration.............: avg=584.23µs min=0s med=547.69µs max=40.66ms p(90)=1.12ms p(95)=1.33ms
+    iterations.....................: 6796   3396.49705/s
+    vus............................: 2      min=2         max=2
+    vus_max........................: 2      min=2         max=2
+
+    NETWORK
+    data_received..................: 1.9 MB 954 kB/s
+    data_sent......................: 503 kB 251 kB/s
+
+
+
+
+running (02.0s), 0/2 VUs, 6796 complete and 0 interrupted iterations
+default ✓ [ 100% ] 2 VUs  2s

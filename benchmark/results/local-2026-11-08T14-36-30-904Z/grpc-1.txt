@@ -1,0 +1,22 @@
+Error: 14 UNAVAILABLE: No connection established. Last error: Error: connect ECONNREFUSED 127.0.0.1:50051. Resolution note: 
+    at callErrorFromStatus (D:\6. ĐỒ ÁN CHUYÊN NGÀNH\tools\node_modules\@grpc\grpc-js\build\src\call.js:32:19)
+    at Object.onReceiveStatus (D:\6. ĐỒ ÁN CHUYÊN NGÀNH\tools\node_modules\@grpc\grpc-js\build\src\client.js:193:76)
+    at Object.onReceiveStatus (D:\6. ĐỒ ÁN CHUYÊN NGÀNH\tools\node_modules\@grpc\grpc-js\build\src\client-interceptors.js:367:141)
+    at Object.onReceiveStatus (D:\6. ĐỒ ÁN CHUYÊN NGÀNH\tools\node_modules\@grpc\grpc-js\build\src\client-interceptors.js:327:181)
+    at D:\6. ĐỒ ÁN CHUYÊN NGÀNH\tools\node_modules\@grpc\grpc-js\build\src\resolving-call.js:155:78
+    at process.processTicksAndRejections (node:internal/process/task_queues:85:11)
+for call at
+    at ServiceClientImpl.makeUnaryRequest (D:\6. ĐỒ ÁN CHUYÊN NGÀNH\tools\node_modules\@grpc\grpc-js\build\src\client.js:161:32)
+    at ServiceClientImpl.<anonymous> (D:\6. ĐỒ ÁN CHUYÊN NGÀNH\tools\node_modules\@grpc\grpc-js\build\src\make-client.js:105:19)
+    at reply (D:\6. ĐỒ ÁN CHUYÊN NGÀNH\tools\verify.cjs:42:67)
+    at new Promise (<anonymous>)
+    at unary (D:\6. ĐỒ ÁN CHUYÊN NGÀNH\tools\verify.cjs:42:27)
+    at D:\6. ĐỒ ÁN CHUYÊN NGÀNH\tools\verify.cjs:52:47
+    at Object.<anonymous> (D:\6. ĐỒ ÁN CHUYÊN NGÀNH\tools\verify.cjs:60:3)
+    at Module._compile (node:internal/modules/cjs/loader:1760:14)
+    at Object..js (node:internal/modules/cjs/loader:1893:10)
+    at Module.load (node:internal/modules/cjs/loader:1480:32) {
+  code: 14,
+  details: 'No connection established. Last error: Error: connect ECONNREFUSED 127.0.0.1:50051. Resolution note: ',
+  metadata: Metadata { internalRepr: Map(0) {}, options: {} }
+}

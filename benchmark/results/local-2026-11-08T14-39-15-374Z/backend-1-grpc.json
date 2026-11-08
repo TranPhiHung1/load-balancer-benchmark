@@ -1,0 +1,82 @@
+{
+    "metrics": {
+        "data_sent": {
+            "count": 380062,
+            "rate": 189897.65386745427
+        },
+        "iterations": {
+            "count": 5194,
+            "rate": 2595.177666242764
+        },
+        "vus": {
+            "value": 2,
+            "min": 2,
+            "max": 2
+        },
+        "vus_max": {
+            "value": 2,
+            "min": 2,
+            "max": 2
+        },
+        "unary_requests": {
+            "count": 5194,
+            "rate": 2595.177666242764
+        },
+        "iteration_duration": {
+            "p(95)": 1.3014,
+            "avg": 0.7629901617250682,
+            "min": 0,
+            "med": 0.6009,
+            "max": 47.7795,
+            "p(90)": 1.1747
+        },
+        "backend_1_responses": {
+            "count": 5194,
+            "rate": 2595.177666242764
+        },
+        "checks": {
+            "passes": 10388,
+            "fails": 0,
+            "value": 1
+        },
+        "workload_errors": {
+            "passes": 0,
+            "fails": 5194,
+            "value": 0
+        },
+        "data_received": {
+            "rate": 218188.7878331835,
+            "count": 436684
+        },
+        "grpc_req_duration": {
+            "avg": 0.6499519445514044,
+            "min": 0,
+            "med": 0.56625,
+            "max": 4.262,
+            "p(90)": 1.0675700000000001,
+            "p(95)": 1.1864399999999997
+        }
+    },
+    "root_group": {
+        "name": "",
+        "path": "",
+        "id": "d41d8cd98f00b204e9800998ecf8427e",
+        "groups": {},
+        "checks": {
+                "gRPC status OK": {
+                    "name": "gRPC status OK",
+                    "path": "::gRPC status OK",
+                    "id": "b59b27e3359b32fdaa328b512d21492f",
+                    "passes": 5194,
+                    "fails": 0
+                },
+                "Unary payload": {
+                    "name": "Unary payload",
+                    "path": "::Unary payload",
+                    "id": "96a47c0c5b482ee1ad608fb783aa3296",
+                    "passes": 5194,
+                    "fails": 0
+                }
+            }
+    }
+}
