@@ -1,0 +1,5 @@
+# Runtime evidence stays on disk; do not accidentally commit large benchmark runs.
+results/
+trash/
+test-trash-*/
+test-job-*/

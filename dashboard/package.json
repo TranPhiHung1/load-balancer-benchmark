@@ -1,0 +1,8 @@
+{
+  "name": "lb-benchmark-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local-only dashboard; no external dependencies",
+  "engines": { "node": ">=20" },
+  "scripts": { "start": "node server.cjs", "test": "node --test test.cjs benchmark.test.cjs result-storage.test.cjs resource-monitor.test.cjs full-benchmark.test.cjs benchmark-policy.test.cjs" }
+}

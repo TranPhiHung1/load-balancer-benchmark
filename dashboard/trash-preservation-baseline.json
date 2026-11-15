@@ -1,0 +1,50 @@
+﻿[
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\dashboard\\results\\web-2026-11-15T12-11-23-231Z-b37554b6\\metadata.json",
+        "Hash":  "A604E54A624A9CEAB4AA99443B75B8DC786120398FEE0E8786C34A69060CDC65"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\dashboard\\results\\web-2026-11-15T12-11-23-231Z-b37554b6\\nginx-rest.json",
+        "Hash":  "1EC5F8743CD526F27622D107DBE0D3CFD08DC1C87DAA9D7184EED1758D5DE938"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\dashboard\\results\\web-2026-11-15T12-11-23-231Z-b37554b6\\nginx-rest.log",
+        "Hash":  "1868FAAE3EFD09145A932843123DE09B38C1389F83A7C2725457BEF0AA2FDF06"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\dashboard\\results\\web-2026-11-15T12-11-23-231Z-b37554b6\\runs.json",
+        "Hash":  "FF442C1966257252E1F17DA246D93495BB2164ABCD864DA99EDBB16D62AC4246"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\dashboard\\results\\web-2026-11-15T12-14-19-221Z-2a48db37\\metadata.json",
+        "Hash":  "DD07628C2EDCC2D053E4812D69C836FFC84A8333010DBB4C3C0DE5D133382E0A"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\dashboard\\results\\web-2026-11-15T12-14-19-221Z-2a48db37\\nginx-keepalive-on.json",
+        "Hash":  "F0DCE6C264BB3373D6E842BE9B195445567BC0AAD07165FF62FD72FD14836308"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\dashboard\\results\\web-2026-11-15T12-14-19-221Z-2a48db37\\nginx-keepalive-on.log",
+        "Hash":  "47EA011552C61604DDDDBCF45CA7FC5C46FEA3C0D3ED83F327CB47F6D7B1919E"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\dashboard\\results\\web-2026-11-15T12-14-19-221Z-2a48db37\\runs.json",
+        "Hash":  "C6BA2FBE14363E9B3C34551570E01ADDF8D37F354DEC9608BBFF2F6378B9242A"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\dashboard\\results\\web-2026-11-15T12-17-46-237Z-2aef1f46\\metadata.json",
+        "Hash":  "B8E18E01B2664BF5428944001C9CE31DEBB0586B5FE2C708CFE5D239860F395B"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\dashboard\\results\\web-2026-11-15T12-17-46-237Z-2aef1f46\\nginx-rest.json",
+        "Hash":  "2C2254B4AFE34F2C4301E5CE4F81F46C53FC48190B0E24D464288096F184B0E1"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\dashboard\\results\\web-2026-11-15T12-17-46-237Z-2aef1f46\\nginx-rest.log",
+        "Hash":  "1AEF56CF7F53697559542E8128EEEE8C60F352509C752AFCD3F7EC343B2F52A4"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\dashboard\\results\\web-2026-11-15T12-17-46-237Z-2aef1f46\\runs.json",
+        "Hash":  "BD65F6128168ECAD410F4FF21CBECDB46710E220DC37AABDBDB7168A7B82F19A"
+    }
+]

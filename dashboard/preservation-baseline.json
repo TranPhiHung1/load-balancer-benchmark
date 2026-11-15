@@ -1,0 +1,542 @@
+﻿[
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\.gitignore",
+        "Hash":  "02F0A5227687D9349A1022BB0466D2EBA9E5964E8E0B3042B0BE51425E8B414D"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\BaoCao_TienDo1.pptx",
+        "Hash":  "8830BD0DFE2EC4C94DB9DD151F41EA7D10AF5C4C267C1F54A48447C923E7D6AA"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark-preservation.tmp",
+        "Hash":  "59D0512D16E3432ECA1A1DDB8F67D48D9258145DD2B961B80C853415E875588C"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\Báo cáo tiến độ lần 1.pptx",
+        "Hash":  "8C6ED98045AC9FDA33799ACF1BD0983878FC98F64BEDCF03859CDF61592181C9"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\docker-compose.yml",
+        "Hash":  "AC894BCEB630113E24594F30FDFD8B157AB5510EB241A884E1821CCD4411593E"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\README.md",
+        "Hash":  "EFB3B50A5D036E2B2B3914B597EEB08AEB6FFC9CC5D5269864DDED13FCC4DD34"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\backend\\.dockerignore",
+        "Hash":  "7DF48B4DADEE700B1BD8548357243E37EB3BA4DF51EC8232BD409D498CCE63C5"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\backend\\backend-1\\Dockerfile",
+        "Hash":  "6CD7E99899DB46C112C977145B7825F1A29A2F60613AD8BD30E98B36AAC66A1D"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\backend\\backend-1\\package-lock.json",
+        "Hash":  "0620D167377A9008990DDB73616725CA0B46CD3D9540A069A04B0B0E03D0007B"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\backend\\backend-1\\package.json",
+        "Hash":  "B6C7F389D7866A3872805DD7AC2575711CF333B6D34A05FAEE6D6C94A8A20089"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\backend\\backend-1\\server.js",
+        "Hash":  "A070FDB97B60F574B2AA4E448F2835F6D9BE4A192C54264A959AD988A2C90197"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\backend\\backend-2\\Dockerfile",
+        "Hash":  "B3CF1035604434826C3C8FD644080C6C6AEF9F1DBD6C442CE42E4FFB6FECA945"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\backend\\backend-2\\package-lock.json",
+        "Hash":  "C06D4A79535B23BBA5939761E417A38593018F04973285835EC6C140F1B3D133"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\backend\\backend-2\\package.json",
+        "Hash":  "3D4FD47EF8D01478E5F2F56C53298149810D2336A44898868CF3CBD0E6766082"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\backend\\backend-2\\server.js",
+        "Hash":  "B862C4DE9803231E663B1759B2063425A483C5D4629F757C18EAC2BB3FA9E74B"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\backend\\proto\\greeter.proto",
+        "Hash":  "E4F4F19DE7C56361105887F3BEAC2CF3762576042C8ECFD1615C815AF28D7C77"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\backend\\shared\\grpc-server.js",
+        "Hash":  "B781DE00168ED26F13B4DD63C54EA223AD5FD0211770621D194F6154D74B8410"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\grpc-unary.js",
+        "Hash":  "41942788E7A8990B034F6E7854E2CFAAED0CF621CA5E69F8F088179573AC3749"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\http2.js",
+        "Hash":  "341EA0D373C0170097E2E76B1BC32470EF982174425B5D6A997A8CDC693E4DF1"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\keep-alive.js",
+        "Hash":  "A4768CC926D4AA1C77C755C3A0C5A636EA45E90116239AFFB4BDB284E17E7598"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\rest-api.js",
+        "Hash":  "E45B46F99C0E4D93E3FA68C785F536840632D338C01B12FE017E3500E5BEAD41"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\run.ps1",
+        "Hash":  "CF3D7C6BA39852F3966823B86421D55117717FA71AF2FFAA8D245964B5FDBD30"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\envoy-keepalive-off-v2.json",
+        "Hash":  "8EE1B062B09D14E933D58A2B0C069185A52B0E7A2077256E1B7823D73FB4BF44"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\envoy-keepalive-on-v2.json",
+        "Hash":  "23CAB4CFFC46CE29BB8549A53E59454576B30B97FD4D8932603D370F8048C520"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\haproxy-keepalive-off-v2.json",
+        "Hash":  "5831596605310B0363F0CA057BEA2B360974449DA7F6D264D4DA2F1555211B76"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\haproxy-keepalive-on-v2.json",
+        "Hash":  "FA20B4E87A124C535138C9E8B011A3E19B80F710CBC72351956ED295FDA258AE"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\nginx-keepalive-off-v2.json",
+        "Hash":  "E996912918F5A5D8FB6AD97A8B9772E6BA47B6BF11892CDD2F3A2DDE6CEF25B8"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\nginx-keepalive-off.json",
+        "Hash":  "0AE04489EA4AD422585D62F83CBFCEBBA8E18325087EFDCE48867B854D887679"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\nginx-keepalive-on-v2.json",
+        "Hash":  "E447BCE82DEB5CDFFD79BBBDF5AF4D7484E6AD0E374433601BA7B8834C146616"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\nginx-keepalive-on.json",
+        "Hash":  "B71D87E0D9896419B9A990BD218598EBC26D6B087D37CAD29542537F89D283B7"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-36-30-904Z\\grpc-1.txt",
+        "Hash":  "AE0A4DFEC17017C798049AAB7E45FCF629A8D377F31250F599F7B36A481CDDD8"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-37-10-789Z\\backend-1-keepalive-off.json",
+        "Hash":  "5FEEA642D3C684D7F2D458E7D372E150D4C01B508F8F3B025AC29571C3EDDDFE"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-37-10-789Z\\backend-1-keepalive-off.txt",
+        "Hash":  "A7B07A4A3DF245A51E8ADB55D475768630E662CEC2C699453D68FA7B957473BF"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-37-10-789Z\\backend-1-keepalive-on.json",
+        "Hash":  "ABEEF4AAD152C02E0B3A94309288ED9BCE0008ED2AB2C2273924E0A12ED141C6"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-37-10-789Z\\backend-1-keepalive-on.txt",
+        "Hash":  "CEFAB428ACF7FE58DCB9CE72DA65763FCAFF3B157601F25944CD073C8EAD5149"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-37-10-789Z\\backend-1-rest.json",
+        "Hash":  "1A81B6383738E1BE7A5CB06A36CDFC4BECF237FA52E40B35C57B545645D4D6E5"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-37-10-789Z\\backend-1-rest.txt",
+        "Hash":  "CCDBD82CB070117FAA1B335507725097479372442449AFBDC3055FDA414E4008"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-37-10-789Z\\backend-1.txt",
+        "Hash":  "05ABC2E3D61E1312494DFB6CD94553B95049BEA226DEAEC583BB0E3EEF4C7EC1"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-37-10-789Z\\backend-2-keepalive-off.json",
+        "Hash":  "3184CC3CE6C1C68F1EEF002D2606DDB72E81F31A968F4EAE5995FA56D621F0A4"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-37-10-789Z\\backend-2-keepalive-off.txt",
+        "Hash":  "8F6E5CD8E8710BA108DE2B4284FCDA53016AEEAF8CE0C7DF6842CB91CD622550"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-37-10-789Z\\backend-2-keepalive-on.json",
+        "Hash":  "978178B2BAD48D2A0E874E76DAE64963679F62F3FA4A5326E035116B3DEE97C2"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-37-10-789Z\\backend-2-keepalive-on.txt",
+        "Hash":  "AFCE23A29FF71D4D7914697BE16F4697201DE61041E93BA9CB599B1AC16C4321"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-37-10-789Z\\backend-2-rest.json",
+        "Hash":  "713D3F9C3AA09C3856EA1112F09E5140710EC03C1C1CF715800292251A2E4DBF"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-37-10-789Z\\backend-2-rest.txt",
+        "Hash":  "F89B86C8DF6E4008732982C7CBB97A3CE2BC02045AF37AE3FA9786E12D316388"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-37-10-789Z\\backend-2.txt",
+        "Hash":  "7279DBF5AE2EFDCD1E049BAEA68AB8ED055BA9D760C895DE375689A9C9A1ECB5"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-37-10-789Z\\grpc-1.txt",
+        "Hash":  "638B25A9275F881AC8B3C77B517B58A64B002790AB9A8FC715C55FCE6F0C7BA8"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-37-10-789Z\\grpc-2.txt",
+        "Hash":  "904F0A5F33AE6A54379F5B46DD73FC8B0EB2C212B69B1E1AAF5ABCB89D6E9ECC"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-37-10-789Z\\scope.txt",
+        "Hash":  "6C364DA0D214B36E40D74F2337BC145D7508C95A420D8CDFAC2685D23BAA8C76"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-39-15-374Z\\backend-1-grpc-k6.txt",
+        "Hash":  "707940EEEEFE49B06C20D1BFB673C9C7021F00909F9E2F1CCADA1FBA9121DC36"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-39-15-374Z\\backend-1-grpc.json",
+        "Hash":  "2654D85C98170B64BAC916491B22ACBF317D78914F463C6EC1417A0612F035FD"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-39-15-374Z\\backend-1-keepalive-off.json",
+        "Hash":  "30763EF4D7BDC91DACEA9F065A4DEF7D9B1559B90486EB1BBCCB56570F4D40D9"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-39-15-374Z\\backend-1-keepalive-off.txt",
+        "Hash":  "B5F4A285BAAE6EE5134CC63B417AF20A8F033DF4ADDD742AD5F64CA342AC5DCD"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-39-15-374Z\\backend-1-keepalive-on.json",
+        "Hash":  "0FAA4471182827EAE6B48E6A80BEB699E9D3651BCE6C42D65AB596EC641B052C"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-39-15-374Z\\backend-1-keepalive-on.txt",
+        "Hash":  "B12B753D17E53B8B35E16D34E376C6FAFBE81F9C6FDEE8ABF11339F62F6AF347"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-39-15-374Z\\backend-1-rest.json",
+        "Hash":  "C048C15520E9ECBBE43DDF3FC146EB1BBE4FF139432DFF55009EB4626080ED22"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-39-15-374Z\\backend-1-rest.txt",
+        "Hash":  "02B54D853CC02458644FB202BE093AB3AFA4830DF4AF20033466440903B1B8BD"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-39-15-374Z\\backend-1.txt",
+        "Hash":  "05ABC2E3D61E1312494DFB6CD94553B95049BEA226DEAEC583BB0E3EEF4C7EC1"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-39-15-374Z\\backend-2-grpc-k6.txt",
+        "Hash":  "3CB6350644216D93E91CAF04F5DDBE3462A9ED3921EDEC7BA611F7525A6645BE"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-39-15-374Z\\backend-2-grpc.json",
+        "Hash":  "9B62818B0A105EFD676D93F23FC6433113043EDC84E1461633F873CD989D4793"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-39-15-374Z\\backend-2-keepalive-off.json",
+        "Hash":  "DE79CBAAC04A29D6CB3AAFDBAABD20ABAAAD8690A973D35D28C971F265EBD248"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-39-15-374Z\\backend-2-keepalive-off.txt",
+        "Hash":  "382CBF1484FF743C6B173EBF87D6C4A8BB1A3102259ECCAEE73889E8079FFA39"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-39-15-374Z\\backend-2-keepalive-on.json",
+        "Hash":  "42B12A63D55D9317471EE7363EBAF8B6B8AE1264D107EA78FD101CD0C483F295"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-39-15-374Z\\backend-2-keepalive-on.txt",
+        "Hash":  "3FA8E1C5FA400A825474DDD7AD26AD49857AFBE2D599FEB597C3329CD157BA4C"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-39-15-374Z\\backend-2-rest.json",
+        "Hash":  "CCB620837A17DA9196BDFF4E1097EA0D3D303909BC34C41533149CEF22EC038F"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-39-15-374Z\\backend-2-rest.txt",
+        "Hash":  "9EBF32D4CF53D9ABEFED0E0E0400705E6284B50015E82029D0030B0F15A3DD15"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-39-15-374Z\\backend-2.txt",
+        "Hash":  "7279DBF5AE2EFDCD1E049BAEA68AB8ED055BA9D760C895DE375689A9C9A1ECB5"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-39-15-374Z\\chapter4-results.md",
+        "Hash":  "DA739066F6945B2E1CB5E7E7404455B974D44A704AD584B971157E9379B83938"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-39-15-374Z\\grpc-1.txt",
+        "Hash":  "638B25A9275F881AC8B3C77B517B58A64B002790AB9A8FC715C55FCE6F0C7BA8"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-39-15-374Z\\grpc-2.txt",
+        "Hash":  "904F0A5F33AE6A54379F5B46DD73FC8B0EB2C212B69B1E1AAF5ABCB89D6E9ECC"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-39-15-374Z\\runs.json",
+        "Hash":  "55459171FC7D26D1DEAD6E776C068F1E51699E807F5FA4328E9E495D385A5FE2"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\local-2026-11-08T14-39-15-374Z\\scope.txt",
+        "Hash":  "5BA7F6B1EB3B8937D767BF04F83173E735C0D9DF9CDD52EAD8F53AB5AE46CBA4"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\chapter4-results.md",
+        "Hash":  "263708F64A01C88865BA9E035ABDE2F7D447E2E6B5C1DF2EEEDD8BC90A7482C0"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\compose-ps.txt",
+        "Hash":  "CCB8B531DA0D731DB56ADC96E59D54B55612D09E9A909D142F87E268E42444C0"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\envoy-grpc.json",
+        "Hash":  "383D576EA14DB7E758F120AD5582ED8E763E5BF352B6304BA868951AE3C21148"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\envoy-grpc.txt",
+        "Hash":  "41C5F7C2B883DFD9C77DAA77F3D04D8843B78CAB067935F604AAFF9CF422E9FF"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\envoy-http2.json",
+        "Hash":  "BAEDFCD94A4E06E689BD9644F6E0986B2225FBAFD7C7637F62810E7110B2E734"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\envoy-http2.txt",
+        "Hash":  "B8076CAD683888AA4EBA95ACF46179CDFAD53A98AD680B394349BF0779EC6014"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\envoy-keepalive-off.json",
+        "Hash":  "80F197A4D48D2E906F663AEE8B40F700F3202891A678AFB077E85718439AE201"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\envoy-keepalive-off.txt",
+        "Hash":  "CDE5FDFFC7B04D7C532C81E26ECB9E25A6C2756D9616CC5473B248772E504C66"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\envoy-keepalive-on.json",
+        "Hash":  "8414C06ED6B3F523B5B0C1C6E350039EF8ED7C56D7F7C3F42F663479CA9CD6FA"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\envoy-keepalive-on.txt",
+        "Hash":  "B1DE203C78BEA3C8023F64070FFF0EE28CDBE56BD58B0E3616B8033B2802ED12"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\envoy-rest.json",
+        "Hash":  "55B5C856C1EE070A5C84EB9E0C90DA4C549234E3F00ED3D4A8E04B10FEF7E7CB"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\envoy-rest.txt",
+        "Hash":  "5A33354BD18F5E4A3EB9312ED4FB07D6A67B88CE494A9D6C93CA793FA556C347"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\git-head.txt",
+        "Hash":  "E3C97513EABD60AB710A1DE3160580D531D4C61267B7F1AA0D3845B9798DAF0B"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\haproxy-grpc.json",
+        "Hash":  "7E49A442A13BE462580361E2F84844887851A7F17325148692F963507D97D6C2"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\haproxy-grpc.txt",
+        "Hash":  "D00E0BE4D76D8EB1C27DE36D80BF96B3088FC82F630115B2E11F5E334478A4B2"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\haproxy-http2.json",
+        "Hash":  "7390DDB17858F71490B282A900F71B21960C7DE4EB6D957F9F43ECB4A8FA7829"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\haproxy-http2.txt",
+        "Hash":  "F78DF4D3D6991E4BA33F957B1221CAF3ED13946B1742A751018CBC3BA54C40CE"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\haproxy-keepalive-off.json",
+        "Hash":  "EDBB44A03CB5A5DA89A0441B86576C75A185B8564A369FBF390C6569BD554988"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\haproxy-keepalive-off.txt",
+        "Hash":  "342807323D9274AA73D5AD6FAF73C84108185894E3EBFBFCE9E1405DCD2C69BA"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\haproxy-keepalive-on.json",
+        "Hash":  "67B8D0E25CB00E6B0AA2E88CCACA69463878017EDEFA4FA6C46728A317C16CDC"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\haproxy-keepalive-on.txt",
+        "Hash":  "8C88DC164B651A035EDA1113E4B46B5A197B6089786F7B0645A29B7D4548CCF5"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\haproxy-rest.json",
+        "Hash":  "FBEC91A0B5826BE7C8277D9ED91BF9BDC2ED73F24D280F6A57A5469264BE4FA3"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\haproxy-rest.txt",
+        "Hash":  "D9F6D894F67E50DBCC6716E1E66AA7F2FC5C1F58596DAC5F1C60BFDE3E64000D"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\images.txt",
+        "Hash":  "58A0ECA6168BB8139B4A6BDB64E67C8235675805A41C485D24F987D4426F3F1C"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\k6-version.txt",
+        "Hash":  "190A3682B6CD5EB9A6CA43CF1819B0299FBC629B7E7D933276927E73A5FFDBB2"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\nginx-grpc.json",
+        "Hash":  "943A7380971D16B9964FEA315C9F4F1C7B29146DFAF4745D755CA889B199CBDF"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\nginx-grpc.txt",
+        "Hash":  "6E9962D740FF204D5205267B4035190A8EA3D1FB58DBB47403BC88C53871A3C0"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\nginx-http2.json",
+        "Hash":  "7DEB612DFCCDB1E29079BA6703640503E7CC10C206209CC1C298D264D431EE2E"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\nginx-http2.txt",
+        "Hash":  "DA1480C56ABAF9AFD3626508886450EE3AB0050F957AD6B47ABB894A497CBBC9"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\nginx-keepalive-off.json",
+        "Hash":  "E8750D91BA8D897BC14ACD227377648A82762BFB99D76324162FFA63F1C974F6"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\nginx-keepalive-off.txt",
+        "Hash":  "79FEFE6002E67C35EF93BFA15446ECCF7BF2D836BC66F5EDA5C8EDBFC6313CA2"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\nginx-keepalive-on.json",
+        "Hash":  "0B0101093A317F78DD55655985C777EB2EF62C006860CBAEA8C0CF1513422E38"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\nginx-keepalive-on.txt",
+        "Hash":  "82CC1C143A64D767FD954ED77431EA87489DA7D05715D3C573595E24EEEC6B34"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\nginx-rest.json",
+        "Hash":  "D5C088C7B10432A28430FC61698305D416CCEB56B2EDAAB3283A2362560C8D97"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\nginx-rest.txt",
+        "Hash":  "5F3CB837556F745C80D5BA0ECAF7B5EC80CAB94F81740D922AAA2ACF5805FE3B"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\runs.json",
+        "Hash":  "E29BD3876E396FB24427787D4EF704012C6000AD16DF82728A273C37AD44AF7E"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\benchmark\\results\\run-20261108-214448-206-b8432507\\working-tree.patch",
+        "Hash":  "0865AA1BCEE83EE50ADC83CF30AEBE08863D49E2CE214434BE282E5E5C9E2547"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\Báo cáo tiến độ\\BaoCao_DoAn_Load Balancer.docx",
+        "Hash":  "9D18F7399D9FFE3C3C830BD1E57F6A079F47F5D5F08834697FC2196AB72D3E00"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\Báo cáo tiến độ\\Noi_dung_cap_nhat_bao_cao_Load_Balancer.docx",
+        "Hash":  "005A58D5648B1D0A8329FF411E8E6E1A543DE004D986CEE174FB015BC524391E"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\certs\\localhost.crt",
+        "Hash":  "F643BDE5B9F189A88B114997BE8CCB99879BF3C4DF9677763D8B03D8C796E74C"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\certs\\localhost.key",
+        "Hash":  "72E805FF3042ABF5381B77C1DFCDC58E6AEBA274CFFAD67A99F6C80A24D96CB2"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\certs\\localhost.pem",
+        "Hash":  "3995045785EAE5AAA04D0F48EAE56959701EF0B2849776FBC73EA807A82FA2ED"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\docs\\chapter4-results.md",
+        "Hash":  "D6D1CE1FCE752A5EB67F06EBCDEE6756278E6A8C178749F5E8B9F94F8743CFB8"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\docs\\DEMO-COMMANDS.md",
+        "Hash":  "56242D0237B848944E2D6777F56D285FAB013F776A2F54B2C2BC2B3127DDD3BF"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\docs\\http2-grpc.md",
+        "Hash":  "F8F17BFAED8A81D1CC9A2A4EF32AE84EC989937AFD2E746B7332B5EC4801EE0E"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\docs\\verification.md",
+        "Hash":  "F712F33270B8F01C04EFA298404E8B19D78B5DF6817980C571E93828D1DA73A1"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\envoy\\envoy.yaml",
+        "Hash":  "BED9B257257B51D304EDD57EAAB8EC04AE50C5B744C77871BB73801F3BD1A593"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\haproxy\\haproxy.cfg",
+        "Hash":  "6F2E2859CB20EFFD873A97AD85B5E40ECD11D44FD9DB574A1A85AF63B4CE3CD4"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\nginx\\nginx.conf",
+        "Hash":  "B0A3F05B31756812417E8EA4B6C633600D1BC3D0DCB0B9AEAE673028146C5580"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\tools\\configure-envoy.cjs",
+        "Hash":  "5ED20128FDB3A51ADC1F956623F3667092AA1568302F008F724C7B2AA2FBE61E"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\tools\\generate-certs.cjs",
+        "Hash":  "A4C2D1AEC7C3D6BCA9C9AA6FFFBD24329A640EB3B29165C745EE54D37D6A79D2"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\tools\\package-lock.json",
+        "Hash":  "BCB0894CE2EB5237D054590D69288A6D6B3B6488CA25FC278D086C6762ED49DE"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\tools\\package.json",
+        "Hash":  "2CE8480E16C1764A3BDC4DF7AD287D29C331295E659C321D0B349A408E25122B"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\tools\\summarize.cjs",
+        "Hash":  "D256F52AB8DE9EA5BCB815C8F7B2CB6EC8A9A4AD4C2D9439D8B3D1C9A91074ED"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\tools\\test-local.cjs",
+        "Hash":  "F26C5EFB0EC6F3383000214D1695A03416A6AC542F1A6EA1E960A54A1C2FD280"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\tools\\validate.ps1",
+        "Hash":  "2DEE6C3078872BA080EB246E325E2BF0D0361A5FCBA86C6222F84E363808FDAD"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\tools\\verify.cjs",
+        "Hash":  "547785288F25684AEB8EB9FA69C7E42945BD95A48C2FB5BE14E2CB641A4B5D8D"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\Tài Liệu\\63d90ea6-5003-4f1e-b1d4-317e9626320f.png",
+        "Hash":  "0B48278842D56728B747247F6429FADA953ACA59255A444685F66B70A1BB86C8"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\Tài Liệu\\799132b3-ddbe-440d-8335-cb0fa2d56eba.png",
+        "Hash":  "701BBD0B71FDA218016BCE8CB90469C60A5C195BB0AB230A677F96DB44D4EA75"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\Tài Liệu\\LenhChayCode.txt",
+        "Hash":  "4910F2A7DAA07C10A02430326C8941703CFD7778B99E5E05F31F9DD3D88296E8"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\Tài Liệu\\Nginx.docx",
+        "Hash":  "88EF50DF1EA2857672ABF86CE9EC5028BAC7F7FD7495CDBA58E7C13939CBDBF7"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\Tài Liệu\\TaiLieu.txt",
+        "Hash":  "90DD35BDB524C27E527F41DA6FEA27970C0669976797F86E1476DEBF61F73876"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\Đề Cương đồ án\\DeCuongDoAnCN_Triển khai và đánh giá các hệ thống Load Balancer.docx",
+        "Hash":  "891E3EB61EADDB0677DD079404EEB5E0E3DC2A4009FE5854D0993DC86206BDFA"
+    },
+    {
+        "Path":  "D:\\6. ĐỒ ÁN CHUYÊN NGÀNH\\Đề Cương đồ án\\MauDeCuongDoAn.pdf",
+        "Hash":  "72FA86597AF1E436CF9742209652DC9F5DE2F4255A16ADBAA4E282B3F792A66D"
+    }
+]
