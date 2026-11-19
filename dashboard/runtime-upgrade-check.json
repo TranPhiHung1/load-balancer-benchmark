@@ -1,0 +1,254 @@
+{
+  "checkedAt": "2026-11-15T11:33:23.810Z",
+  "status": {
+    "components": [
+      {
+        "id": "nginx",
+        "port": 8080,
+        "status": 200,
+        "backend": "backend-1",
+        "error": null,
+        "ms": 20.52,
+        "state": "Online"
+      },
+      {
+        "id": "haproxy",
+        "port": 8081,
+        "status": 200,
+        "backend": "backend-2",
+        "error": null,
+        "ms": 18.45,
+        "state": "Online"
+      },
+      {
+        "id": "envoy",
+        "port": 8082,
+        "status": 200,
+        "backend": "backend-1",
+        "error": null,
+        "ms": 19.11,
+        "state": "Online"
+      },
+      {
+        "id": "backend-1",
+        "port": 3001,
+        "status": 200,
+        "backend": "backend-1",
+        "error": null,
+        "ms": 17.79,
+        "state": "Online"
+      },
+      {
+        "id": "backend-2",
+        "port": 3002,
+        "status": 200,
+        "backend": "backend-2",
+        "error": null,
+        "ms": 17.79,
+        "state": "Online"
+      }
+    ],
+    "checkedAt": "2026-11-15T11:33:22.380Z"
+  },
+  "summary": {
+    "requests": 10,
+    "backend1": 5,
+    "backend2": 5,
+    "errors": 0
+  },
+  "events": [
+    {
+      "receivedAt": "2026-11-15T11:33:22.395Z",
+      "type": "start",
+      "count": 10,
+      "algorithm": "round-robin",
+      "balancer": "nginx",
+      "delayMs": 150
+    },
+    {
+      "receivedAt": "2026-11-15T11:33:22.397Z",
+      "type": "request",
+      "number": 1
+    },
+    {
+      "receivedAt": "2026-11-15T11:33:22.401Z",
+      "type": "result",
+      "row": {
+        "number": 1,
+        "balancer": "nginx",
+        "algorithm": "round-robin",
+        "status": 200,
+        "backend": "backend-2",
+        "error": null,
+        "ms": 4.54
+      }
+    },
+    {
+      "receivedAt": "2026-11-15T11:33:22.556Z",
+      "type": "request",
+      "number": 2
+    },
+    {
+      "receivedAt": "2026-11-15T11:33:22.561Z",
+      "type": "result",
+      "row": {
+        "number": 2,
+        "balancer": "nginx",
+        "algorithm": "round-robin",
+        "status": 200,
+        "backend": "backend-1",
+        "error": null,
+        "ms": 5.41
+      }
+    },
+    {
+      "receivedAt": "2026-11-15T11:33:22.714Z",
+      "type": "request",
+      "number": 3
+    },
+    {
+      "receivedAt": "2026-11-15T11:33:22.719Z",
+      "type": "result",
+      "row": {
+        "number": 3,
+        "balancer": "nginx",
+        "algorithm": "round-robin",
+        "status": 200,
+        "backend": "backend-2",
+        "error": null,
+        "ms": 4.89
+      }
+    },
+    {
+      "receivedAt": "2026-11-15T11:33:22.871Z",
+      "type": "request",
+      "number": 4
+    },
+    {
+      "receivedAt": "2026-11-15T11:33:22.876Z",
+      "type": "result",
+      "row": {
+        "number": 4,
+        "balancer": "nginx",
+        "algorithm": "round-robin",
+        "status": 200,
+        "backend": "backend-1",
+        "error": null,
+        "ms": 4.69
+      }
+    },
+    {
+      "receivedAt": "2026-11-15T11:33:23.027Z",
+      "type": "request",
+      "number": 5
+    },
+    {
+      "receivedAt": "2026-11-15T11:33:23.031Z",
+      "type": "result",
+      "row": {
+        "number": 5,
+        "balancer": "nginx",
+        "algorithm": "round-robin",
+        "status": 200,
+        "backend": "backend-2",
+        "error": null,
+        "ms": 4.31
+      }
+    },
+    {
+      "receivedAt": "2026-11-15T11:33:23.181Z",
+      "type": "request",
+      "number": 6
+    },
+    {
+      "receivedAt": "2026-11-15T11:33:23.185Z",
+      "type": "result",
+      "row": {
+        "number": 6,
+        "balancer": "nginx",
+        "algorithm": "round-robin",
+        "status": 200,
+        "backend": "backend-1",
+        "error": null,
+        "ms": 4.5
+      }
+    },
+    {
+      "receivedAt": "2026-11-15T11:33:23.338Z",
+      "type": "request",
+      "number": 7
+    },
+    {
+      "receivedAt": "2026-11-15T11:33:23.342Z",
+      "type": "result",
+      "row": {
+        "number": 7,
+        "balancer": "nginx",
+        "algorithm": "round-robin",
+        "status": 200,
+        "backend": "backend-2",
+        "error": null,
+        "ms": 3.7
+      }
+    },
+    {
+      "receivedAt": "2026-11-15T11:33:23.494Z",
+      "type": "request",
+      "number": 8
+    },
+    {
+      "receivedAt": "2026-11-15T11:33:23.497Z",
+      "type": "result",
+      "row": {
+        "number": 8,
+        "balancer": "nginx",
+        "algorithm": "round-robin",
+        "status": 200,
+        "backend": "backend-1",
+        "error": null,
+        "ms": 3.45
+      }
+    },
+    {
+      "receivedAt": "2026-11-15T11:33:23.648Z",
+      "type": "request",
+      "number": 9
+    },
+    {
+      "receivedAt": "2026-11-15T11:33:23.652Z",
+      "type": "result",
+      "row": {
+        "number": 9,
+        "balancer": "nginx",
+        "algorithm": "round-robin",
+        "status": 200,
+        "backend": "backend-2",
+        "error": null,
+        "ms": 3.64
+      }
+    },
+    {
+      "receivedAt": "2026-11-15T11:33:23.806Z",
+      "type": "request",
+      "number": 10
+    },
+    {
+      "receivedAt": "2026-11-15T11:33:23.810Z",
+      "type": "result",
+      "row": {
+        "number": 10,
+        "balancer": "nginx",
+        "algorithm": "round-robin",
+        "status": 200,
+        "backend": "backend-1",
+        "error": null,
+        "ms": 4.29
+      }
+    },
+    {
+      "receivedAt": "2026-11-15T11:33:23.810Z",
+      "type": "done",
+      "count": 10
+    }
+  ]
+}

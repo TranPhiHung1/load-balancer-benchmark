@@ -4,20 +4,24 @@ function updateBatchActions() {
   const batch=results.batches.find(b=>b.id===$('batch').value);
   const runningJob=(typeof benchmarkBusy!=='undefined' && benchmarkBusy) || (typeof benchmarkSubmitting!=='undefined' && benchmarkSubmitting);
   $('trash-batch').disabled=managementBusy || runningJob || !!batch?.isProtected || !batch?.canTrash;
-  $('trash-batch').title=batch?.isProtected ? batch.trashReason : runningJob ? 'Chờ benchmark hoàn tất' : batch?.trashReason || 'Chỉ đợt hoàn tất do Dashboard tạo mới được chuyển vào thùng rác';
+  $('trash-batch').title=detail(batch?.isProtected ? batch.trashReason : runningJob ? 'Chờ benchmark hoàn tất' : batch?.trashReason || 'Chỉ đợt hoàn tất do Dashboard tạo mới được chuyển vào thùng rác');
   const item=trashBatches.find(b=>b.id===$('trash-selection').value);
   $('restore-batch').disabled=managementBusy || runningJob || !item?.canRestore;
   $('refresh-trash').disabled=managementBusy;
 }
+function renderTrash() {
+  const selected=$('trash-selection').value;
+  $('trash-selection').innerHTML=trashBatches.length ? trashBatches.map(b=>`<option value="${esc(b.id)}">${esc(b.id)}</option>`).join('') : `<option value="">${tr('Thùng rác trống')}</option>`;
+  if(trashBatches.some(b=>b.id===selected))$('trash-selection').value=selected;
+  updateBatchActions();
+}
+onLanguage(renderTrash);
 async function refreshTrash() {
   try {
     const data=await api('/api/results/trash');
-    const selected=$('trash-selection').value;
     trashBatches=data.batches;
-    $('trash-selection').innerHTML=trashBatches.length ? trashBatches.map(b=>`<option value="${esc(b.id)}">${esc(b.id)}</option>`).join('') : '<option value="">Thùng rác trống</option>';
-    if(trashBatches.some(b=>b.id===selected))$('trash-selection').value=selected;
-    updateBatchActions();
-  }catch(e){$('manage-message').textContent='Không đọc được thùng rác: '+e.message;}
+    renderTrash();
+  }catch(e){setMessage('manage-message', () => tr('Không đọc được thùng rác: ')+detail(e.message));}
 }
 function openTrashDialog() {
   if($('trash-batch').disabled)return;
@@ -25,7 +29,7 @@ function openTrashDialog() {
   if(!batch?.canTrash || batch.isProtected)return;
   pendingTrashId=batch.id;
   $('trash-confirm-id').textContent=pendingTrashId;
-  $('trash-dialog-message').textContent='';
+  setMessage('trash-dialog-message', () => '');
   $('trash-confirm').showModal();
 }
 function cancelTrashDialog() {
@@ -41,8 +45,9 @@ async function confirmTrash() {
     pendingTrashId=null;$('trash-confirm').close();
     const official=officialBatchId();
     const refreshed=await refreshResults(official);await refreshTrash();
-    $('manage-message').textContent=`Đã chuyển ${id} vào thùng rác. `+(refreshed && $('batch').value===official ? 'Đã chọn lại đợt benchmark chính thức; có thể khôi phục ở mục Thùng rác.' : 'Hãy làm mới danh sách để xem đợt benchmark chính thức; có thể khôi phục ở mục Thùng rác.');
-  }catch(e){$('manage-message').textContent='Không thể chuyển vào thùng rác: '+e.message;$('trash-dialog-message').textContent=e.message;}
+    const selectedOfficial = refreshed && $('batch').value === official;
+    setMessage('manage-message', () => tr`Đã chuyển ${id} vào thùng rác. ` + tr(selectedOfficial ? 'Đã chọn lại đợt benchmark chính thức; có thể khôi phục ở mục Thùng rác.' : 'Hãy làm mới danh sách để xem đợt benchmark chính thức; có thể khôi phục ở mục Thùng rác.'));
+  }catch(e){setMessage('manage-message', () => tr('Không thể chuyển vào thùng rác: ')+detail(e.message));setMessage('trash-dialog-message', () => detail(e.message));}
   finally{managementBusy=false;$('confirm-trash').disabled=false;$('cancel-trash').disabled=false;updateBatchActions();}
 }
 async function restoreBatch() {
@@ -52,8 +57,8 @@ async function restoreBatch() {
   try {
     await api('/api/results/restore',{method:'POST',headers:{'Content-Type':'application/json','X-Dashboard-Action':'results'},body:JSON.stringify({id,confirmed:true})});
     const refreshed=await refreshResults(id);await refreshTrash();
-    $('manage-message').textContent=`Đã khôi phục ${id}; nội dung kết quả giữ nguyên.`+(refreshed ? '' : ' Hãy làm mới danh sách kết quả.');
-  }catch(e){$('manage-message').textContent='Không thể khôi phục: '+e.message;}
+    setMessage('manage-message', () => tr`Đã khôi phục ${id}; nội dung kết quả giữ nguyên.` + (refreshed ? '' : tr(' Hãy làm mới danh sách kết quả.')));
+  }catch(e){setMessage('manage-message', () => tr('Không thể khôi phục: ')+detail(e.message));}
   finally{managementBusy=false;updateBatchActions();}
 }
 $('trash-batch').onclick=openTrashDialog;

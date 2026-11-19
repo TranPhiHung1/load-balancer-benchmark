@@ -5,6 +5,7 @@ const {randomUUID}=require('node:crypto');
 const {promisify}=require('node:util');
 const {findK6,scriptConfig,argumentsFor,checkTarget,cleanEnvironment,OUTPUT}=require('./benchmark-runner.cjs');
 const {normalize}=require('./results.cjs');
+const {assertNoFailover}=require('./failover.cjs');
 const {CONTAINERS,createDockerClient,createResourceMonitor,convertStats}=require('./resource-monitor.cjs');
 const {FULL_PRODUCER,BALANCERS,ORDER,PLAN}=require('./full-run-schema.cjs');
 const REPO=path.resolve(__dirname,'..');
@@ -67,6 +68,7 @@ function createFullBenchmarkRunner(options={}){
     if(stat.isSymbolicLink() || !stat.isDirectory() || !same)throw Error('Output root không được là symlink/junction');
     try{lock=await fs.open(path.join(root,'.benchmark.lock'),'wx');}catch(e){if(e.code==='EEXIST')throw Error('Benchmark/thao tác dữ liệu khác đang chạy hoặc còn khóa phiên bị ngắt');throw e;}
     await lock.writeFile(JSON.stringify({pid:process.pid,operation:'full-benchmark'}));
+    await assertNoFailover(root);
   }
   async function run(){
     if(busy || current)throw Error('Runner này chỉ chạy một FULL RUN');busy=true;

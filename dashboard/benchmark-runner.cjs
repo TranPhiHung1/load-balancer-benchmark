@@ -5,6 +5,7 @@ const tls = require('node:tls');
 const { spawn } = require('node:child_process');
 const { randomUUID, createHash } = require('node:crypto');
 const { normalize, BALANCERS, WORKLOADS } = require('./results.cjs');
+const { assertNoFailover } = require('./failover.cjs');
 const {createResourceMonitor,CONTAINERS,summarize}=require('./resource-monitor.cjs');
 const REPO = path.resolve(__dirname, '..');
 const OUTPUT = path.join(__dirname, 'results');
@@ -176,6 +177,7 @@ function createBenchmarkRunner(options = {}) {
       await fs.mkdir(root, { recursive:true });
       try { lock = await fs.open(path.join(root,'.benchmark.lock'),'wx'); await lock.writeFile(JSON.stringify({pid:process.pid,startedAt:new Date().toISOString()})); }
       catch (e) { if (e.code === 'EEXIST') throw fail('Benchmark đang chạy ở Dashboard khác hoặc còn khóa của phiên bị ngắt. Xem hướng dẫn xử lý khóa.',409); throw e; }
+      await assertNoFailover(root);
       const id = 'web-' + new Date().toISOString().replace(/[:.]/g,'-') + '-' + randomUUID().slice(0,8);
       const directory = path.join(root,id); await fs.mkdir(directory);
       if (shuttingDown) throw fail('Dashboard đang dừng',503);

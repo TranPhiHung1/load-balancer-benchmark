@@ -1,0 +1,307 @@
+{
+  "checkedAt": "2026-11-15T11:06:27.617Z",
+  "status": {
+    "components": [
+      {
+        "id": "nginx",
+        "port": 8080,
+        "status": 200,
+        "backend": "backend-1",
+        "error": null,
+        "ms": 14.28,
+        "state": "Online"
+      },
+      {
+        "id": "haproxy",
+        "port": 8081,
+        "status": 200,
+        "backend": "backend-1",
+        "error": null,
+        "ms": 14.35,
+        "state": "Online"
+      },
+      {
+        "id": "envoy",
+        "port": 8082,
+        "status": 200,
+        "backend": "backend-1",
+        "error": null,
+        "ms": 16.01,
+        "state": "Online"
+      },
+      {
+        "id": "backend-1",
+        "port": 3001,
+        "status": 200,
+        "backend": "backend-1",
+        "error": null,
+        "ms": 15.31,
+        "state": "Online"
+      },
+      {
+        "id": "backend-2",
+        "port": 3002,
+        "status": 200,
+        "backend": "backend-2",
+        "error": null,
+        "ms": 14.6,
+        "state": "Online"
+      }
+    ],
+    "checkedAt": "2026-11-15T11:06:27.454Z"
+  },
+  "demos": {
+    "nginx": {
+      "rows": [
+        {
+          "number": 1,
+          "balancer": "nginx",
+          "status": 200,
+          "backend": "backend-2",
+          "error": null,
+          "ms": 4.5
+        },
+        {
+          "number": 2,
+          "balancer": "nginx",
+          "status": 200,
+          "backend": "backend-1",
+          "error": null,
+          "ms": 3.26
+        },
+        {
+          "number": 3,
+          "balancer": "nginx",
+          "status": 200,
+          "backend": "backend-2",
+          "error": null,
+          "ms": 4.14
+        },
+        {
+          "number": 4,
+          "balancer": "nginx",
+          "status": 200,
+          "backend": "backend-1",
+          "error": null,
+          "ms": 4.72
+        },
+        {
+          "number": 5,
+          "balancer": "nginx",
+          "status": 200,
+          "backend": "backend-2",
+          "error": null,
+          "ms": 4.91
+        },
+        {
+          "number": 6,
+          "balancer": "nginx",
+          "status": 200,
+          "backend": "backend-1",
+          "error": null,
+          "ms": 3.99
+        },
+        {
+          "number": 7,
+          "balancer": "nginx",
+          "status": 200,
+          "backend": "backend-2",
+          "error": null,
+          "ms": 4.55
+        },
+        {
+          "number": 8,
+          "balancer": "nginx",
+          "status": 200,
+          "backend": "backend-1",
+          "error": null,
+          "ms": 4.39
+        },
+        {
+          "number": 9,
+          "balancer": "nginx",
+          "status": 200,
+          "backend": "backend-2",
+          "error": null,
+          "ms": 4.26
+        },
+        {
+          "number": 10,
+          "balancer": "nginx",
+          "status": 200,
+          "backend": "backend-1",
+          "error": null,
+          "ms": 4.83
+        }
+      ]
+    },
+    "haproxy": {
+      "rows": [
+        {
+          "number": 1,
+          "balancer": "haproxy",
+          "status": 200,
+          "backend": "backend-1",
+          "error": null,
+          "ms": 5.69
+        },
+        {
+          "number": 2,
+          "balancer": "haproxy",
+          "status": 200,
+          "backend": "backend-2",
+          "error": null,
+          "ms": 6.36
+        },
+        {
+          "number": 3,
+          "balancer": "haproxy",
+          "status": 200,
+          "backend": "backend-1",
+          "error": null,
+          "ms": 5.25
+        },
+        {
+          "number": 4,
+          "balancer": "haproxy",
+          "status": 200,
+          "backend": "backend-2",
+          "error": null,
+          "ms": 5.15
+        },
+        {
+          "number": 5,
+          "balancer": "haproxy",
+          "status": 200,
+          "backend": "backend-1",
+          "error": null,
+          "ms": 4.7
+        },
+        {
+          "number": 6,
+          "balancer": "haproxy",
+          "status": 200,
+          "backend": "backend-2",
+          "error": null,
+          "ms": 5.51
+        },
+        {
+          "number": 7,
+          "balancer": "haproxy",
+          "status": 200,
+          "backend": "backend-1",
+          "error": null,
+          "ms": 5.33
+        },
+        {
+          "number": 8,
+          "balancer": "haproxy",
+          "status": 200,
+          "backend": "backend-2",
+          "error": null,
+          "ms": 5
+        },
+        {
+          "number": 9,
+          "balancer": "haproxy",
+          "status": 200,
+          "backend": "backend-2",
+          "error": null,
+          "ms": 4.94
+        },
+        {
+          "number": 10,
+          "balancer": "haproxy",
+          "status": 200,
+          "backend": "backend-1",
+          "error": null,
+          "ms": 3.86
+        }
+      ]
+    },
+    "envoy": {
+      "rows": [
+        {
+          "number": 1,
+          "balancer": "envoy",
+          "status": 200,
+          "backend": "backend-1",
+          "error": null,
+          "ms": 4.39
+        },
+        {
+          "number": 2,
+          "balancer": "envoy",
+          "status": 200,
+          "backend": "backend-2",
+          "error": null,
+          "ms": 4.83
+        },
+        {
+          "number": 3,
+          "balancer": "envoy",
+          "status": 200,
+          "backend": "backend-1",
+          "error": null,
+          "ms": 4.27
+        },
+        {
+          "number": 4,
+          "balancer": "envoy",
+          "status": 200,
+          "backend": "backend-2",
+          "error": null,
+          "ms": 4.3
+        },
+        {
+          "number": 5,
+          "balancer": "envoy",
+          "status": 200,
+          "backend": "backend-1",
+          "error": null,
+          "ms": 4.65
+        },
+        {
+          "number": 6,
+          "balancer": "envoy",
+          "status": 200,
+          "backend": "backend-2",
+          "error": null,
+          "ms": 4.01
+        },
+        {
+          "number": 7,
+          "balancer": "envoy",
+          "status": 200,
+          "backend": "backend-2",
+          "error": null,
+          "ms": 4.62
+        },
+        {
+          "number": 8,
+          "balancer": "envoy",
+          "status": 200,
+          "backend": "backend-1",
+          "error": null,
+          "ms": 3.96
+        },
+        {
+          "number": 9,
+          "balancer": "envoy",
+          "status": 200,
+          "backend": "backend-2",
+          "error": null,
+          "ms": 5
+        },
+        {
+          "number": 10,
+          "balancer": "envoy",
+          "status": 200,
+          "backend": "backend-2",
+          "error": null,
+          "ms": 4.68
+        }
+      ]
+    }
+  }
+}
