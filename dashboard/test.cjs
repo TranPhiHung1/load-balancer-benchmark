@@ -195,9 +195,7 @@ test('20 real streamed requests and legacy 10-request API remain supported; algo
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
   const base = `http://127.0.0.1:${server.address().port}`, options = { method:'POST', headers:{'X-Dashboard-Action':'demo'} };
   try {
-    for (const algorithm of ['weighted-round-robin','least-connections','ip-hash']) {
-      assert.equal((await fetch(`${base}/api/demo-stream/envoy?algorithm=${algorithm}&count=10&speed=fast`, options)).status,400);
-    }
+    assert.equal((await fetch(`${base}/api/demo-stream/envoy?algorithm=invalid&count=10&speed=fast`, options)).status,400);
     for (const query of ['algorithm=round-robin&count=100&speed=fast','algorithm=round-robin&count=10&speed=invalid']) {
       assert.equal((await fetch(`${base}/api/demo-stream/envoy?${query}`,options)).status,400);
     }
@@ -207,9 +205,113 @@ test('20 real streamed requests and legacy 10-request API remain supported; algo
     assert.equal(response.status,200); assert.equal((await response.json()).rows.length,10);
     const page = await (await fetch(base)).text();
     for (const label of ['Demo các thuật toán cân bằng tải','Gửi 10 yêu cầu','Gửi 20 yêu cầu','Đặt lại kết quả','Chọn đợt kiểm thử','Chọn loại kiểm thử','Làm mới kết quả']) assert.ok(page.includes(label));
-    for (const algorithm of ['weighted-round-robin','least-connections','ip-hash']) assert.ok(page.includes(`value="${algorithm}" disabled`));
+    assert.match(page, /value="ip-hash">IP Hash \/ Source-IP Affinity/);
+    assert.match(page, /value="least-connections">Least Connections \/ Least Request/);
+    assert.match(page, /value="weighted-round-robin" title=/);
     assert.equal((await fetch(base+'/demo.js')).status,200);
   } finally { await new Promise(resolve => server.close(resolve)); }
+});
+test('WRR stream calls the dedicated path and displays identified and unknown responses', async t => {
+  const paths = [];
+  const upstream = http.createServer((req, res) => {
+    paths.push(req.url);
+    if (paths.length === 10) { res.writeHead(503); res.end('Unavailable'); return; }
+    res.end(JSON.stringify({ port: paths.length <= 7 ? 3001 : 3002 }));
+  });
+  const server = createServer();
+  for (const instance of [upstream, server]) {
+    await new Promise(resolve => instance.listen(0, '127.0.0.1', resolve));
+    t.after(() => new Promise(resolve => instance.close(resolve)));
+  }
+  const originalGet = http.get;
+  const calls = t.mock.method(http, 'get', (options, callback) => originalGet({
+    ...options, port: upstream.address().port,
+  }, callback));
+  const view = await demoView();
+  view.element('demo-algorithm').value = 'weighted-round-robin';
+  view.element('demo-algorithm').onchange();
+  assert.equal(view.element('send-100').hidden, false);
+  vm.runInContext('demoTotal = 10', view.context);
+  const base = `http://127.0.0.1:${server.address().port}`;
+  const events = await consumeStream(await fetch(base + '/api/demo-stream/nginx?algorithm=weighted-round-robin&count=10&speed=fast', {
+    method: 'POST', headers: { 'X-Dashboard-Action': 'demo' },
+  }), view.event);
+  assert.equal(calls.mock.calls[0].arguments[0].port, 8080);
+  assert.deepEqual(paths, Array(10).fill('/api/wrr'));
+  assert.deepEqual(events.at(-2).event.row.backend, null);
+  assert.equal(events.at(-2).event.row.status, 503);
+  assert.match(view.element('demo-history').innerHTML, /Weighted Round Robin.*Không xác định.*503/);
+  assert.match(view.element('count-backend-1').textContent, /^7 .*70/);
+  assert.match(view.element('count-backend-2').textContent, /^2 .*20/);
+  view.element('demo-algorithm').value = 'round-robin';
+  view.element('demo-algorithm').onchange();
+  assert.equal(view.element('send-100').hidden, true);
+  assert.equal(view.element('demo-history').innerHTML, '');
+});
+test('Least stream uses its own endpoint and reports observed counts without a target ratio', async t => {
+  const paths = [];
+  const upstream = http.createServer((req, res) => {
+    paths.push(req.url);
+    res.end(JSON.stringify({ port: 3002 }));
+  });
+  const server = createServer();
+  for (const instance of [upstream, server]) {
+    await new Promise(resolve => instance.listen(0, '127.0.0.1', resolve));
+    t.after(() => new Promise(resolve => instance.close(resolve)));
+  }
+  const originalGet = http.get;
+  const calls = t.mock.method(http, 'get', (options, callback) => originalGet({
+    ...options, port: upstream.address().port,
+  }, callback));
+  const view = await demoView();
+  view.element('demo-algorithm').value = 'least-connections';
+  view.element('demo-algorithm').onchange();
+  for (const [id, policy] of [['nginx', 'least_conn'], ['haproxy', 'leastconn'], ['envoy', 'FULL_SCAN']]) {
+    view.element('demo-balancer').value = id;
+    view.element('demo-balancer').onchange();
+    assert.ok(view.element('least-policy').textContent.includes(policy));
+  }
+  assert.equal(view.element('least-note').hidden, false);
+  assert.equal(view.element('wrr-expected').hidden, true);
+  assert.equal(view.element('send-100').hidden, true);
+  vm.runInContext('demoTotal = 20', view.context);
+  const base = `http://127.0.0.1:${server.address().port}/api/demo-stream/envoy?algorithm=least-connections&speed=fast&count=`;
+  const options = { method: 'POST', headers: { 'X-Dashboard-Action': 'demo' } };
+  assert.equal((await fetch(base + '100', options)).status, 400);
+  const events = await consumeStream(await fetch(base + '20', options), view.event);
+  assert.equal(calls.mock.calls[0].arguments[0].port, 8082);
+  assert.deepEqual(paths, Array(20).fill('/api/least'));
+  assert.equal(events.at(-1).event.type, 'done');
+  assert.match(view.element('count-backend-2').textContent, /^20 .*100/);
+});
+test('IP Hash streams an observed IP mapping from the dedicated proxy response', async t => {
+  const upstream = http.createServer((req, res) => {
+    assert.equal(req.url, '/api/iphash');
+    assert.equal(req.headers['x-forwarded-for'], undefined);
+    res.setHeader('X-Lab-Source-IP', '127.0.0.1');
+    res.end(JSON.stringify({ port: 3001 }));
+  });
+  const server = createServer();
+  for (const instance of [upstream, server]) {
+    await new Promise(resolve => instance.listen(0, '127.0.0.1', resolve));
+    t.after(() => new Promise(resolve => instance.close(resolve)));
+  }
+  const originalGet = http.get;
+  t.mock.method(http, 'get', (options, callback) => originalGet({
+    ...options, port: upstream.address().port,
+  }, callback));
+  const view = await demoView();
+  view.element('demo-algorithm').value = 'ip-hash';
+  view.element('demo-algorithm').onchange();
+  assert.match(view.element('ip-policy').textContent, /ip_hash/);
+  vm.runInContext('demoTotal = 10', view.context);
+  const base = `http://127.0.0.1:${server.address().port}/api/demo-stream/nginx?algorithm=ip-hash&speed=fast&count=`;
+  const options = { method: 'POST', headers: { 'X-Dashboard-Action': 'demo', 'X-Forwarded-For': '198.51.100.1' } };
+  assert.equal((await fetch(base + '100', options)).status, 400);
+  const events = await consumeStream(await fetch(base + '10', options), view.event);
+  assert.equal(events.at(-1).event.type, 'done');
+  assert.equal(view.element('ip-mapping').textContent, '127.0.0.1 → Backend 1');
+  assert.equal(view.element('wrr-expected').hidden, true);
 });
 test('Real offline response is shown as failure without backend increments; unsupported frontend choices cannot run', async () => {
   const temp = http.createServer();
@@ -225,7 +327,7 @@ test('Real offline response is shown as failure without backend increments; unsu
   assert.ok(view.element('count-backend-2').textContent.startsWith('0 yêu cầu'));
   assert.ok(view.element('flow-lb').classList.contains('failed'));
   assert.throws(()=>view.event({type:'result',row:{...result,number:1,algorithm:'round-robin',balancer:'nginx'}}));
-  view.element('demo-algorithm').value='ip-hash'; vm.runInContext('updateAlgorithm()',view.context);
+  view.element('demo-algorithm').value='invalid'; vm.runInContext('updateAlgorithm()',view.context);
   assert.equal(view.element('send-10').disabled,true); assert.equal(view.element('send-20').disabled,true);
   await vm.runInContext("runDemos(['nginx'])",view.context);
   assert.equal(vm.runInContext('demoRows.length',view.context),1);

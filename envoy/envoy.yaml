@@ -19,6 +19,59 @@ static_resources:
                         - "*"
                       routes:
                         - match:
+                            path: /api/wrr
+                            case_sensitive: true
+                          route:
+                            cluster: weighted_backend_cluster
+                            prefix_rewrite: /api
+                            retry_policy:
+                              retry_on: connect-failure
+                              num_retries: 1
+                              retry_host_predicate:
+                                - name: envoy.retry_host_predicates.previous_hosts
+                                  typed_config:
+                                    "@type": type.googleapis.com/envoy.extensions.retry.host.previous_hosts.v3.PreviousHostsPredicate
+                              host_selection_retry_max_attempts: 5
+                        - match:
+                            path: /api/least
+                          route:
+                            cluster: least_backend_cluster
+                            prefix_rewrite: /api
+                            retry_policy:
+                              retry_on: connect-failure
+                              num_retries: 1
+                              retry_host_predicate:
+                                - name: envoy.retry_host_predicates.previous_hosts
+                                  typed_config:
+                                    "@type": type.googleapis.com/envoy.extensions.retry.host.previous_hosts.v3.PreviousHostsPredicate
+                              host_selection_retry_max_attempts: 5
+                        - match:
+                            path: /api/iphash
+                          request_headers_to_add:
+                            - header:
+                                key: x-lab-source-ip
+                                value: "%DOWNSTREAM_DIRECT_REMOTE_ADDRESS_WITHOUT_PORT%"
+                              append_action: OVERWRITE_IF_EXISTS_OR_ADD
+                          response_headers_to_add:
+                            - header:
+                                key: x-lab-source-ip
+                                value: "%DOWNSTREAM_DIRECT_REMOTE_ADDRESS_WITHOUT_PORT%"
+                              append_action: OVERWRITE_IF_EXISTS_OR_ADD
+                          route:
+                            cluster: iphash_backend_cluster
+                            prefix_rewrite: /api
+                            hash_policy:
+                              - header:
+                                  header_name: x-lab-source-ip
+                            retry_policy:
+                              retry_on: connect-failure
+                              num_retries: 1
+                              retry_host_predicate:
+                                - name: envoy.retry_host_predicates.previous_hosts
+                                  typed_config:
+                                    "@type": type.googleapis.com/envoy.extensions.retry.host.previous_hosts.v3.PreviousHostsPredicate
+                              host_selection_retry_max_attempts: 5
+                        - match:
                             prefix: /
                           route:
                             cluster: backend_cluster
@@ -122,6 +175,100 @@ static_resources:
           tcp_health_check: {}
       load_assignment:
         cluster_name: backend_cluster
+        endpoints:
+          - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: backend-1
+                      port_value: 3001
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: backend-2
+                      port_value: 3002
+    - name: weighted_backend_cluster
+      connect_timeout: 0.750s
+      type: STRICT_DNS
+      lb_policy: ROUND_ROBIN
+      common_lb_config:
+        healthy_panic_threshold:
+          value: 0
+      health_checks:
+        - timeout: 2s
+          interval: 2s
+          no_traffic_interval: 2s
+          unhealthy_threshold: 3
+          healthy_threshold: 2
+          tcp_health_check: {}
+      load_assignment:
+        cluster_name: weighted_backend_cluster
+        endpoints:
+          - lb_endpoints:
+              - load_balancing_weight: 3
+                endpoint:
+                  address:
+                    socket_address:
+                      address: backend-1
+                      port_value: 3001
+              - load_balancing_weight: 1
+                endpoint:
+                  address:
+                    socket_address:
+                      address: backend-2
+                      port_value: 3002
+    - name: least_backend_cluster
+      connect_timeout: 0.750s
+      type: STRICT_DNS
+      load_balancing_policy:
+        policies:
+          - typed_extension_config:
+              name: envoy.load_balancing_policies.least_request
+              typed_config:
+                "@type": type.googleapis.com/envoy.extensions.load_balancing_policies.least_request.v3.LeastRequest
+                selection_method: FULL_SCAN
+      common_lb_config:
+        healthy_panic_threshold:
+          value: 0
+      health_checks:
+        - timeout: 2s
+          interval: 2s
+          no_traffic_interval: 2s
+          unhealthy_threshold: 3
+          healthy_threshold: 2
+          tcp_health_check: {}
+      load_assignment:
+        cluster_name: least_backend_cluster
+        endpoints:
+          - lb_endpoints:
+              - load_balancing_weight: 1
+                endpoint:
+                  address:
+                    socket_address:
+                      address: backend-1
+                      port_value: 3001
+              - load_balancing_weight: 1
+                endpoint:
+                  address:
+                    socket_address:
+                      address: backend-2
+                      port_value: 3002
+    - name: iphash_backend_cluster
+      connect_timeout: 0.750s
+      type: STRICT_DNS
+      lb_policy: RING_HASH
+      common_lb_config:
+        healthy_panic_threshold:
+          value: 0
+      health_checks:
+        - timeout: 2s
+          interval: 2s
+          no_traffic_interval: 2s
+          unhealthy_threshold: 3
+          healthy_threshold: 2
+          tcp_health_check: {}
+      load_assignment:
+        cluster_name: iphash_backend_cluster
         endpoints:
           - lb_endpoints:
               - endpoint:

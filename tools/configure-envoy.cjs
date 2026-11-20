@@ -24,7 +24,8 @@ for (const [name, port, cluster] of [['https_h2_listener', 443, 'backend_cluster
   const manager = chain.filters[0].typed_config;
   manager.stat_prefix = name;
   manager.codec_type = 'AUTO';
-  manager.route_config.virtual_hosts[0].routes[0].route.cluster = cluster;
+  // Keep HTTP demo routes out of the benchmark listeners.
+  manager.route_config.virtual_hosts[0].routes = [{ match: { prefix: '/' }, route: { cluster } }];
   resources.listeners = resources.listeners.filter(x => x.name !== name);
   resources.listeners.push(listener);
 }

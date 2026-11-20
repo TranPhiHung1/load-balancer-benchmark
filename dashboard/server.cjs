@@ -1,4 +1,5 @@
 const http = require('node:http');
+const { isIP } = require('node:net');
 const fs = require('node:fs/promises');
 const path = require('node:path');
 const { performance } = require('node:perf_hooks');
@@ -8,14 +9,16 @@ const { createFailover, assertNoFailover, failoverBlocksBenchmark, blocked: fail
 const { createResultStorage } = require('./result-storage.cjs');
 const TARGETS = Object.freeze({ nginx: 8080, haproxy: 8081, envoy: 8082, 'backend-1': 3001, 'backend-2': 3002 });
 const SPEEDS = Object.freeze({ fast: 150, normal: 1000, slow: 1800 });
+const DEMO_PATHS = Object.freeze({ 'round-robin': '/api', 'weighted-round-robin': '/api/wrr', 'least-connections': '/api/least', 'ip-hash': '/api/iphash' });
 const FAILOVER_BALANCERS = ['nginx', 'haproxy', 'envoy'];
 const FAILOVER_BACKENDS = ['backend-1', 'backend-2'];
-function probe(port, timeout = 2000) {
+function probe(port, timeout = 2000, requestPath = '/api', agent = false) {
   const start = performance.now();
   return new Promise(resolve => {
     let done = false;
     const finish = result => { if (!done) { done = true; clearTimeout(timer); resolve({ ...result, ms: Math.round((performance.now() - start) * 100) / 100 }); } };
-    const req = http.get({ hostname: '127.0.0.1', port, path: '/api', agent: false, headers: { Connection: 'close' } }, res => {
+    const headers = agent === false ? { Connection: 'close' } : {};
+    const req = http.get({ hostname: '127.0.0.1', port, path: requestPath, agent, headers }, res => {
       let body = '';
       res.setEncoding('utf8');
       res.on('data', chunk => { body += chunk; if (body.length > 65536) req.destroy(new Error('Response quá lớn')); });
@@ -23,8 +26,10 @@ function probe(port, timeout = 2000) {
       res.on('end', () => {
         let payload;
         try { payload = JSON.parse(body); } catch { return finish({ status: res.statusCode, backend: null, error: 'Response không phải JSON hợp lệ' }); }
-        const backend = payload.port === 3001 ? 'backend-1' : payload.port === 3002 ? 'backend-2' : null;
-        finish({ status: res.statusCode, backend, error: res.statusCode !== 200 ? `HTTP ${res.statusCode}` : !backend ? 'Không nhận diện được backend từ JSON.port' : null });
+        const backend = payload?.port === 3001 ? 'backend-1' : payload?.port === 3002 ? 'backend-2' : null;
+        const source = res.headers['x-lab-source-ip'];
+        const sourceInfo = requestPath === DEMO_PATHS['ip-hash'] ? { sourceIp: typeof source === 'string' && isIP(source) ? source : null } : {};
+        finish({ status: res.statusCode, backend, ...sourceInfo, error: res.statusCode !== 200 ? `HTTP ${res.statusCode}` : !backend ? 'Không nhận diện được backend từ JSON.port' : null });
       });
     });
     const timer = setTimeout(() => req.destroy(new Error('Timeout sau ' + timeout + ' ms')), timeout);
@@ -121,10 +126,13 @@ function createServer(options = {}) {
           const algorithm = url.searchParams.get('algorithm');
           const count = Number(url.searchParams.get('count'));
           const speed = url.searchParams.get('speed');
-          if (algorithm !== 'round-robin' || ![10, 20].includes(count) || !Object.hasOwn(SPEEDS, speed)) return send(400, { error: 'Chỉ hỗ trợ Round Robin, 10/20 yêu cầu và tốc độ hợp lệ. Các thuật toán khác chưa triển khai.' });
+          const counts = algorithm === 'weighted-round-robin' ? [10, 20, 100] : [10, 20];
+          if (!Object.hasOwn(DEMO_PATHS, algorithm) || !counts.includes(count) || !Object.hasOwn(SPEEDS, speed)) return send(400, { error: 'Thuật toán, số yêu cầu hoặc tốc độ không hợp lệ.' });
           if (busy || benchmark.active() || failover.active()) return send(409, { error: 'Demo hoặc benchmark đang chạy, vui lòng chờ' });
           busy = true;
           const controller = new AbortController();
+          // Reuse one downstream connection so the demo observes one worker's rotation.
+          const agent = algorithm === 'weighted-round-robin' ? new http.Agent({ keepAlive: true, maxSockets: 1 }) : false;
           const disconnected = () => controller.abort();
           res.on('close', disconnected);
           const event = data => { if (!res.destroyed) res.write(JSON.stringify(data) + '\n'); };
@@ -134,7 +142,7 @@ function createServer(options = {}) {
             event({ type: 'start', count, algorithm, balancer: streamMatch[1], delayMs: SPEEDS[speed] });
             for (let i = 1; i <= count && !controller.signal.aborted; i++) {
               event({ type: 'request', number: i });
-              const row = { number: i, balancer: streamMatch[1], algorithm, ...await probe(TARGETS[streamMatch[1]]) };
+              const row = { number: i, balancer: streamMatch[1], algorithm, ...await probe(TARGETS[streamMatch[1]], 2000, DEMO_PATHS[algorithm], agent) };
               if (controller.signal.aborted) break;
               event({ type: 'result', row });
               if (i < count) await require('node:timers/promises').setTimeout(SPEEDS[speed], undefined, { signal: controller.signal });
@@ -142,7 +150,12 @@ function createServer(options = {}) {
             if (!controller.signal.aborted) event({ type: 'done', count });
           } catch (e) {
             if (!controller.signal.aborted) event({ type: 'error', error: 'Luồng kiểm thử bị gián đoạn' });
-          } finally { busy = false; res.off('close', disconnected); res.end(); }
+          } finally {
+            if (agent) agent.destroy();
+            busy = false;
+            res.off('close', disconnected);
+            res.end();
+          }
           return;
         }
         const match = /^\/api\/round-robin\/(nginx|haproxy|envoy)$/.exec(url.pathname);
