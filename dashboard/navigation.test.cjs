@@ -19,7 +19,7 @@ test('Project pages preserve dashboard controls and support direct links and his
   const source = await script.text();
 
   const routeStarts = [...html.matchAll(/<div id="page-[^"]+" class="site-page" data-route="([^"]+)"( hidden)?>/g)];
-  const routes = ['#/', '#/demo', '#/benchmark', '#/team'];
+  const routes = ['#/', '#/demo', '#/benchmark', '#/team', '#/theory'];
   assert.deepEqual(routeStarts.map(match => match[1]), routes);
   const ids = [...html.matchAll(/\sid="([^"]+)"/g)].map(match => match[1]);
   assert.equal(new Set(ids).size, ids.length);
@@ -44,7 +44,25 @@ test('Project pages preserve dashboard controls and support direct links and his
       setAttribute(_name, value) { this.current = value; },
       removeAttribute() { delete this.current; },
     }));
-    const document = { querySelectorAll: selector => selector === '[data-route]' ? pages : links };
+    let focused;
+    const topicIds = [...markup(4).matchAll(/data-topic="([^"]+)"/g)].map(match => match[1]);
+    const articles = topicIds.map(topic => ({
+      dataset: { topic },
+      querySelector: () => ({ focus() { focused = 'title-' + topic; }, scrollIntoView() {}, matches: () => false }),
+      querySelectorAll: () => [],
+    }));
+    const topicLinks = topicIds.map(topic => ({
+      dataset: { topicLink: topic },
+      setAttribute(_attribute, value) { this.current = value; },
+      removeAttribute() { delete this.current; },
+    }));
+    const select = { addEventListener() {} };
+    const document = {
+      querySelectorAll: selector => ({
+        '[data-route]': pages, '.site-nav a': links, '[data-topic]': articles, '[data-topic-link]': topicLinks
+      })[selector] || [],
+      getElementById: () => select,
+    };
     let onHashChange;
     const window = {
       location: { hash },
@@ -54,7 +72,7 @@ test('Project pages preserve dashboard controls and support direct links and his
         onHashChange = listener;
       },
     };
-    vm.runInNewContext(source, { document, window });
+    vm.runInNewContext(source, { document, window, URLSearchParams });
     function assertActive(index) {
       assert.deepEqual(pages.map(page => page.hidden), routes.map((_, i) => i !== index));
       assert.deepEqual(links.map(link => link.current), routes.map((_, i) => i === index ? 'page' : undefined));
@@ -62,12 +80,49 @@ test('Project pages preserve dashboard controls and support direct links and his
     }
     return {
       assertActive,
+      get focused() { return focused; },
       navigate(route) { window.location.hash = route; onHashChange(); },
       pages,
+      activeTopics: () => articles.filter(article => !article.hidden).map(article => article.dataset.topic),
+      activeTopicLinks: () => topicLinks.filter(link => link.current).map(link => link.dataset.topicLink),
+      selectedTopic: () => select.value,
     };
   }
   routes.forEach((route, index) => open(route).assertActive(index));
   open('#/demo?tab=health').assertActive(1);
+  const theory = open('#/theory?topic=nginx');
+  theory.assertActive(4);
+  assert.equal(theory.focused, 'title-nginx');
+  assert.deepEqual(theory.activeTopics(), ['nginx']);
+  assert.deepEqual(theory.activeTopicLinks(), ['nginx']);
+  assert.equal(theory.selectedTopic(), 'nginx');
+  theory.navigate('#/theory?topic=envoy');
+  assert.equal(theory.focused, 'title-envoy');
+  assert.deepEqual(theory.activeTopics(), ['envoy']);
+  theory.navigate('#/theory?topic=unknown');
+  assert.deepEqual(theory.activeTopics(), ['load-balancer']);
+  assert.match(markup(0), /href="#\/theory\?topic=nodejs"/);
+  assert.doesNotMatch(markup(0), /lb-theory|bench-study/);
+  assert.doesNotMatch(markup(3), /lab-topology|deployment-model/);
+  const topology = markup(0);
+  for (const port of [8080, 8081, 8082, 3001, 3002]) assert.match(topology, new RegExp(String(port)));
+  const linksToBackends = [...topology.matchAll(/data-from="([^"]+)" data-to="([^"]+)"/g)];
+  assert.equal(linksToBackends.length, 6);
+  for (const proxy of ['nginx', 'haproxy', 'envoy']) {
+    assert.deepEqual(linksToBackends.filter(link => link[1] === proxy).map(link => link[2]), ['backend-1', 'backend-2']);
+  }
+  const theoryMarkup = markup(4);
+  const articles = [...theoryMarkup.matchAll(/<article class="theory-topic"[\s\S]+?<\/article>/g)];
+  assert.equal(articles.length, 15);
+  for (const [article] of articles) {
+    assert.match(article, /theory-lead/);
+    assert.match(article, /Nguyên lý và đánh đổi/);
+    assert.match(article, /Ví dụ minh họa/);
+    assert.match(article, /Trong lab/);
+    assert.match(article, /Tình huống áp dụng/);
+    assert.match(article, /Kiến thức cần nhớ/);
+  }
+  assert.match(theoryMarkup, /id="title-nginx"[\s\S]*?Master nạp cấu hình/);
   const app = open('#/demo');
   app.pages[1].demoProgress = 7;
   app.navigate('#/benchmark');

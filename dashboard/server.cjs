@@ -195,10 +195,10 @@ function createServer(options = {}) {
         res.setHeader('Content-Disposition', 'attachment; filename="benchmark.csv"');
         return send(200, csv(batch, workload), 'text/csv; charset=utf-8');
       }
-      const assets = { '/': ['index.html', 'text/html'], '/preferences.js': ['preferences.js', 'text/javascript'], '/i18n.js': ['i18n.js', 'text/javascript'], '/navigation.js': ['navigation.js', 'text/javascript'], '/app.js': ['app.js', 'text/javascript'], '/demo.js': ['demo.js', 'text/javascript'], '/failover.js': ['failover.js', 'text/javascript'], '/benchmark.js': ['benchmark.js', 'text/javascript'], '/results-management.js': ['results-management.js', 'text/javascript'], '/resources.js': ['resources.js', 'text/javascript'], '/style.css': ['style.css', 'text/css'] };
+      const assets = { '/': ['index.html', 'text/html'], '/preferences.js': ['preferences.js', 'text/javascript'], '/i18n.js': ['i18n.js', 'text/javascript'], '/navigation.js': ['navigation.js', 'text/javascript'], '/app.js': ['app.js', 'text/javascript'], '/demo.js': ['demo.js', 'text/javascript'], '/failover.js': ['failover.js', 'text/javascript'], '/benchmark.js': ['benchmark.js', 'text/javascript'], '/results-management.js': ['results-management.js', 'text/javascript'], '/resources.js': ['resources.js', 'text/javascript'], '/style.css': ['style.css', 'text/css'], '/dlu-logo.png': ['dlu-logo.png', 'image/png'] };
       const asset = assets[url.pathname];
       if (!asset) return send(404, { error: 'Không tìm thấy' });
-      return send(200, await fs.readFile(path.join(__dirname, 'public', asset[0])), asset[1] + '; charset=utf-8');
+      return send(200, await fs.readFile(path.join(__dirname, 'public', asset[0])), asset[1].startsWith('text/') ? asset[1] + '; charset=utf-8' : asset[1]);
     } catch (e) {
       if (!res.headersSent && !res.destroyed) send(e.status || 500, { error: e.status ? e.message : 'Không xử lý được yêu cầu', detail: e.code || 'INVALID_DATA' });
       else if (!res.writableEnded) res.destroy();

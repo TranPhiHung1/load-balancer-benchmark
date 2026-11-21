@@ -8,8 +8,8 @@
   <script src="/preferences.js"></script>
   <link rel="stylesheet" href="/style.css">
   <script src="/i18n.js" defer></script>
-  <script src="/navigation.js" defer></script>
   <script src="/app.js" defer></script>
+  <script src="/navigation.js" defer></script>
   <script src="/demo.js" defer></script>
   <script src="/failover.js" defer></script>
   <script src="/benchmark.js" defer></script>
@@ -21,6 +21,7 @@
   <a class="site-brand" href="#/" aria-label="LB Lab · Tổng quan đề tài"><span aria-hidden="true">LB</span><strong>LB Lab</strong></a>
   <nav class="site-nav" aria-label="Điều hướng chính">
     <a href="#/" aria-current="page">Tổng quan đề tài</a>
+    <a href="#/theory">Lý thuyết</a>
     <a href="#/demo">Demo hệ thống</a>
     <a href="#/benchmark">Benchmark</a>
     <a href="#/team">Nhóm thực hiện</a>
@@ -35,11 +36,11 @@
 <div id="page-overview" class="site-page" data-route="#/">
   <section class="hero">
     <div class="hero-copy">
-      <p class="institution">TRƯỜNG ĐẠI HỌC ĐÀ LẠT <span>KHOA CÔNG NGHỆ THÔNG TIN</span></p>
+      <div class="university-brand"><a class="university-logo" href="https://dlu.edu.vn/logo-truong-dai-hoc-da-lat/"><img src="/dlu-logo.png" width="2106" height="2106" alt="Trường Đại học Đà Lạt"></a><p class="institution">TRƯỜNG ĐẠI HỌC ĐÀ LẠT <span>KHOA CÔNG NGHỆ THÔNG TIN</span></p></div>
       <p class="site-label">ĐỒ ÁN CHUYÊN NGÀNH</p>
       <h1 tabindex="-1">Triển khai và đánh giá các hệ thống <em>Load Balancer</em></h1>
       <p class="hero-subtitle">Nginx, HAProxy và Envoy</p>
-      <ul class="tech-list" aria-label="Công nghệ"><li>Nginx</li><li>HAProxy</li><li>Envoy</li><li>Docker</li><li>Node.js</li><li>k6</li></ul>
+      <ul class="tech-list" aria-label="Công nghệ"><li><a href="#/theory?topic=nginx">Nginx</a></li><li><a href="#/theory?topic=haproxy">HAProxy</a></li><li><a href="#/theory?topic=envoy">Envoy</a></li><li><a href="#/theory?topic=docker">Docker</a></li><li><a href="#/theory?topic=nodejs">Node.js</a></li><li><a href="#/theory?topic=k6">k6</a></li></ul>
       <div class="site-actions"><a class="site-button accent" href="#/demo">Demo thuật toán <span aria-hidden="true">→</span></a><a class="site-button" href="#/benchmark">Benchmark</a></div>
     </div>
     <div class="hero-graphic" aria-hidden="true">
@@ -57,233 +58,48 @@
     </div>
   </section>
 
-  <section class="study-section lb-theory" aria-labelledby="lb-theory-title">
-    <h2 id="lb-theory-title">Load Balancer là gì?</h2>
-    <p>Load Balancer tiếp nhận yêu cầu đến một địa chỉ chung và chọn máy chủ backend theo chính sách phân phối. Backend xử lý yêu cầu rồi gửi phản hồi qua Load Balancer về client.</p>
-    <figure class="theory-flow-box">
-      <figcaption>Sơ đồ nguyên lý chung · Ví dụ với ba backend</figcaption>
-      <div class="theory-flow">
-        <div><svg class="theory-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/></svg><strong>Máy khách</strong><small>Gửi yêu cầu</small></div>
-        <span aria-hidden="true">⇄</span>
-        <div><svg class="theory-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3 12h9m0 0 5-6h4m-9 6 5 6h4M18 3l3 3-3 3m0 6 3 3-3 3"/></svg><strong>Load Balancer</strong><small>Chọn đích xử lý</small></div>
-        <span aria-hidden="true">⇄</span>
-        <div class="theory-destinations"><div><svg class="theory-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="4" y="4" width="16" height="7" rx="2"/><rect x="4" y="14" width="16" height="7" rx="2"/><path d="M8 7.5h2m-2 10h2"/></svg><strong>Backend 1</strong></div><div><svg class="theory-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="4" y="4" width="16" height="7" rx="2"/><rect x="4" y="14" width="16" height="7" rx="2"/><path d="M8 7.5h2m-2 10h2"/></svg><strong>Backend 2</strong></div><div><svg class="theory-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="4" y="4" width="16" height="7" rx="2"/><rect x="4" y="14" width="16" height="7" rx="2"/><path d="M8 7.5h2m-2 10h2"/></svg><strong>Backend 3</strong></div></div>
-      </div>
-    </figure>
-    <div class="study-grid two">
-      <article><h3>Reverse Proxy</h3><p>Đại diện hệ thống nhận yêu cầu từ client và chuyển tiếp đến backend. Tại Layer 7, proxy có thể chọn tuyến dựa trên thông tin HTTP.</p></article>
-      <article><h3>Mở rộng theo chiều ngang</h3><p>Bổ sung backend vào nhóm giúp tăng năng lực xử lý khi lưu lượng tăng. Các dịch vụ dùng trạng thái phiên cần chia sẻ hoặc bố trí trạng thái phù hợp.</p></article>
-      <article><h3>Tính sẵn sàng và chịu lỗi</h3><p>Khi có backend gặp sự cố, các backend đủ điều kiện có thể tiếp tục phục vụ. Các yêu cầu đang xử lý hoặc gửi trong thời gian phát hiện vẫn có thể thất bại.</p></article>
-      <article><h3>Ưu điểm và hạn chế</h3><p>Cân bằng tải giúp tận dụng nhiều máy chủ và bảo trì từng backend. Lớp proxy dùng thêm tài nguyên và có thể trở thành điểm lỗi đơn nếu thiếu dự phòng.</p></article>
+<section class="study-section"><div class="study-grid two"><article><h2>Đăng ký học phần giờ cao điểm</h2><p>Khi nhiều sinh viên đồng thời xem và chọn lớp, yêu cầu có thể dồn vào một máy chủ. Lab dùng hai backend Node.js mô phỏng để nghiên cứu cách phân phối tải, độ trễ và phục hồi khi một backend dừng.</p></article><article><h2>Mục tiêu và phạm vi</h2><p>So sánh Nginx, HAProxy và Envoy trong cùng môi trường Docker Compose, với hai backend chung. Các phép đo phản ánh điều kiện của lab.</p></article></div>
+</section>
+
+<section class="study-section deployment-model" aria-labelledby="deployment-title">
+  <h2 id="deployment-title">Mô hình hệ thống hiện tại của nhóm</h2>
+  <p>Client hoặc k6 chọn một proxy cho mỗi lượt kiểm thử. Ba proxy chạy độc lập và mỗi proxy có thể chuyển yêu cầu đến cả hai backend Node.js.</p>
+  <figure class="deployment-map" aria-labelledby="deployment-title deployment-caption">
+    <div class="deployment-client deployment-node"><strong>Client / k6</strong></div>
+    <svg class="deployment-wires" viewBox="0 0 600 52" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M300 0 C300 24 100 20 100 52 M300 0 V52 M300 0 C300 24 500 20 500 52"/>
+    </svg>
+    <div class="deployment-proxies">
+      <div class="deployment-node"><strong>Nginx</strong><code>HTTP 8080</code></div>
+      <div class="deployment-node"><strong>HAProxy</strong><code>HTTP 8081</code></div>
+      <div class="deployment-node"><strong>Envoy</strong><code>HTTP 8082</code></div>
     </div>
-  </section>
-
-  <section class="study-section lb-theory">
-    <h2>Lý do chọn đề tài</h2>
-    <ol class="theory-stages">
-      <li><h3>Vấn đề thực tế</h3><p>Ví dụ minh họa: lúc mở đăng ký học phần, nhiều sinh viên truy cập đồng thời có thể khiến một máy chủ trở thành điểm nghẽn.</p></li>
-      <li><h3>Giải pháp cân bằng tải</h3><p>Đưa nhiều backend vào cùng nhóm để phân phối lưu lượng và có thể bổ sung năng lực xử lý.</p></li>
-      <li><h3>Lựa chọn ba công nghệ</h3><p>Nginx, HAProxy và Envoy đều có thể làm reverse proxy cho HTTP trong lab, với cấu hình và cơ chế vận hành khác nhau.</p></li>
-      <li><h3>Mục tiêu đánh giá</h3><p>Đối chiếu hiệu năng và mức dùng tài nguyên trong từng kịch bản với cùng hai backend.</p></li>
-    </ol>
-    <p class="site-note">Ví dụ đăng ký học phần là tình huống giả định phục vụ thuyết minh.</p>
-  </section>
-
-  <section class="study-section lb-theory">
-    <h2>Load Balancing tại Layer 4 và Layer 7</h2>
-    <div class="study-grid two">
-      <article><h3>Layer 4 · Transport</h3><div class="layer-flow"><span>Client</span><b aria-hidden="true">→</b><span>IP · Port · TCP/UDP</span><b aria-hidden="true">→</b><span>Backend</span></div>
-        <p>Định tuyến ở mức kết nối hoặc luồng dựa trên thông tin tầng vận chuyển. Việc chọn backend không cần đọc nội dung HTTP.</p></article>
-      <article><h3>Layer 7 · Application</h3><div class="layer-flow"><span>Client</span><b aria-hidden="true">→</b><span>HTTP Host · Path · Header</span><b aria-hidden="true">→</b><span>Backend</span></div>
-        <p>Có thể dùng thông tin ứng dụng để định tuyến theo host, đường dẫn hoặc header. Chi phí phân tích và xử lý tùy công nghệ và cấu hình.</p></article>
+    <svg class="deployment-wires deployment-upstreams" viewBox="0 0 600 85" preserveAspectRatio="none" aria-hidden="true">
+      <path data-from="nginx" data-to="backend-1" d="M91 0 C91 42 115 42 115 85"/>
+      <path data-from="nginx" data-to="backend-2" d="M109 0 C109 35 415 49 415 85"/>
+      <path data-from="haproxy" data-to="backend-1" d="M291 0 C291 42 150 42 150 85"/>
+      <path data-from="haproxy" data-to="backend-2" d="M309 0 C309 42 450 42 450 85"/>
+      <path data-from="envoy" data-to="backend-1" d="M491 0 C491 35 185 49 185 85"/>
+      <path data-from="envoy" data-to="backend-2" d="M509 0 C509 42 485 42 485 85"/>
+    </svg>
+    <div class="deployment-backends">
+      <div class="deployment-node"><strong>Backend 1</strong><code>Node.js · 3001</code></div>
+      <div class="deployment-node"><strong>Backend 2</strong><code>Node.js · 3002</code></div>
     </div>
-    <div class="table-scroll layer-table"><table><thead><tr><th>Tiêu chí</th><th>Layer 4</th><th>Layer 7</th></tr></thead><tbody>
-      <tr><th>Đơn vị xử lý</th><td>Kết nối hoặc luồng</td><td>Yêu cầu ứng dụng</td></tr>
-      <tr><th>Dữ liệu quyết định</th><td>IP, port, TCP/UDP</td><td>HTTP host, path, header</td></tr>
-      <tr><th>Ví dụ</th><td>Chuyển tiếp kết nối TCP</td><td>Định tuyến HTTP theo /api</td></tr>
-    </tbody></table></div>
-    <p>Mô hình HTTP của nhóm thuộc Layer 7 vì các bộ cân bằng tải nhận yêu cầu HTTP và chuyển tiếp /api đến backend. Phạm vi benchmark của đồ án là các kịch bản ứng dụng đã mô tả ở phần Benchmark.</p>
-  </section>
+    <figcaption id="deployment-caption">Ba cổng HTTP công bố trên máy chạy lab. Sáu đường phía dưới là các kết nối có thể dùng từ proxy tới backend.</figcaption>
+  </figure>
+</section>
 
-  <section class="study-section">
-    <h2>Mô hình hệ thống triển khai</h2>
-    <p>Client gửi yêu cầu qua một trong ba Load Balancer hoạt động song song và độc lập. Mỗi Load Balancer phân phối được đến cả hai backend.</p>
-    <figure class="architecture">
-      <svg viewBox="0 0 680 335" role="img" aria-labelledby="architecture-title architecture-desc">
-        <title id="architecture-title">Kiến trúc hệ thống Docker Compose</title>
-        <desc id="architecture-desc">Browser hoặc k6 chọn Nginx cổng 8080, HAProxy cổng 8081 hoặc Envoy cổng 8082. Mỗi Load Balancer kết nối đến cả Backend 1 cổng 3001 và Backend 2 cổng 3002.</desc>
-        <defs><marker id="arrow-end" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0 0l6 3-6 3z" fill="#79bce8"/></marker></defs>
-        <rect x="14" y="91" width="652" height="234" rx="16" class="docker-zone"/>
-        <text x="35" y="116" class="diagram-note">Mạng Docker Compose</text>
-        <g class="diagram-links" marker-end="url(#arrow-end)">
-          <path d="M331 62v15H126v60"/><path d="M340 62v75"/><path d="M349 62v15h205v60"/>
-          <path d="M116 196l58 62"/><path d="M136 196l320 62"/>
-          <path d="M329 196l-113 62"/><path d="M351 196l113 62"/>
-          <path d="M544 196l-320 62"/><path d="M564 196l-58 62"/>
-        </g>
-        <rect x="222" y="10" width="236" height="52" rx="10" class="diagram-node"/>
-        <text x="340" y="43" text-anchor="middle">Client / Browser / k6</text>
-        <g text-anchor="middle">
-          <rect x="30" y="138" width="192" height="58" rx="10" class="diagram-core"/>
-          <rect x="244" y="138" width="192" height="58" rx="10" class="diagram-core"/>
-          <rect x="458" y="138" width="192" height="58" rx="10" class="diagram-core"/>
-          <text x="126" y="161">Nginx<tspan x="126" dy="22">localhost:8080</tspan></text>
-          <text x="340" y="161">HAProxy<tspan x="340" dy="22">localhost:8081</tspan></text>
-          <text x="554" y="161">Envoy<tspan x="554" dy="22">localhost:8082</tspan></text>
-          <rect x="98" y="259" width="196" height="53" rx="10" class="diagram-node"/>
-          <rect x="386" y="259" width="196" height="53" rx="10" class="diagram-node"/>
-          <text x="196" y="280">Backend 1<tspan x="196" dy="21">Node.js · 3001</tspan></text>
-          <text x="484" y="280">Backend 2<tspan x="484" dy="21">Node.js · 3002</tspan></text>
-        </g>
-      </svg>
-      <figcaption>Sơ đồ luồng yêu cầu. <a href="#/benchmark">Kiểm tra trạng thái dịch vụ</a>.</figcaption>
-    </figure>
-    <div class="study-grid three">
-      <article><h3>Dashboard</h3><p>Điều khiển thực nghiệm, quản lý lượt chạy và trình bày kết quả.</p></article>
-      <article><h3>k6</h3><p>Tạo tải có kiểm soát tới Load Balancer được chọn.</p></article>
-      <article><h3>Docker Stats</h3><p>Thu thập số liệu CPU và RAM của container Load Balancer trong lúc đo.</p></article>
-    </div>
-  </section>
+<section class="study-section">
+<h2>Thuật toán cân bằng tải</h2>
+<div class="algorithm-links">
+<a href="#/theory?topic=round-robin"><strong>Round Robin</strong><span>Luân phiên backend</span></a>
+<a href="#/theory?topic=weighted-round-robin"><strong>Weighted Round Robin</strong><span>Trọng số 3:1</span></a>
+<a href="#/theory?topic=least"><strong>Least Connections / Request</strong><span>Ưu tiên tải đang xử lý thấp hơn</span></a>
+<a href="#/theory?topic=ip-hash"><strong>IP Hash</strong><span>Ánh xạ theo IP nguồn</span></a>
+</div><h2>Kết quả đã xác minh</h2><p>RUN chính thức ghi nhận 15/15 lượt PASS trên năm workload với Round Robin. Demo minh họa bốn chính sách bằng yêu cầu HTTP thực tế.</p>
+<div class="site-actions"><a class="site-button accent" href="#/benchmark">Benchmark</a><a class="site-button" href="#/demo">Demo hệ thống</a><a class="site-button" href="#/theory">Lý thuyết</a></div></section>
 
-  <section class="study-section">
-    <h2>Các thuật toán cân bằng tải</h2>
-    <div class="study-grid two">
-      <article><h3>Round Robin</h3><p class="capability available">Đã cấu hình · Có demo REST</p><p>Phân phối yêu cầu luân phiên qua các backend. Phù hợp khi các backend có năng lực tương đương.</p><div class="study-example">Yêu cầu 1 → B1 · Yêu cầu 2 → B2 · Yêu cầu 3 → B1</div><p><strong>Ưu điểm</strong> Dễ dự đoán cách chia lượt.<br><strong>Hạn chế</strong> Chưa xét mức tải tức thời.</p></article>
-      <article><h3>Weighted Round Robin</h3><p class="capability">Đã triển khai</p><p>Phân phối theo trọng số. Backend có năng lực cao hơn có thể nhận tỷ lệ yêu cầu lớn hơn.</p><div class="study-example">Backend 1: 75% · Backend 2: 25%</div><p><strong>Ưu điểm</strong> Phù hợp với backend khác năng lực.<br><strong>Hạn chế</strong> Cần điều chỉnh trọng số khi năng lực thay đổi.</p></article>
-      <article><h3>Least Connections / Least Request</h3><p class="capability">Đã triển khai</p><p>Ưu tiên backend có ít kết nối đang hoạt động hơn. Quyết định phụ thuộc vào trạng thái kết nối và tải đồng thời.</p><div class="study-example">B1 có 4 kết nối · B2 có 1 kết nối → chọn B2</div><p><strong>Ưu điểm</strong> Thích ứng với số kết nối hiện tại.<br><strong>Hạn chế</strong> Các kết nối có thể tiêu tốn tài nguyên khác nhau.</p></article>
-      <article><h3>IP Hash / Source-IP Affinity</h3><p class="capability">Đã triển khai</p><p>Dùng thông tin IP nguồn để ánh xạ client đến backend theo cơ chế băm. Cách này có thể giữ định tuyến nhất quán khi tập backend ổn định.</p><div class="study-example">Cùng IP nguồn → cùng backend theo ánh xạ hiện tại</div><p><strong>Ưu điểm</strong> Có thể giữ tính nhất quán định tuyến.<br><strong>Hạn chế</strong> Nhiều client dùng chung IP có thể làm lệch tải.</p></article>
-    </div>
-    <p class="site-note">Envoy cung cấp LEAST_REQUEST và RING_HASH với cơ chế riêng. LEAST_REQUEST dựa trên yêu cầu đang xử lý, còn RING_HASH dùng khóa băm do chính sách định tuyến xác định.</p>
-    <a class="site-button accent" href="#/demo">Xem demo các thuật toán <span aria-hidden="true">→</span></a>
-  </section>
-
-  <section class="study-section lb-theory">
-    <h2>Health Check &amp; Failover</h2>
-    <p>Health Check xác định backend nào đủ điều kiện nhận lưu lượng. Failover là quá trình chuyển lưu lượng sang backend còn khả dụng khi phát hiện sự cố.</p>
-    <div class="study-grid three">
-      <article><h3>Kiểm tra chủ động</h3><p>Load Balancer thăm dò backend định kỳ. Interval là khoảng cách giữa các lần kiểm tra. Ngưỡng Healthy/Unhealthy quy định số kết quả thành công hoặc thất bại cần thiết để đổi trạng thái khi áp dụng.</p></article>
-      <article><h3>Kiểm tra thụ động</h3><p>Load Balancer suy ra lỗi từ lưu lượng thật, chẳng hạn lỗi kết nối. Các quy tắc thử lại, tạm loại và đưa backend trở lại phụ thuộc cấu hình.</p></article>
-      <article><h3>Phục hồi</h3><p>Sau khi backend khởi động lại, phải có bằng chứng nó đã sẵn sàng. Load Balancer có thể đưa backend vào nhóm trở lại theo cơ chế kiểm tra hoặc thử lại của nó.</p></article>
-    </div>
-    <h3>Ba giai đoạn minh họa</h3>
-    <ol class="theory-stages health-stages">
-      <li><div class="health-stage-diagram" aria-hidden="true"><svg class="theory-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3 12h9m0 0 5-6h4m-9 6 5 6h4M18 3l3 3-3 3m0 6 3 3-3 3"/></svg><b>→</b><span class="">B1</span><span>B2</span></div><h3>Bình thường</h3><p>Backend 1 và Backend 2 đều có thể nhận yêu cầu.</p></li>
-      <li><div class="health-stage-diagram" aria-hidden="true"><svg class="theory-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3 12h9m0 0 5-6h4m-9 6 5 6h4M18 3l3 3-3 3m0 6 3 3-3 3"/></svg><b>→</b><span class="stage-failed">B1</span><span>B2</span></div><h3>Sự cố</h3><p>Backend 1 dừng. Một số yêu cầu có thể thất bại trước khi bộ cân bằng tải nhận ra sự cố.</p></li>
-      <li><div class="health-stage-diagram" aria-hidden="true"><svg class="theory-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3 12h9m0 0 5-6h4m-9 6 5 6h4M18 3l3 3-3 3m0 6 3 3-3 3"/></svg><b>→</b><span class="stage-failed">B1</span><span>B2</span></div><h3>Failover và phục hồi</h3><p>Backend 2 tiếp tục phục vụ. Backend 1 có thể nhận lưu lượng trở lại sau khi phục hồi.</p></li>
-    </ol>
-    <p class="site-note">Sơ đồ ba giai đoạn minh họa luồng xử lý. Trạng thái Docker và kết quả HTTP thực tế có ở trang Demo.</p>
-    <div class="study-grid three">
-      <article><h3>Nginx</h3><p>Upstream HTTP dùng kiểm tra thụ động qua lưu lượng thật với max_fails=3 và fail_timeout=5s.</p></article>
-      <article><h3>HAProxy</h3><p>Nhóm backend HTTP có kiểm tra kết nối chủ động, inter 2s, fall 3 và rise 2.</p></article>
-      <article><h3>Envoy</h3><p>Cluster HTTP dùng TCP health check chủ động với interval 2s, timeout 2s, unhealthy_threshold 3 và healthy_threshold 2.</p></article>
-    </div>
-    <p><a class="site-button accent" href="#/demo?tab=health">Trải nghiệm Health Check &amp; Failover <span aria-hidden="true">→</span></a></p>
-  </section>
-
-  <section class="study-section bench-study" aria-labelledby="bench-study-title">
-    <h2 id="bench-study-title">Công cụ và môi trường đánh giá hiệu năng</h2>
-    <p>Grafana k6 tạo tải và đo hiệu năng. LB Lab Dashboard điều khiển các lượt chạy, lưu dữ liệu và trực quan hóa kết quả.</p>
-    <ul class="bench-tools">
-      <li><svg class="bench-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M2 12h5l3-7 4 14 3-7h5"/></svg><h3>Grafana k6</h3><strong>Tạo tải và đo hiệu năng</strong><p>Gửi yêu cầu theo script quy định số người dùng ảo (VUs), thời lượng và đặc điểm request. k6 thu thập chỉ số và xuất tệp tổng hợp để so sánh.</p></li>
-      <li><svg class="bench-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="m12 3 9 5v8l-9 5-9-5V8zM3 8l9 5 9-5m-9 5v8"/></svg><h3>Docker / Docker Compose</h3><strong>Môi trường triển khai</strong><p>Chạy ba Load Balancer và hai backend trong cùng môi trường. Docker Compose quản lý việc khởi động, dừng và kiểm tra trạng thái dịch vụ.</p></li>
-      <li><svg class="bench-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><rect x="3" y="4" width="18" height="6" rx="2"/><rect x="3" y="14" width="18" height="6" rx="2"/><path d="M7 7h.01M7 17h.01"/></svg><h3>Node.js / Express.js</h3><strong>Dịch vụ backend</strong><p>Hai backend phục vụ API Express.js. Phản hồi HTTP kèm thông tin nhận diện backend để kiểm tra đường đi của yêu cầu.</p></li>
-      <li><svg class="bench-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M4 18a9 9 0 1 1 16 0H4zm8-1 4-5"/></svg><h3>Docker Stats</h3><strong>Giám sát tài nguyên</strong><p>Lấy mẫu CPU và RAM của container Load Balancer đang đo. Đây là số liệu tài nguyên thu thập riêng với chỉ số giao thức từ k6.</p></li>
-      <li><svg class="bench-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M3 3v18h18M7 16v-4m5 4V8m5 8V5"/></svg><h3>LB Lab Dashboard</h3><strong>Điều khiển và trình bày kết quả</strong><p>Điều khiển các lượt k6 được hỗ trợ, lưu và quản lý kết quả, so sánh bằng bảng và biểu đồ, theo dõi CPU/RAM và xuất CSV.</p></li>
-    </ul>
-  </section>
-
-  <section class="study-section bench-study" aria-labelledby="bench-model-title">
-    <h2 id="bench-model-title">Mô hình thực nghiệm đánh giá hiệu năng</h2>
-    <p>Mỗi bài k6 gửi lưu lượng tới một Load Balancer. Ba lựa chọn hoạt động song song và đều có thể chuyển yêu cầu đến cả hai backend.</p>
-    <figure class="bench-model">
-      <figcaption class="bench-legend">
-        <span class="request-key">Luồng yêu cầu và phản hồi</span>
-        <span class="measure-key">Luồng số liệu đo</span>
-      </figcaption>
-      <svg class="bench-marker-defs" width="0" height="0" aria-hidden="true"><defs>
-        <marker id="bench-request-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0l5 3-5 3z"/></marker>
-        <marker id="bench-measure-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0l5 3-5 3z"/></marker>
-      </defs></svg>
-      <div class="bench-diagram" role="group" aria-label="k6 gửi yêu cầu đến một trong ba Load Balancer. Mỗi Load Balancer kết nối đến cả hai backend. Số liệu từ k6 và Docker Stats được lưu để Dashboard trình bày.">
-        <div class="bench-request-path">
-        <div class="bench-node bench-source"><svg class="bench-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M2 12h5l3-7 4 14 3-7h5"/></svg><div><strong>Grafana k6</strong><small>Công cụ tạo tải</small></div></div>
-        <p class="bench-diagram-label">Chọn một Load Balancer cho mỗi bài</p>
-        <svg class="bench-connectors request" viewBox="0 0 600 40" preserveAspectRatio="none" aria-hidden="true"><path d="M300 2V13H100V38" marker-end="url(#bench-request-arrow)"/><path d="M300 2V38" marker-end="url(#bench-request-arrow)"/><path d="M300 2V13H500V38" marker-end="url(#bench-request-arrow)"/></svg>
-        <div class="bench-diagram-row three">
-          <div class="bench-node"><strong>Nginx</strong><code>localhost:<wbr>8080</code></div>
-          <div class="bench-node"><strong>HAProxy</strong><code>localhost:<wbr>8081</code></div>
-          <div class="bench-node"><strong>Envoy</strong><code>localhost:<wbr>8082</code></div>
-        </div>
-        <svg class="bench-connectors request" viewBox="0 0 600 40" preserveAspectRatio="none" aria-hidden="true"><path d="M93 0L136 37" marker-end="url(#bench-request-arrow)"/><path d="M108 0L428 37" marker-end="url(#bench-request-arrow)"/><path d="M291 0L151 37" marker-end="url(#bench-request-arrow)"/><path d="M309 0L449 37" marker-end="url(#bench-request-arrow)"/><path d="M492 0L172 37" marker-end="url(#bench-request-arrow)"/><path d="M507 0L464 37" marker-end="url(#bench-request-arrow)"/></svg>
-        <div class="bench-diagram-row two">
-          <div class="bench-node"><strong>Backend 1</strong><code>Node.js · 3001</code></div>
-          <div class="bench-node"><strong>Backend 2</strong><code>Node.js · 3002</code></div>
-        </div>
-        <p class="bench-diagram-label">Các cổng trong sơ đồ là cổng HTTP API. Phản hồi đi ngược theo đường yêu cầu.</p>
-        </div>
-        <div class="bench-measurements">
-          <h3>Giám sát và kết quả</h3>
-          <div class="bench-diagram-row two">
-            <div class="bench-node"><strong>k6 Metrics</strong><small>Chỉ số giao thức từ tải k6</small></div>
-            <div class="bench-node"><strong>Docker Stats</strong><small>CPU/RAM của container đang đo</small></div>
-          </div>
-          <svg class="bench-connectors measure" viewBox="0 0 600 40" preserveAspectRatio="none" aria-hidden="true"><path d="M150 0V13H292V38" marker-end="url(#bench-measure-arrow)"/><path d="M450 0V13H308V38" marker-end="url(#bench-measure-arrow)"/></svg>
-          <div class="bench-node bench-result"><strong>Thu thập và lưu kết quả</strong></div>
-          <svg class="bench-connectors measure" viewBox="0 0 600 40" preserveAspectRatio="none" aria-hidden="true"><path d="M300 0V38" marker-end="url(#bench-measure-arrow)"/></svg>
-          <div class="bench-node bench-result"><strong>LB Lab Dashboard</strong><small>Bảng và biểu đồ so sánh</small></div>
-        </div>
-      </div>
-    </figure>
-  </section>
-
-  <section class="study-section bench-study" aria-labelledby="bench-scenarios-title">
-    <h2 id="bench-scenarios-title">Các kịch bản đánh giá hiệu năng</h2>
-    <p>Cấu hình hiện tại dùng 10 VUs trong 30 giây cho mỗi bài. Thứ tự các cổng trong từng dải tương ứng với Nginx, HAProxy, Envoy.</p>
-    <ol class="bench-scenarios">
-      <li><div class="bench-scenario-head"><svg class="bench-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M9 4H7a2 2 0 0 0-2 2v3l-2 3 2 3v3a2 2 0 0 0 2 2h2m6-16h2a2 2 0 0 1 2 2v3l2 3-2 3v3a2 2 0 0 1-2 2h-2"/></svg><div><h3>REST API</h3><code>GET /api · HTTP :8080–8082</code></div></div><p>Đo khả năng xử lý API qua từng Load Balancer. k6 gửi GET tới endpoint và kiểm tra mã HTTP 200.</p><p class="bench-tags">RPS · Độ trễ TB · P95 · Tỷ lệ lỗi</p></li>
-      <li><div class="bench-scenario-head"><svg class="bench-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M20 7H7a3 3 0 0 0-3 3m13-6 3 3-3 3M4 17h13a3 3 0 0 0 3-3M7 14l-3 3 3 3"/></svg><div><h3>HTTP Keep-Alive ON</h3><code>GET /api · HTTP :8080–8082 · KEEP_ALIVE=on</code></div></div><p>Đo hiệu năng khi cho phép tái sử dụng kết nối HTTP. k6 kiểm tra HTTP 200 và nghỉ 50 ms sau mỗi lần lặp.</p><p class="bench-tags">RPS · Độ trễ TB · P95 · Tỷ lệ lỗi</p></li>
-      <li><div class="bench-scenario-head"><svg class="bench-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M4 8h7m3 0h6m-5-4-6 16M4 16h3m7 0h6"/></svg><div><h3>HTTP Keep-Alive OFF</h3><code>GET /api · HTTP :8080–8082 · KEEP_ALIVE=off</code></div></div><p>Đo hiệu năng khi tắt tái sử dụng kết nối HTTP. Giữ endpoint, kiểm tra HTTP 200 và khoảng nghỉ 50 ms như bài ON để đối chiếu tác động của cấu hình.</p><p class="bench-tags">RPS · Độ trễ TB · P95 · Tỷ lệ lỗi</p></li>
-      <li><div class="bench-scenario-head"><svg class="bench-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M3 6h17m-3-3 3 3-3 3M3 12h17M3 18h17m-3-3 3 3-3 3"/></svg><div><h3>HTTP/2</h3><code>GET /api · HTTPS :8440–8442</code></div></div><p>Đo lưu lượng HTTPS. k6 kiểm tra phản hồi thực sự dùng HTTP/2.0, mã HTTP 200 và nội dung JSON nhận diện backend.</p><p class="bench-tags">RPS · Độ trễ TB · P95 · Tỷ lệ lỗi</p></li>
-      <li><div class="bench-scenario-head"><svg class="bench-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M3 8h17m-4-4 4 4-4 4M21 16H4m4-4-4 4 4 4"/></svg><div><h3>gRPC Unary</h3><code>TLS :9440–9442</code></div></div><p>Mỗi lời gọi có một yêu cầu và một phản hồi. k6 gọi phương thức bên dưới, đặt timeout 5 giây cho kết nối và lời gọi, rồi kiểm tra trạng thái OK, nội dung và backend.</p><p><code class="bench-rpc">benchmark.GreeterService/SayHello</code></p><p class="bench-tags">Lời gọi/giây · Độ trễ TB · P95 · Tỷ lệ lỗi</p></li>
-    </ol>
-    <p class="bench-method-note">HTTP/2 và gRPC dùng TLS ở listener phía Load Balancer. Script k6 bỏ qua xác minh chứng chỉ trong môi trường lab; gRPC được chuyển đến cổng 50051 trên mỗi backend.</p>
-  </section>
-
-  <section class="study-section bench-study" aria-labelledby="bench-workflow-title">
-    <h2 id="bench-workflow-title">Quy trình thực hiện Benchmark</h2>
-    <ol class="bench-steps">
-      <li><span aria-hidden="true">1</span><div><h3>Chuẩn bị môi trường</h3><p>Khởi động Docker Compose và kiểm tra các dịch vụ.</p></div></li>
-      <li><span aria-hidden="true">2</span><div><h3>Chọn kịch bản</h3><p>Chọn một trong năm bài kiểm thử.</p></div></li>
-      <li><span aria-hidden="true">3</span><div><h3>Chọn Load Balancer</h3><p>Chọn Nginx, HAProxy hoặc Envoy.</p></div></li>
-      <li><span aria-hidden="true">4</span><div><h3>Tạo tải bằng k6</h3><p>Chạy script với cấu hình đã xác định.</p></div></li>
-      <li><span aria-hidden="true">5</span><div><h3>Thu thập dữ liệu</h3><p>Lấy chỉ số k6 và CPU/RAM từ Docker Stats.</p></div></li>
-      <li><span aria-hidden="true">6</span><div><h3>Lưu và so sánh</h3><p>Dashboard trình bày bảng và biểu đồ theo lượt chạy.</p></div></li>
-    </ol>
-  </section>
-
-  <section class="study-section bench-study" aria-labelledby="bench-metrics-title">
-    <h2 id="bench-metrics-title">Các chỉ số đánh giá</h2>
-    <div class="bench-metric-groups">
-      <div><h3><svg class="bench-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M3 3v18h18M7 16v-4m5 4V8m5 8V5"/></svg> k6 Metrics</h3><dl><div><dt>Throughput / RPS</dt><dd>Số yêu cầu HTTP hoặc lời gọi gRPC mỗi giây, theo bộ đếm của bài test.</dd></div><div><dt>Average Latency</dt><dd>Thời gian phản hồi trung bình do k6 đo.</dd></div><div><dt>P95 Latency</dt><dd>Giá trị độ trễ mà khoảng 95% mẫu đo không vượt quá.</dd></div><div><dt>Error Rate</dt><dd>Tỷ lệ thất bại theo tiêu chí của kịch bản.</dd></div></dl></div>
-      <div><h3><svg class="bench-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M4 18a9 9 0 1 1 16 0H4zm8-1 4-5"/></svg> Docker Stats</h3><dl><div><dt>CPU Usage</dt><dd>Mức sử dụng CPU của container Load Balancer đang đo.</dd></div><div><dt>RAM Usage</dt><dd>Bộ nhớ container Load Balancer sử dụng, đo bằng MiB.</dd></div></dl></div>
-    </div>
-    <p class="bench-method-note">Dashboard lấy độ trễ từ http_req_duration hoặc grpc_req_duration. Tỷ lệ lỗi lấy từ http_req_failed đối với REST và Keep-Alive, còn HTTP/2 và gRPC dùng workload_errors để tính theo các kiểm tra trong script.</p>
-  </section>
-
-  <section class="study-section bench-study" aria-labelledby="bench-principles-title">
-    <h2 id="bench-principles-title">Nguyên tắc đánh giá và so sánh</h2>
-    <p>Bộ benchmark chính thức so sánh Nginx, HAProxy và Envoy trên cùng chính sách Round Robin.</p>
-    <ul class="bench-principles"><li>Dùng cùng môi trường thử nghiệm và hai backend chung.</li><li>So sánh trong cùng kịch bản với cấu hình tải tương đương và điều kiện đo nhất quán nhất có thể.</li><li>Đối chiếu các chỉ số hiệu năng cùng với mức tiêu thụ CPU/RAM.</li></ul>
-    <p>Kết quả phản ánh điều kiện của phòng thử nghiệm. Phần cứng, Docker, cấu hình và đặc điểm workload có thể làm thay đổi kết quả ở môi trường triển khai khác.</p>
-  </section>
-
-  <section class="study-section bench-study bench-cta" aria-labelledby="bench-cta-title">
-    <div>
-      <h2 id="bench-cta-title">Khám phá kết quả Benchmark thực tế</h2>
-      <p>Xem kết quả của Nginx, HAProxy và Envoy qua 5 kịch bản, gồm chỉ số hiệu năng, biểu đồ so sánh và tài nguyên CPU/RAM.</p>
-    </div>
-    <a class="site-button accent" href="#/benchmark">XEM KẾT QUẢ BENCHMARK <span aria-hidden="true">→</span></a>
-  </section>
 </div>
 
 <div id="page-demo" class="site-page" data-route="#/demo" hidden><div class="page-heading"><h1 tabindex="-1">Demo hệ thống</h1><p>Quan sát phân phối yêu cầu và phục hồi khi backend gặp sự cố.</p></div>
@@ -292,7 +108,7 @@
   <a id="health-tab" href="#/demo?tab=health">Health Check &amp; Failover</a>
 </nav>
 <section id="algorithm-panel" aria-labelledby="algorithm-tab"><div class="section-head"><div><h2><small>02</small> Demo các thuật toán cân bằng tải <span class="live">TRỰC TIẾP</span></h2><p class="muted">Từng yêu cầu HTTP thật · phân phối có thể không đều hoặc xen kẽ tuyệt đối.</p></div><button id="test-all">Kiểm thử cả 3 LB</button></div>
-<div class="demo-console"><h3>Điều khiển demo</h3><div class="filters demo-controls"><label>Chọn Load Balancer<select id="demo-balancer"><option value="nginx">Nginx · 8080</option><option value="haproxy">HAProxy · 8081</option><option value="envoy">Envoy · 8082</option></select></label><label title="Lựa chọn này không thay đổi cấu hình Load Balancer thật">Chọn thuật toán<select id="demo-algorithm"><option value="round-robin" title="Luân phiên chọn backend theo cấu hình hiện tại">Round Robin · Đã triển khai</option><option value="weighted-round-robin" title="Phân phối theo trọng số đã cấu hình">Weighted Round Robin · Đã triển khai</option><option value="least-connections">Least Connections / Least Request</option><option value="ip-hash">IP Hash / Source-IP Affinity</option></select></label><label>Tốc độ trình diễn<select id="demo-speed"><option value="fast">Nhanh · nghỉ 0,15 giây</option><option value="normal" selected>Bình thường · nghỉ 1 giây</option><option value="slow">Chậm · nghỉ 1,8 giây</option></select></label></div>
+<div class="demo-console"><h3>Điều khiển demo</h3><div class="filters demo-controls"><label>Chọn Load Balancer<select id="demo-balancer"><option value="nginx">Nginx · 8080</option><option value="haproxy">HAProxy · 8081</option><option value="envoy">Envoy · 8082</option></select></label><label title="Lựa chọn này không thay đổi cấu hình Load Balancer thật">Chọn thuật toán<select id="demo-algorithm"><option value="round-robin" title="Luân phiên chọn backend theo cấu hình hiện tại">Round Robin</option><option value="weighted-round-robin" title="Phân phối theo trọng số đã cấu hình">Weighted Round Robin</option><option value="least-connections">Least Connections / Least Request</option><option value="ip-hash">IP Hash / Source-IP Affinity</option></select></label><label>Tốc độ trình diễn<select id="demo-speed"><option value="fast">Nhanh · nghỉ 0,15 giây</option><option value="normal" selected>Bình thường · nghỉ 1 giây</option><option value="slow">Chậm · nghỉ 1,8 giây</option></select></label></div>
 <p id="rr-note" class="site-note"><strong>Round Robin</strong> lần lượt chọn các backend. Theo dõi backend trả lời từng yêu cầu trong sơ đồ và lịch sử bên dưới.</p>
 <div id="least-note" class="site-note" hidden>
   <p id="least-policy"></p>
@@ -366,7 +182,7 @@
 <div class="filters"><div class="batch-picker"><label>Chọn đợt kiểm thử<select id="batch"></select></label><button id="trash-batch" class="danger" disabled>Xóa đợt kiểm thử</button></div><label>Chọn loại kiểm thử<select id="workload"><option value="rest">REST API</option><option value="keepalive-on">Keep-Alive ON</option><option value="keepalive-off">Keep-Alive OFF</option><option value="http2">HTTP/2</option><option value="grpc">gRPC Unary</option></select></label></div>
 <p id="manage-message" class="muted" role="status" aria-live="polite"></p><details id="trash-panel"><summary>Thùng rác · khôi phục đợt kiểm thử</summary><div class="actions trash-controls"><label>Đợt trong thùng rác<select id="trash-selection"></select></label><button id="restore-batch" disabled>Khôi phục</button><button id="refresh-trash">Làm mới thùng rác</button></div><p class="muted">Chỉ di chuyển thư mục; không sửa nội dung và không tự xóa dữ liệu trong thùng rác.</p></details>
 <dialog id="trash-confirm" aria-labelledby="trash-confirm-title"><h3 id="trash-confirm-title">Xóa đợt kiểm thử?</h3><p>Đợt sau sẽ được chuyển vào thùng rác và có thể khôi phục:</p><p id="trash-confirm-id" class="confirm-id"></p><p>Không xóa vĩnh viễn và không thay đổi kết quả benchmark lịch sử.</p><p id="trash-dialog-message" role="alert"></p><div class="actions"><button id="cancel-trash">Hủy</button><button id="confirm-trash" class="danger">Xác nhận xóa</button></div></dialog>
-<p id="batch-note" class="muted"></p><p id="warnings" role="status"></p><div class="table-scroll"><table><thead><tr><th>Load Balancer</th><th title="Số yêu cầu xử lý mỗi giây">Throughput (RPS)</th><th title="Độ trễ trung bình">Độ trễ TB (ms)</th><th title="95% mẫu có độ trễ không vượt quá giá trị này">P95 (ms)</th><th>Lỗi (%)</th><th>Số yêu cầu</th><th title="Số điều kiện kiểm tra; có thể nhiều điều kiện trên một yêu cầu">Số checks</th><th>Kết quả</th></tr></thead><tbody id="benchmark-table"></tbody></table></div><div id="charts" class="charts"></div><details><summary>Nguồn dữ liệu & giới hạn diễn giải</summary><div id="sources"></div><p>PASS (thành công) cần mã thoát 0, số yêu cầu &gt; 0, checks thành công và tỷ lệ lỗi = 0. Thiếu bằng chứng: N/A (không có dữ liệu). FAIL (thất bại) không dùng để xếp hạng. Keep-Alive có khoảng nghỉ 50 ms; không so RPS giữa các loại kiểm thử để kết luận giao thức. Một lượt chạy chưa đủ để kết luận tổng quát.</p></details></section>
+<p id="batch-note" class="muted"></p><p id="warnings" role="status"></p><div class="table-scroll"><table><thead><tr><th>Load Balancer</th><th title="Số yêu cầu xử lý mỗi giây">Throughput (RPS)</th><th title="Độ trễ trung bình">Độ trễ TB (ms)</th><th title="95% mẫu có độ trễ không vượt quá giá trị này">P95 (ms)</th><th>Lỗi (%)</th><th>Số yêu cầu</th><th title="Số điều kiện kiểm tra; có thể nhiều điều kiện trên một yêu cầu">Số checks</th><th>Kết quả</th></tr></thead><tbody id="benchmark-table"></tbody></table></div><div id="charts" class="charts"></div><section id="benchmark-comparison" class="comparison-panel" aria-labelledby="comparison-title"><h3 id="comparison-title">Phân tích và so sánh kết quả</h3><div id="comparison-content"><p class="muted">Đang đọc kết quả đã lưu…</p></div></section><details><summary>Nguồn dữ liệu & giới hạn diễn giải</summary><div id="sources"></div><p>PASS (thành công) cần mã thoát 0, số yêu cầu &gt; 0, checks thành công và tỷ lệ lỗi = 0. Thiếu bằng chứng: N/A (không có dữ liệu). FAIL (thất bại) không dùng để xếp hạng. Keep-Alive có khoảng nghỉ 50 ms; không so RPS giữa các loại kiểm thử để kết luận giao thức. Một lượt chạy chưa đủ để kết luận tổng quát.</p></details></section>
 <div id="saved-resources" class="resource-panel" aria-label="Tài nguyên của đợt benchmark đã lưu"></div>
 <section id="run-benchmark"><div class="section-head"><div><h2><small>04</small> Chạy Benchmark trực tiếp</h2><p class="muted">Tạo tải k6 thật sau khi bạn xác nhận. Các LB chạy tuần tự; tiến trình theo số bài hoàn thành.</p></div><span class="live" id="bench-state">CHƯA CHẠY</span></div>
 <div class="filters"><label>Load Balancer<select id="bench-balancer"><option value="nginx">Nginx</option><option value="haproxy">HAProxy</option><option value="envoy">Envoy</option><option value="all">Cả ba (tuần tự)</option></select></label><label>Loại kiểm thử<select id="bench-workload"><option value="rest">REST API</option><option value="keepalive-on">Keep-Alive ON</option><option value="keepalive-off">Keep-Alive OFF</option><option value="http2">HTTP/2</option><option value="grpc">gRPC Unary</option></select></label></div>
@@ -379,10 +195,11 @@
 
 <div id="page-team" class="site-page" data-route="#/team" hidden>
   <section class="team-intro">
-    <p class="institution">TRƯỜNG ĐẠI HỌC ĐÀ LẠT <span>KHOA CÔNG NGHỆ THÔNG TIN</span></p>
-    <h1 tabindex="-1">Nhóm thực hiện</h1>
-    <p>Triển khai và đánh giá các hệ thống Load Balancer (Nginx, HAProxy, Envoy)</p>
-    <div class="advisor"><span>Giảng viên hướng dẫn</span><strong>ThS. Nguyễn Văn Huy Dũng</strong></div>
+    <div class="university-brand"><a class="university-logo" href="https://dlu.edu.vn/logo-truong-dai-hoc-da-lat/"><img src="/dlu-logo.png" width="2106" height="2106" alt="Trường Đại học Đà Lạt"></a><p class="institution">TRƯỜNG ĐẠI HỌC ĐÀ LẠT <span>KHOA CÔNG NGHỆ THÔNG TIN</span></p></div>
+    <div class="team-header-content">
+      <div><h1 tabindex="-1">Nhóm thực hiện</h1><p>Triển khai và đánh giá các hệ thống Load Balancer (Nginx, HAProxy, Envoy)</p></div>
+      <div class="advisor"><span>Giảng viên hướng dẫn</span><strong>ThS. Nguyễn Văn Huy Dũng</strong></div>
+    </div>
   </section>
   <section class="study-section">
     <h2>Sinh viên thực hiện <span class="class-label">CTK47A</span></h2>
@@ -398,6 +215,229 @@
     <p>Trong quá trình thực hiện đề tài, do phạm vi nghiên cứu tương đối rộng, bao gồm kiến thức về mạng máy tính, các giao thức HTTP, hệ thống Load Balancer, Docker và phương pháp benchmark, trong khi kiến thức và kinh nghiệm thực tế của nhóm còn hạn chế nên báo cáo chắc chắn không tránh khỏi những thiếu sót. Nhóm kính mong tiếp tục nhận được sự chỉ bảo của thầy và những ý kiến đóng góp để có thể hoàn thiện đề tài tốt hơn trong các giai đoạn tiếp theo.</p>
     <p>Cuối cùng, nhóm chúng em xin chân thành cảm ơn các thầy cô trong Khoa Công nghệ Thông tin – Trường Đại học Đà Lạt đã giảng dạy và truyền đạt những kiến thức cần thiết trong suốt quá trình học tập, tạo nền tảng để nhóm có thể thực hiện đồ án này.</p>
   </section>
+</div>
+
+<div id="page-theory" class="site-page" data-route="#/theory" hidden>
+  <div class="page-heading"><h1 tabindex="-1">Lý thuyết</h1><p>Từ bài toán quá tải đến cấu hình lab</p></div>
+  <p class="site-note">Các ví dụ đăng ký học phần minh họa khái niệm. Kết quả đo thật nằm ở trang Benchmark và thuộc cấu hình Round Robin.</p>
+  <div class="theory-layout">
+    <div class="theory-chooser"><label for="theory-select">Chọn chủ đề</label><select id="theory-select"><optgroup label="Nền tảng"><option value="load-balancer">Load Balancer và quá tải</option><option value="proxy">Reverse Proxy và Forward Proxy</option><option value="layers">Cân bằng tải Layer 4 và Layer 7</option></optgroup><optgroup label="Proxy trong đồ án"><option value="nginx">Nginx</option><option value="haproxy">HAProxy</option><option value="envoy">Envoy</option></optgroup><optgroup label="Công cụ lab"><option value="docker">Docker và Docker Compose</option><option value="nodejs">Node.js và Express.js</option><option value="k6">Grafana k6 và chỉ số benchmark</option></optgroup><optgroup label="Thuật toán phân phối"><option value="round-robin">Round Robin</option><option value="weighted-round-robin">Weighted Round Robin</option><option value="least">Least Connections và Least Request</option><option value="ip-hash">IP Hash và Source-IP Affinity</option></optgroup><optgroup label="Vận hành và giao thức"><option value="health-check">Health Check, Failover và Recovery</option><option value="protocols">REST API, Keep-Alive, HTTP/2 và gRPC</option></optgroup></select></div>
+    <nav id="theory-index" class="theory-index" aria-label="Mục lục lý thuyết">
+<div class="theory-category"><h2>Nền tảng</h2><a data-topic-link="load-balancer" href="#/theory?topic=load-balancer">Load Balancer và quá tải</a><a data-topic-link="proxy" href="#/theory?topic=proxy">Reverse Proxy và Forward Proxy</a><a data-topic-link="layers" href="#/theory?topic=layers">Cân bằng tải Layer 4 và Layer 7</a></div>
+<div class="theory-category"><h2>Proxy trong đồ án</h2><a data-topic-link="nginx" href="#/theory?topic=nginx">Nginx</a><a data-topic-link="haproxy" href="#/theory?topic=haproxy">HAProxy</a><a data-topic-link="envoy" href="#/theory?topic=envoy">Envoy</a></div>
+<div class="theory-category"><h2>Công cụ lab</h2><a data-topic-link="docker" href="#/theory?topic=docker">Docker và Docker Compose</a><a data-topic-link="nodejs" href="#/theory?topic=nodejs">Node.js và Express.js</a><a data-topic-link="k6" href="#/theory?topic=k6">Grafana k6 và chỉ số benchmark</a></div>
+<div class="theory-category"><h2>Thuật toán phân phối</h2><a data-topic-link="round-robin" href="#/theory?topic=round-robin">Round Robin</a><a data-topic-link="weighted-round-robin" href="#/theory?topic=weighted-round-robin">Weighted Round Robin</a><a data-topic-link="least" href="#/theory?topic=least">Least Connections và Least Request</a><a data-topic-link="ip-hash" href="#/theory?topic=ip-hash">IP Hash và Source-IP Affinity</a></div>
+<div class="theory-category"><h2>Vận hành và giao thức</h2><a data-topic-link="health-check" href="#/theory?topic=health-check">Health Check, Failover và Recovery</a><a data-topic-link="protocols" href="#/theory?topic=protocols">REST API, Keep-Alive, HTTP/2 và gRPC</a></div>
+    </nav>
+    <div id="theory-topics">
+      <article class="theory-topic" data-topic="load-balancer" aria-labelledby="title-load-balancer">
+        <div class="theory-topic-heading"><div class="theory-breadcrumb"><span>Lý thuyết</span><span aria-hidden="true">/</span><span>Nền tảng</span></div><p>Chương 1 · Mở rộng và tính sẵn sàng</p><h2 tabindex="-1" id="title-load-balancer">Load Balancer và quá tải</h2></div>
+        <p class="theory-lead">Khi nhiều sinh viên mở cổng đăng ký cùng lúc, một máy chủ có thể hết năng lực xử lý và tạo hàng đợi. Load Balancer phân phối yêu cầu qua nhiều máy chủ còn khả dụng.</p>
+        <nav class="article-toc" aria-label="Trong bài này"><a href="#/theory?topic=load-balancer&amp;section=principles">Nguyên lý và đánh đổi</a><a href="#/theory?topic=load-balancer&amp;section=example">Tình huống áp dụng</a><a href="#/theory?topic=load-balancer&amp;section=lab">Trong lab</a><a href="#/theory?topic=load-balancer&amp;section=summary">Kiến thức cần nhớ</a></nav>
+        <h3 tabindex="-1" data-topic-section="principles">Nguyên lý và đánh đổi</h3><p>Mở rộng ngang thêm backend để chia tải, còn mở rộng dọc tăng CPU hoặc RAM trên một máy. Khi một backend ngừng, proxy có thể chuyển tải sang máy còn khỏe. Một proxy duy nhất vẫn là điểm lỗi đơn của đường truy cập.</p>
+        <figure><figcaption>Ví dụ minh họa</figcaption><div class="theory-flow"><span>Sinh viên</span><b aria-hidden="true">→</b><span>Một proxy</span><b aria-hidden="true">→</b><span>Hai backend Node.js</span></div></figure>
+        <h3 tabindex="-1" data-topic-section="example">Tình huống áp dụng</h3><p>Một cổng đăng ký nhận 120 yêu cầu đồng thời. Nếu mỗi backend chịu được 70 yêu cầu cùng lúc, hai máy có thể chia phần tải API. Nếu cả hai cùng chờ một cơ sở dữ liệu quá tải, thêm backend vẫn có thể giữ nguyên điểm nghẽn.</p>
+        <h3 tabindex="-1" data-topic-section="lab">Trong lab</h3><p>Ba proxy chạy độc lập trong Compose và dùng chung hai backend mô phỏng.</p>
+        <a class="site-button" href="#/demo">Xem Demo</a>
+        <aside class="theory-summary"><h3 tabindex="-1" data-topic-section="summary">Kiến thức cần nhớ</h3><p>Xem độ trễ đuôi, hàng đợi và tỷ lệ lỗi trước khi quyết định mở rộng tầng nào.</p></aside>
+        <nav class="theory-adjacent"><span></span><a href="#/theory?topic=proxy"><span>Bài tiếp theo</span><strong>Reverse Proxy và Forward Proxy</strong></a></nav>
+      </article>
+      <article class="theory-topic" data-topic="proxy" hidden aria-labelledby="title-proxy">
+        <div class="theory-topic-heading"><div class="theory-breadcrumb"><span>Lý thuyết</span><span aria-hidden="true">/</span><span>Nền tảng</span></div><p>Mục 2.1 · Vai trò của proxy</p><h2 tabindex="-1" id="title-proxy">Reverse Proxy và Forward Proxy</h2></div>
+        <p class="theory-lead">Forward proxy đại diện cho máy khách khi truy cập dịch vụ phía ngoài. Reverse proxy đứng trước máy chủ, nhận yêu cầu đến và chuyển tiếp đến backend.</p>
+        <nav class="article-toc" aria-label="Trong bài này"><a href="#/theory?topic=proxy&amp;section=principles">Nguyên lý và đánh đổi</a><a href="#/theory?topic=proxy&amp;section=example">Tình huống áp dụng</a><a href="#/theory?topic=proxy&amp;section=lab">Trong lab</a><a href="#/theory?topic=proxy&amp;section=summary">Kiến thức cần nhớ</a></nav>
+        <h3 tabindex="-1" data-topic-section="principles">Nguyên lý và đánh đổi</h3><p>Reverse proxy có thể kết thúc TLS, kiểm soát truy cập và che địa chỉ backend. Cân bằng tải là quyết định chọn nơi xử lý, nên một reverse proxy có thể làm cả hai việc. Forward proxy phù hợp khi trường cần áp dụng chính sách cho lưu lượng đi ra từ mạng nội bộ.</p>
+        <figure><figcaption>Ví dụ minh họa</figcaption><div class="theory-flow"><span>Mạng máy khách</span><b aria-hidden="true">→</b><span>Forward proxy</span><b aria-hidden="true">→</b><span>Internet</span></div><div class="theory-flow"><span>Sinh viên</span><b aria-hidden="true">→</b><span>Reverse proxy</span><b aria-hidden="true">→</b><span>Dịch vụ đăng ký</span></div></figure>
+        <h3 tabindex="-1" data-topic-section="example">Tình huống áp dụng</h3><p>Máy tính phòng lab có thể dùng forward proxy để truy cập Internet theo chính sách trường. Cùng máy đó truy cập cổng học phần qua reverse proxy do bên vận hành cổng quản lý. Hai proxy đại diện cho hai phía khác nhau của cùng luồng.</p>
+        <h3 tabindex="-1" data-topic-section="lab">Trong lab</h3><p>Nginx, HAProxy và Envoy trong lab đều nhận yêu cầu phía dịch vụ qua listener riêng.</p>
+        <aside class="theory-summary"><h3 tabindex="-1" data-topic-section="summary">Kiến thức cần nhớ</h3><p>TLS termination cần quyền truy cập chứng chỉ và khóa phía dịch vụ. Caching chỉ phù hợp với phản hồi có chính sách cache cho phép.</p></aside>
+        <nav class="theory-adjacent"><a href="#/theory?topic=load-balancer"><span>Bài trước</span><strong>Load Balancer và quá tải</strong></a><a href="#/theory?topic=layers"><span>Bài tiếp theo</span><strong>Cân bằng tải Layer 4 và Layer 7</strong></a></nav>
+      </article>
+      <article class="theory-topic" data-topic="layers" hidden aria-labelledby="title-layers">
+        <div class="theory-topic-heading"><div class="theory-breadcrumb"><span>Lý thuyết</span><span aria-hidden="true">/</span><span>Nền tảng</span></div><p>Mục 2.2–2.4 · Độ linh hoạt và chi phí xử lý</p><h2 tabindex="-1" id="title-layers">Cân bằng tải Layer 4 và Layer 7</h2></div>
+        <p class="theory-lead">L4 chuyển tiếp ở tầng vận chuyển bằng thông tin như IP, cổng và giao thức. L7 có thể đọc thông tin ứng dụng như URL, header hoặc dịch vụ RPC.</p>
+        <nav class="article-toc" aria-label="Trong bài này"><a href="#/theory?topic=layers&amp;section=principles">Nguyên lý và đánh đổi</a><a href="#/theory?topic=layers&amp;section=example">Tình huống áp dụng</a><a href="#/theory?topic=layers&amp;section=lab">Trong lab</a><a href="#/theory?topic=layers&amp;section=summary">Kiến thức cần nhớ</a></nav>
+        <h3 tabindex="-1" data-topic-section="principles">Nguyên lý và đánh đổi</h3><p>L4 thường chọn backend theo kết nối TCP hoặc luồng UDP, phù hợp khi chỉ cần phân phối kết nối hoặc chuyển tiếp TLS. L7 đọc URI, Host, cookie hoặc phương thức HTTP để chọn tuyến. Định tuyến theo nội dung linh hoạt hơn và cần thêm xử lý giao thức.</p>
+        <figure><figcaption>Ví dụ minh họa</figcaption><div class="theory-flow"><span>TCP :443</span><b aria-hidden="true">→</b><span>Nhóm máy chủ</span></div><div class="theory-flow"><span>HTTP /đăng-ký</span><b aria-hidden="true">→</b><span>Nhóm dịch vụ đăng ký</span></div></figure>
+        <h3 tabindex="-1" data-topic-section="example">Tình huống áp dụng</h3><p>Với một kết nối HTTP/2 mang ba stream, L4 thường chuyển cả kết nối tới cùng đích. L7 có thể định tuyến các stream theo đường dẫn sau khi xử lý HTTP. Có thể đặt L4 trước L7 trong triển khai khác. Lab của nhóm thử từng proxy riêng.</p>
+        <figure class="theory-table"><figcaption>Đối chiếu ở tầng giao vận và tầng ứng dụng</figcaption><div class="table-scroll"><table>
+          <thead><tr><th scope="col">Tiêu chí</th><th scope="col">Layer 4</th><th scope="col">Layer 7</th></tr></thead>
+          <tbody><tr><th scope="row">Đơn vị phân phối</th><td>Kết nối TCP / luồng UDP</td><td>Yêu cầu hoặc stream HTTP</td></tr>
+          <tr><th scope="row">Thông tin định tuyến</th><td>IP, cổng, giao thức</td><td>Host, URI, header, cookie</td></tr>
+          <tr><th scope="row">Ứng dụng phù hợp</th><td>Dịch vụ TCP hoặc TLS passthrough</td><td>Định tuyến web, REST hoặc gRPC</td></tr></tbody>
+        </table></div></figure>
+        <h3 tabindex="-1" data-topic-section="lab">Trong lab</h3><p>Demo chọn nhóm backend theo đường dẫn HTTP. Kiểm tra TCP của Envoy là một cơ chế giám sát ở tầng vận chuyển.</p>
+        <aside class="theory-summary"><h3 tabindex="-1" data-topic-section="summary">Kiến thức cần nhớ</h3><p>Chọn L4 khi chỉ cần chuyển tiếp ở tầng giao vận. Chọn L7 khi quyết định cần đọc nội dung HTTP.</p></aside>
+        <nav class="theory-adjacent"><a href="#/theory?topic=proxy"><span>Bài trước</span><strong>Reverse Proxy và Forward Proxy</strong></a><a href="#/theory?topic=nginx"><span>Bài tiếp theo</span><strong>Nginx</strong></a></nav>
+      </article>
+      <article class="theory-topic" data-topic="nginx" hidden aria-labelledby="title-nginx">
+        <div class="theory-topic-heading"><div class="theory-breadcrumb"><span>Lý thuyết</span><span aria-hidden="true">/</span><span>Proxy trong đồ án</span></div><p>Mục 3.1 và 4.5 · Cách một request đi qua Nginx</p><h2 tabindex="-1" id="title-nginx">Nginx</h2></div>
+        <p class="theory-lead">Nginx dùng tiến trình master quản lý các worker xử lý nhiều kết nối bằng vòng lặp sự kiện. Khối upstream gom các backend, còn location quyết định cách chuyển tiếp.</p>
+        <nav class="article-toc" aria-label="Trong bài này"><a href="#/theory?topic=nginx&amp;section=principles">Nguyên lý và đánh đổi</a><a href="#/theory?topic=nginx&amp;section=example">Tình huống áp dụng</a><a href="#/theory?topic=nginx&amp;section=lab">Trong lab</a><a href="#/theory?topic=nginx&amp;section=summary">Kiến thức cần nhớ</a></nav>
+        <h3 tabindex="-1" data-topic-section="principles">Nguyên lý và đánh đổi</h3><p>Master nạp cấu hình và quản lý vòng đời worker. Worker theo dõi sự kiện I/O để phục vụ nhiều kết nối. Khối server nhận lưu lượng, location chọn tuyến và upstream cung cấp danh sách backend. Mô hình này thuận tiện khi cần phục vụ web và làm reverse proxy trên cùng phần mềm. Phát hiện lỗi thụ động trong lab cần lưu lượng thực để quan sát lỗi.</p>
+        <figure><figcaption>Ví dụ minh họa</figcaption><div class="theory-flow"><span>Yêu cầu xem lớp</span><b aria-hidden="true">→</b><span>location</span><b aria-hidden="true">→</b><span>upstream</span><b aria-hidden="true">→</b><span>Backend</span></div></figure>
+        <h3 tabindex="-1" data-topic-section="example">Tình huống áp dụng</h3><p>Khi sinh viên gọi GET /api, worker Nginx khớp location, chọn upstream và đọc phản hồi backend. Nginx phù hợp nếu cùng dịch vụ cần phục vụ tệp tĩnh hoặc làm web proxy. HAProxy tổ chức tuyến bằng frontend/backend. Envoy tách listener, route và cluster.</p>
+        <h3 tabindex="-1" data-topic-section="lab">Trong lab</h3><p>nginx/nginx.conf sử dụng proxy_pass cho REST và grpc_pass cho gRPC. Các upstream riêng triển khai trọng số, least_conn và ip_hash.</p>
+        <figure class="theory-code"><figcaption><span>nginx/nginx.conf</span><button type="button" data-copy-code>Sao chép</button></figcaption><pre><code>server backend-1:3001 max_fails=3 fail_timeout=5s;
+server backend-2:3002 max_fails=3 fail_timeout=5s;</code></pre><p role="status" class="copy-status"></p></figure>
+        <a class="site-button" href="#/demo">Xem Demo</a>
+        <aside class="theory-summary"><h3 tabindex="-1" data-topic-section="summary">Kiến thức cần nhớ</h3><p>Trong lab, lỗi upstream được quan sát từ lưu lượng. max_fails và fail_timeout xác định cách tạm tránh đích lỗi.</p></aside>
+        <nav class="theory-adjacent"><a href="#/theory?topic=layers"><span>Bài trước</span><strong>Cân bằng tải Layer 4 và Layer 7</strong></a><a href="#/theory?topic=haproxy"><span>Bài tiếp theo</span><strong>HAProxy</strong></a></nav>
+      </article>
+      <article class="theory-topic" data-topic="haproxy" hidden aria-labelledby="title-haproxy">
+        <div class="theory-topic-heading"><div class="theory-breadcrumb"><span>Lý thuyết</span><span aria-hidden="true">/</span><span>Proxy trong đồ án</span></div><p>Mục 3.2 và 4.6 · Frontend, backend và kiểm tra kết nối</p><h2 tabindex="-1" id="title-haproxy">HAProxy</h2></div>
+        <p class="theory-lead">Frontend tiếp nhận kết nối. Luật định tuyến chọn backend, rồi chính sách balance chọn server trong nhóm. Health check giúp cập nhật danh sách server khả dụng.</p>
+        <nav class="article-toc" aria-label="Trong bài này"><a href="#/theory?topic=haproxy&amp;section=principles">Nguyên lý và đánh đổi</a><a href="#/theory?topic=haproxy&amp;section=example">Tình huống áp dụng</a><a href="#/theory?topic=haproxy&amp;section=lab">Trong lab</a><a href="#/theory?topic=haproxy&amp;section=summary">Kiến thức cần nhớ</a></nav>
+        <h3 tabindex="-1" data-topic-section="principles">Nguyên lý và đánh đổi</h3><p>HAProxy có thể xử lý TCP hoặc HTTP. Trong lab, frontend HTTP dùng điều kiện đường dẫn để chọn nhóm đích. Các server có chu kỳ check hai giây, cần ba lần lỗi để đánh dấu DOWN và hai lần thành công để đánh dấu UP. Kiểm tra TCP phát hiện được lỗi kết nối, còn nghiệp vụ HTTP cần kiểm tra riêng.</p>
+        <figure><figcaption>Ví dụ minh họa</figcaption><div class="theory-flow"><span>Tra cứu học phần</span><b aria-hidden="true">→</b><span>frontend</span><b aria-hidden="true">→</b><span>Quy tắc đường dẫn</span><b aria-hidden="true">→</b><span>backend</span></div></figure>
+        <h3 tabindex="-1" data-topic-section="example">Tình huống áp dụng</h3><p>GET /api/wrr vào frontend HTTP, khớp quy tắc đường dẫn và được chuyển đến nhóm weighted_backends. Khi ưu tiên chính sách TCP/HTTP rõ ràng và kiểm tra trạng thái server, HAProxy có mô hình frontend/backend trực tiếp. Nginx dùng location/upstream. Envoy dùng route/cluster/endpoint.</p>
+        <h3 tabindex="-1" data-topic-section="lab">Trong lab</h3><p>haproxy/haproxy.cfg chứa các nhóm roundrobin, leastconn và source cùng thông số check, fall và rise.</p>
+        <figure class="theory-code"><figcaption><span>haproxy/haproxy.cfg</span><button type="button" data-copy-code>Sao chép</button></figcaption><pre><code>use_backend weighted_backends if { path /api/wrr }
+default_backend app_backends</code></pre><p role="status" class="copy-status"></p></figure>
+        <a class="site-button" href="#/demo">Xem Demo</a>
+        <aside class="theory-summary"><h3 tabindex="-1" data-topic-section="summary">Kiến thức cần nhớ</h3><p>Frontend chọn nhóm, sau đó balance chọn server còn khả dụng trong nhóm.</p></aside>
+        <nav class="theory-adjacent"><a href="#/theory?topic=nginx"><span>Bài trước</span><strong>Nginx</strong></a><a href="#/theory?topic=envoy"><span>Bài tiếp theo</span><strong>Envoy</strong></a></nav>
+      </article>
+      <article class="theory-topic" data-topic="envoy" hidden aria-labelledby="title-envoy">
+        <div class="theory-topic-heading"><div class="theory-breadcrumb"><span>Lý thuyết</span><span aria-hidden="true">/</span><span>Proxy trong đồ án</span></div><p>Mục 3.3 và 4.7 · Đường đi qua Envoy</p><h2 tabindex="-1" id="title-envoy">Envoy</h2></div>
+        <p class="theory-lead">Listener nhận kết nối, route chọn cluster, cluster áp dụng chính sách cân bằng tải để chọn endpoint. Health check định kỳ kiểm tra khả năng mở kết nối đến endpoint.</p>
+        <nav class="article-toc" aria-label="Trong bài này"><a href="#/theory?topic=envoy&amp;section=principles">Nguyên lý và đánh đổi</a><a href="#/theory?topic=envoy&amp;section=example">Tình huống áp dụng</a><a href="#/theory?topic=envoy&amp;section=lab">Trong lab</a><a href="#/theory?topic=envoy&amp;section=summary">Kiến thức cần nhớ</a></nav>
+        <h3 tabindex="-1" data-topic-section="principles">Nguyên lý và đánh đổi</h3><p>Listener và bộ lọc HTTP xử lý kết nối đến. Route xác định cluster, còn cluster quản lý endpoint, chính sách chọn đích và kiểm tra sức khỏe. Cách tách này phù hợp môi trường dịch vụ có nhiều tuyến và giao thức. Đổi lại, cấu hình có nhiều thành phần cần đối chiếu cùng nhau. Lab khai báo chúng trong YAML tĩnh.</p>
+        <figure><figcaption>Ví dụ minh họa</figcaption><div class="theory-flow"><span>Danh sách lớp</span><b aria-hidden="true">→</b><span>Listener</span><b aria-hidden="true">→</b><span>Route</span><b aria-hidden="true">→</b><span>Cluster</span><b aria-hidden="true">→</b><span>Endpoint</span></div></figure>
+        <h3 tabindex="-1" data-topic-section="example">Tình huống áp dụng</h3><p>Một yêu cầu HTTP đến listener, qua HTTP Connection Manager và khớp route. Cluster chọn endpoint đang khỏe. Tách riêng các thành phần này hữu ích khi nhiều listener dùng lại cluster, hoặc khi HTTP và gRPC đi theo các tuyến khác nhau. Cấu hình dạng này nhiều lớp hơn location của Nginx và frontend/backend của HAProxy.</p>
+        <h3 tabindex="-1" data-topic-section="lab">Trong lab</h3><p>envoy/envoy.yaml khai báo listener HTTP và TLS, cluster riêng theo thuật toán và TCP health check.</p>
+        <figure class="theory-code"><figcaption><span>envoy/envoy.yaml</span><button type="button" data-copy-code>Sao chép</button></figcaption><pre><code>health_checks:
+  - tcp_health_check: {}</code></pre><p role="status" class="copy-status"></p></figure>
+        <a class="site-button" href="#/demo">Xem Demo</a>
+        <aside class="theory-summary"><h3 tabindex="-1" data-topic-section="summary">Kiến thức cần nhớ</h3><p>Listener nhận kết nối, route chọn cluster, cluster chọn endpoint. Theo dõi lỗi ở đúng tầng khi kiểm tra.</p></aside>
+        <nav class="theory-adjacent"><a href="#/theory?topic=haproxy"><span>Bài trước</span><strong>HAProxy</strong></a><a href="#/theory?topic=docker"><span>Bài tiếp theo</span><strong>Docker và Docker Compose</strong></a></nav>
+      </article>
+      <article class="theory-topic" data-topic="docker" hidden aria-labelledby="title-docker">
+        <div class="theory-topic-heading"><div class="theory-breadcrumb"><span>Lý thuyết</span><span aria-hidden="true">/</span><span>Công cụ lab</span></div><p>Mục 4.1, 4.4 và 4.12 · Môi trường và phạm vi đo</p><h2 tabindex="-1" id="title-docker">Docker và Docker Compose</h2></div>
+        <p class="theory-lead">Container đóng gói tiến trình và thư viện cùng môi trường chạy. Docker Compose khai báo các dịch vụ, cổng và mạng để khởi động cả lab nhất quán.</p>
+        <nav class="article-toc" aria-label="Trong bài này"><a href="#/theory?topic=docker&amp;section=principles">Nguyên lý và đánh đổi</a><a href="#/theory?topic=docker&amp;section=example">Tình huống áp dụng</a><a href="#/theory?topic=docker&amp;section=lab">Trong lab</a><a href="#/theory?topic=docker&amp;section=summary">Kiến thức cần nhớ</a></nav>
+        <h3 tabindex="-1" data-topic-section="principles">Nguyên lý và đánh đổi</h3><p>Compose dùng tên dịch vụ trên mạng nội bộ để các proxy tìm backend và ánh xạ cổng ra máy chạy lab. Container dùng chung tài nguyên máy chủ nên các phép đo có thể chịu ảnh hưởng từ tải nền. Báo cáo ghi quan sát Docker Stats tức thời. Dashboard hiện có mẫu theo thời gian cho các RUN đã lưu dữ liệu đó.</p>
+        <figure><figcaption>Ví dụ minh họa</figcaption><div class="theory-flow"><span>docker-compose.yml</span><b aria-hidden="true">→</b><span>Mạng lab</span><b aria-hidden="true">→</b><span>Container proxy và backend</span></div></figure>
+        <h3 tabindex="-1" data-topic-section="example">Tình huống áp dụng</h3><p>Khi gọi localhost:8081, host chuyển cổng đến HAProxy trên cổng nội bộ 80. HAProxy tìm backend-1 theo DNS của mạng Compose. Dùng compose ps để kiểm tra cổng đã công bố trước khi đối chiếu RUN.</p>
+        <h3 tabindex="-1" data-topic-section="lab">Trong lab</h3><p>Tên backend-1 và backend-2 cho phép proxy định tuyến qua mạng Compose. Docker Engine API cung cấp mẫu CPU/RAM của từng container proxy.</p>
+        <figure class="theory-code"><figcaption><span>docker-compose.yml</span><button type="button" data-copy-code>Sao chép</button></figcaption><pre><code>docker compose config
+docker compose ps</code></pre><p role="status" class="copy-status"></p></figure>
+        <a class="site-button" href="#/benchmark">Xem Benchmark</a>
+        <aside class="theory-summary"><h3 tabindex="-1" data-topic-section="summary">Kiến thức cần nhớ</h3><p>Cổng host dành cho client, tên dịch vụ và cổng nội bộ dành cho giao tiếp giữa container.</p></aside>
+        <nav class="theory-adjacent"><a href="#/theory?topic=envoy"><span>Bài trước</span><strong>Envoy</strong></a><a href="#/theory?topic=nodejs"><span>Bài tiếp theo</span><strong>Node.js và Express.js</strong></a></nav>
+      </article>
+      <article class="theory-topic" data-topic="nodejs" hidden aria-labelledby="title-nodejs">
+        <div class="theory-topic-heading"><div class="theory-breadcrumb"><span>Lý thuyết</span><span aria-hidden="true">/</span><span>Công cụ lab</span></div><p>Mục 4.3 · Backend phục vụ thực nghiệm</p><h2 tabindex="-1" id="title-nodejs">Node.js và Express.js</h2></div>
+        <p class="theory-lead">Node.js chạy JavaScript phía máy chủ và xử lý I/O bất đồng bộ. Express định tuyến yêu cầu HTTP đến hàm xử lý.</p>
+        <nav class="article-toc" aria-label="Trong bài này"><a href="#/theory?topic=nodejs&amp;section=principles">Nguyên lý và đánh đổi</a><a href="#/theory?topic=nodejs&amp;section=example">Tình huống áp dụng</a><a href="#/theory?topic=nodejs&amp;section=lab">Trong lab</a><a href="#/theory?topic=nodejs&amp;section=summary">Kiến thức cần nhớ</a></nav>
+        <h3 tabindex="-1" data-topic-section="principles">Nguyên lý và đánh đổi</h3><p>Hai backend triển khai cùng kiểu API và trả thông tin nhận diện để nhóm xác định máy xử lý từng yêu cầu. Mô hình dễ kiểm chứng thuật toán và trạng thái phân phối. Endpoint mẫu chưa đại diện cho truy vấn cơ sở dữ liệu hay giao dịch đăng ký học phần thật.</p>
+        <figure><figcaption>Ví dụ minh họa</figcaption><div class="theory-flow"><span>Tra cứu học phần</span><b aria-hidden="true">→</b><span>GET /api</span><b aria-hidden="true">→</b><span>Express</span><b aria-hidden="true">→</b><span>JSON nhận diện backend</span></div></figure>
+        <h3 tabindex="-1" data-topic-section="example">Tình huống áp dụng</h3><p>Gửi GET /api qua proxy nhiều lần và đọc trường port. Giá trị 3001 hay 3002 xác định backend trả lời. Dịch vụ gRPC khởi động riêng và trả tên backend trong phản hồi SayHello, cho phép k6 kiểm tra cả hai endpoint.</p>
+        <h3 tabindex="-1" data-topic-section="lab">Trong lab</h3><p>Hai backend mô phỏng đều phục vụ HTTP và có dịch vụ gRPC riêng ở cổng 50051.</p>
+        <figure class="theory-code"><figcaption><span>backend/backend-1/server.js</span><button type="button" data-copy-code>Sao chép</button></figcaption><pre><code>app.get('/api', (req, res) =&gt; {
+    res.json({ message: 'Hello from Backend 1', port: 3001 });
+});</code></pre><p role="status" class="copy-status"></p></figure>
+        <a class="site-button" href="#/demo">Xem Demo</a>
+        <aside class="theory-summary"><h3 tabindex="-1" data-topic-section="summary">Kiến thức cần nhớ</h3><p>API nhỏ giúp cô lập đường xử lý của lab. Khi thêm I/O hoặc tác vụ CPU nặng, độ trễ có thể thay đổi.</p></aside>
+        <nav class="theory-adjacent"><a href="#/theory?topic=docker"><span>Bài trước</span><strong>Docker và Docker Compose</strong></a><a href="#/theory?topic=k6"><span>Bài tiếp theo</span><strong>Grafana k6 và chỉ số benchmark</strong></a></nav>
+      </article>
+      <article class="theory-topic" data-topic="k6" hidden aria-labelledby="title-k6">
+        <div class="theory-topic-heading"><div class="theory-breadcrumb"><span>Lý thuyết</span><span aria-hidden="true">/</span><span>Công cụ lab</span></div><p>Mục 4.10–4.13 · Đọc chỉ số trong cùng điều kiện</p><h2 tabindex="-1" id="title-k6">Grafana k6 và chỉ số benchmark</h2></div>
+        <p class="theory-lead">Người dùng ảo gửi yêu cầu theo kịch bản. RPS đo tốc độ gửi và xử lý lượt thử, trung bình tóm tắt độ trễ, P95 là ngưỡng mà khoảng 95% mẫu không vượt qua, và tỷ lệ lỗi đo phần lượt thử thất bại.</p>
+        <nav class="article-toc" aria-label="Trong bài này"><a href="#/theory?topic=k6&amp;section=principles">Nguyên lý và đánh đổi</a><a href="#/theory?topic=k6&amp;section=example">Tình huống áp dụng</a><a href="#/theory?topic=k6&amp;section=lab">Trong lab</a><a href="#/theory?topic=k6&amp;section=summary">Kiến thức cần nhớ</a></nav>
+        <h3 tabindex="-1" data-topic-section="principles">Nguyên lý và đánh đổi</h3><p>Một VU lặp lại kịch bản gửi yêu cầu và kiểm tra phản hồi. RPS cho biết số lượt mỗi giây, còn P95 giúp nhận ra độ trễ ở đuôi phân phối. Khi so sánh, giữ cùng số VUs, thời lượng và kịch bản. Báo cáo mô tả baseline sớm hơn. Benchmark hiển thị số liệu từ RUN đang chọn, với năm workload trong RUN chính thức.</p>
+        <figure><figcaption>Ví dụ minh họa</figcaption><div class="theory-flow"><span>k6 mô phỏng truy cập đăng ký</span><b aria-hidden="true">→</b><span>Proxy</span><b aria-hidden="true">→</b><span>Tệp tổng hợp</span><b aria-hidden="true">→</b><span>Dashboard</span></div></figure>
+        <h3 tabindex="-1" data-topic-section="example">Tình huống áp dụng</h3><p>VUs là số người dùng ảo chạy đồng thời. Duration là thời gian cấu hình tạo tải. Iteration là một vòng script và có thể sinh nhiều request. Trong ví dụ REST một request mỗi vòng, 900 request trong 30 giây tương đương khoảng 30 RPS. P95 là ngưỡng khoảng 95% mẫu nằm dưới hoặc bằng. Tỷ lệ lỗi dùng số lượt lỗi chia tổng lượt theo quy tắc từng workload.</p>
+        <h3 tabindex="-1" data-topic-section="lab">Trong lab</h3><p>Benchmark chính thức dùng Round Robin với 10 VUs và 30 giây mỗi lượt. So sánh proxy trong cùng workload.</p>
+        <figure class="theory-code"><figcaption><span>benchmark/rest-api.js</span><button type="button" data-copy-code>Sao chép</button></figcaption><pre><code>export const options = {
+  vus: 10,
+  duration: '30s',
+};</code></pre><p role="status" class="copy-status"></p></figure>
+        <a class="site-button" href="#/benchmark">Xem Benchmark</a>
+        <aside class="theory-summary"><h3 tabindex="-1" data-topic-section="summary">Kiến thức cần nhớ</h3><p>Ví dụ 30 RPS chỉ để minh họa. RUN chính thức dùng Round Robin, 10 VUs trong 30 giây mỗi lượt. So sánh cùng workload, đọc độ trễ và lỗi cùng với RPS.</p></aside>
+        <nav class="theory-adjacent"><a href="#/theory?topic=nodejs"><span>Bài trước</span><strong>Node.js và Express.js</strong></a><a href="#/theory?topic=round-robin"><span>Bài tiếp theo</span><strong>Round Robin</strong></a></nav>
+      </article>
+      <article class="theory-topic" data-topic="round-robin" hidden aria-labelledby="title-round-robin">
+        <div class="theory-topic-heading"><div class="theory-breadcrumb"><span>Lý thuyết</span><span aria-hidden="true">/</span><span>Thuật toán phân phối</span></div><p>Mục 2.5.1 và 4.8 · Khi các backend tương đương</p><h2 tabindex="-1" id="title-round-robin">Round Robin</h2></div>
+        <p class="theory-lead">Round Robin duyệt luân phiên các backend đủ điều kiện. Với trọng số bằng nhau, các backend nhận tỷ lệ tương tự qua nhiều yêu cầu.</p>
+        <nav class="article-toc" aria-label="Trong bài này"><a href="#/theory?topic=round-robin&amp;section=principles">Nguyên lý và đánh đổi</a><a href="#/theory?topic=round-robin&amp;section=example">Tình huống áp dụng</a><a href="#/theory?topic=round-robin&amp;section=lab">Trong lab</a><a href="#/theory?topic=round-robin&amp;section=summary">Kiến thức cần nhớ</a></nav>
+        <h3 tabindex="-1" data-topic-section="principles">Nguyên lý và đánh đổi</h3><p>Thuật toán đơn giản và dễ quan sát trên hai backend tương đương. Nếu một yêu cầu mất lâu hơn hoặc một máy yếu hơn, số request ngang nhau vẫn có thể tạo mức tải khác nhau. Báo cáo kiểm tra phân phối bằng cách đọc dấu nhận diện backend trong phản hồi.</p>
+        <figure><figcaption>Ví dụ minh họa</figcaption><div class="theory-flow"><span>Yêu cầu xem lớp 1</span><b aria-hidden="true">→</b><span>B1</span></div><div class="theory-flow"><span>2</span><b aria-hidden="true">→</b><span>B2</span></div><div class="theory-flow"><span>3</span><b aria-hidden="true">→</b><span>B1</span></div></figure>
+        <h3 tabindex="-1" data-topic-section="example">Tình huống áp dụng</h3><p>Giả sử hai backend cùng khỏe và trọng số bằng nhau, sáu yêu cầu có thể lần lượt đến B1, B2, B1, B2, B1, B2. Nhiều kết nối đồng thời, những yêu cầu hoàn thành khác thứ tự hoặc backend lỗi có thể làm chuỗi quan sát khác đi.</p><figure class="request-sequence"><figcaption>Phân phối minh họa qua hai backend</figcaption><ol><li><span>#1</span><strong>B1</strong></li><li><span>#2</span><strong>B2</strong></li><li><span>#3</span><strong>B1</strong></li><li><span>#4</span><strong>B2</strong></li><li><span>#5</span><strong>B1</strong></li><li><span>#6</span><strong>B2</strong></li></ol></figure>
+        <h3 tabindex="-1" data-topic-section="lab">Trong lab</h3><p>Chính sách mặc định của upstream Nginx, balance roundrobin của HAProxy và ROUND_ROBIN của Envoy phục vụ benchmark chính thức.</p>
+        <a class="site-button" href="#/demo">Xem Demo</a>
+        <aside class="theory-summary"><h3 tabindex="-1" data-topic-section="summary">Kiến thức cần nhớ</h3><p>/api dùng Round Robin cho tải chính thức. Đếm trên đủ mẫu để xem tỷ lệ, đồng thời kiểm tra số lỗi.</p></aside>
+        <nav class="theory-adjacent"><a href="#/theory?topic=k6"><span>Bài trước</span><strong>Grafana k6 và chỉ số benchmark</strong></a><a href="#/theory?topic=weighted-round-robin"><span>Bài tiếp theo</span><strong>Weighted Round Robin</strong></a></nav>
+      </article>
+      <article class="theory-topic" data-topic="weighted-round-robin" hidden aria-labelledby="title-weighted-round-robin">
+        <div class="theory-topic-heading"><div class="theory-breadcrumb"><span>Lý thuyết</span><span aria-hidden="true">/</span><span>Thuật toán phân phối</span></div><p>Mục 2.5.2 · Phân phối theo công suất</p><h2 tabindex="-1" id="title-weighted-round-robin">Weighted Round Robin</h2></div>
+        <p class="theory-lead">Phân bổ lưu lượng theo trọng số. Máy chủ có năng lực cao hơn có thể nhận phần lớn yêu cầu xem lớp.</p>
+        <nav class="article-toc" aria-label="Trong bài này"><a href="#/theory?topic=weighted-round-robin&amp;section=principles">Nguyên lý và đánh đổi</a><a href="#/theory?topic=weighted-round-robin&amp;section=example">Tình huống áp dụng</a><a href="#/theory?topic=weighted-round-robin&amp;section=lab">Trong lab</a><a href="#/theory?topic=weighted-round-robin&amp;section=summary">Kiến thức cần nhớ</a></nav>
+        <h3 tabindex="-1" data-topic-section="principles">Nguyên lý và đánh đổi</h3><p>Trọng số biểu thị phần tải tương đối. Cách này hữu ích khi backend có công suất khác nhau, nhưng việc chọn trọng số cần dữ liệu vận hành. Tỷ lệ 3:1 là cấu hình demo bổ sung của repository. Mẫu ngắn hoặc backend lỗi có thể làm tỷ lệ quan sát thay đổi.</p>
+        <figure><figcaption>Ví dụ minh họa</figcaption><div class="theory-flow"><span>3 phần</span><b aria-hidden="true">→</b><span>Backend 1</span></div><div class="theory-flow"><span>1 phần</span><b aria-hidden="true">→</b><span>Backend 2</span></div></figure>
+        <h3 tabindex="-1" data-topic-section="example">Tình huống áp dụng</h3><p>Với trọng số 3:1, tám request minh họa phân bố khoảng sáu đến B1 và hai đến B2. Proxy có thể xen kẽ chúng theo thứ tự riêng. Nếu B1 lỗi hoặc phần lớn công việc nặng rơi vào B1, tỷ lệ quan sát và mức sử dụng CPU có thể khác tỷ lệ trọng số.</p><figure class="request-sequence"><figcaption>Phân phối minh họa qua hai backend</figcaption><ol><li><span>#1</span><strong>B1</strong></li><li><span>#2</span><strong>B1</strong></li><li><span>#3</span><strong>B2</strong></li><li><span>#4</span><strong>B1</strong></li><li><span>#5</span><strong>B1</strong></li><li><span>#6</span><strong>B1</strong></li><li><span>#7</span><strong>B2</strong></li><li><span>#8</span><strong>B1</strong></li></ol></figure>
+        <h3 tabindex="-1" data-topic-section="lab">Trong lab</h3><p>Demo /api/wrr cấu hình 3:1. Khi cả hai backend khỏe, tỷ lệ kỳ vọng dài hạn là 75% và 25%.</p>
+        <figure class="theory-code"><figcaption><span>nginx/nginx.conf</span><button type="button" data-copy-code>Sao chép</button></figcaption><pre><code>server backend-1:3001 weight=3 max_fails=3 fail_timeout=5s;
+server backend-2:3002 weight=1 max_fails=3 fail_timeout=5s;</code></pre><p role="status" class="copy-status"></p></figure>
+        <a class="site-button" href="#/demo">Xem Demo</a>
+        <aside class="theory-summary"><h3 tabindex="-1" data-topic-section="summary">Kiến thức cần nhớ</h3><p>Trọng số phân bổ lượt chọn. Demo /api/wrr biểu diễn cấu hình dự kiến, còn CPU và độ trễ cần đo riêng.</p></aside>
+        <nav class="theory-adjacent"><a href="#/theory?topic=round-robin"><span>Bài trước</span><strong>Round Robin</strong></a><a href="#/theory?topic=least"><span>Bài tiếp theo</span><strong>Least Connections và Least Request</strong></a></nav>
+      </article>
+      <article class="theory-topic" data-topic="least" hidden aria-labelledby="title-least">
+        <div class="theory-topic-heading"><div class="theory-breadcrumb"><span>Lý thuyết</span><span aria-hidden="true">/</span><span>Thuật toán phân phối</span></div><p>Mục 2.5.3 · Tải đang xử lý</p><h2 tabindex="-1" id="title-least">Least Connections và Least Request</h2></div>
+        <p class="theory-lead">Least Connections ưu tiên backend có ít kết nối đang hoạt động. Envoy Least Request ở nhóm có trọng số đều chọn theo số yêu cầu đang xử lý trong các endpoint được lấy mẫu. Một kết nối đa luồng có thể mang nhiều yêu cầu.</p>
+        <nav class="article-toc" aria-label="Trong bài này"><a href="#/theory?topic=least&amp;section=principles">Nguyên lý và đánh đổi</a><a href="#/theory?topic=least&amp;section=example">Tình huống áp dụng</a><a href="#/theory?topic=least&amp;section=lab">Trong lab</a><a href="#/theory?topic=least&amp;section=summary">Kiến thức cần nhớ</a></nav>
+        <h3 tabindex="-1" data-topic-section="principles">Nguyên lý và đánh đổi</h3><p>Least Connections thích hợp khi thời gian giữ kết nối khác nhau, nhưng một kết nối không cho biết chính xác số yêu cầu đang xử lý. Phần Least Request là đối chiếu với cấu hình Envoy hiện tại. Với trọng số bằng nhau, Envoy chọn ứng viên theo số request đang hoạt động trong nhóm được lấy mẫu.</p>
+        <figure><figcaption>Ví dụ minh họa</figcaption><div class="theory-flow"><span>Truy vấn chạy lâu</span><b aria-hidden="true">→</b><span>Quan sát tải đang xử lý</span><b aria-hidden="true">→</b><span>Chọn backend</span></div></figure>
+        <h3 tabindex="-1" data-topic-section="example">Tình huống áp dụng</h3><p>Nếu B1 có ba kết nối đang hoạt động và B2 có một, Least Connections ưu tiên B2 khi các đích ngang trọng số. Nếu kết nối duy nhất của B2 đang chở chín stream, Least Request có thể chọn B1 khi B1 có ít request đang hoạt động hơn và cả hai được lấy mẫu. Sau mỗi lần hoàn thành hoặc nhận thêm yêu cầu, quyết định có thể đổi.</p><figure class="theory-table"><figcaption>Số đang hoạt động khi chọn</figcaption><div class="table-scroll"><table>
+          <thead><tr><th scope="col">Tiêu chí</th><th scope="col">Backend 1</th><th scope="col">Backend 2</th></tr></thead>
+          <tbody><tr><th scope="row">Kết quả minh họa</th><td>Ba kết nối, ba yêu cầu</td><td>Một kết nối, chín yêu cầu</td></tr>
+          <tr><th scope="row">Least Connections</th><td>—</td><td>✓</td></tr><tr><th scope="row">Least Request</th><td>✓</td><td>—</td></tr></tbody>
+        </table></div><p>Giả sử hai endpoint cùng khỏe, ngang trọng số và được xét.</p></figure>
+        <h3 tabindex="-1" data-topic-section="lab">Trong lab</h3><p>Demo /api/least dùng least_conn ở Nginx, leastconn ở HAProxy và LEAST_REQUEST ở Envoy.</p>
+        <a class="site-button" href="#/demo">Xem Demo</a>
+        <aside class="theory-summary"><h3 tabindex="-1" data-topic-section="summary">Kiến thức cần nhớ</h3><p>/api/least minh họa hai tiêu chí khác nhau. Kết quả phụ thuộc tải đang xử lý tại thời điểm chọn.</p></aside>
+        <nav class="theory-adjacent"><a href="#/theory?topic=weighted-round-robin"><span>Bài trước</span><strong>Weighted Round Robin</strong></a><a href="#/theory?topic=ip-hash"><span>Bài tiếp theo</span><strong>IP Hash và Source-IP Affinity</strong></a></nav>
+      </article>
+      <article class="theory-topic" data-topic="ip-hash" hidden aria-labelledby="title-ip-hash">
+        <div class="theory-topic-heading"><div class="theory-breadcrumb"><span>Lý thuyết</span><span aria-hidden="true">/</span><span>Thuật toán phân phối</span></div><p>Mục 2.5.4 · Tính ổn định của ánh xạ</p><h2 tabindex="-1" id="title-ip-hash">IP Hash và Source-IP Affinity</h2></div>
+        <p class="theory-lead">Proxy ánh xạ IP quan sát được sang backend. Sinh viên dùng chung NAT có thể cùng khóa băm. Thay đổi tập backend khỏe có thể đổi ánh xạ.</p>
+        <nav class="article-toc" aria-label="Trong bài này"><a href="#/theory?topic=ip-hash&amp;section=principles">Nguyên lý và đánh đổi</a><a href="#/theory?topic=ip-hash&amp;section=example">Tình huống áp dụng</a><a href="#/theory?topic=ip-hash&amp;section=lab">Trong lab</a><a href="#/theory?topic=ip-hash&amp;section=summary">Kiến thức cần nhớ</a></nav>
+        <h3 tabindex="-1" data-topic-section="principles">Nguyên lý và đánh đổi</h3><p>Định tuyến theo IP có thể giúp một máy khách quay lại backend cũ trong điều kiện ổn định. NAT có thể gom nhiều sinh viên vào cùng một IP và làm lệch tải. Khi backend thay đổi, đích có thể đổi. Session quan trọng cần cơ chế lưu trữ hoặc khôi phục phù hợp.</p>
+        <figure><figcaption>Ví dụ minh họa</figcaption><div class="theory-flow"><span>IP kết nối</span><b aria-hidden="true">→</b><span>Tính khóa</span><b aria-hidden="true">→</b><span>Chọn backend đủ điều kiện</span></div></figure>
+        <h3 tabindex="-1" data-topic-section="example">Tình huống áp dụng</h3><p>Yêu cầu A1, A2 cùng khóa nguồn có thể về B1, còn B1 và B2 của người dùng khác có thể về backend thứ hai. Hai người đi qua cùng NAT có thể dùng chung khóa. Khi backend thứ nhất rời tập đủ điều kiện, các request tiếp theo có thể được ánh xạ lại.</p><figure class="request-sequence"><figcaption>Phân phối minh họa qua hai backend</figcaption><ol><li><span>A1</span><strong>B1</strong></li><li><span>B1</span><strong>B2</strong></li><li><span>A2</span><strong>B1</strong></li><li><span>B2</span><strong>B2</strong></li></ol></figure>
+        <h3 tabindex="-1" data-topic-section="lab">Trong lab</h3><p>Demo /api/iphash dùng ip_hash của Nginx với ba octet đầu của IPv4 hoặc toàn bộ IPv6. HAProxy dùng balance source với consistent hash SDBM avalanche. Envoy dùng source_ip làm khóa để tìm endpoint trên vòng RING_HASH.</p>
+        <a class="site-button" href="#/demo">Xem Demo</a>
+        <aside class="theory-summary"><h3 tabindex="-1" data-topic-section="summary">Kiến thức cần nhớ</h3><p>/api/iphash dùng IP nguồn quan sát được. Một lần demo từ cùng máy chỉ kiểm tra một tập rất nhỏ khóa nguồn.</p></aside>
+        <nav class="theory-adjacent"><a href="#/theory?topic=least"><span>Bài trước</span><strong>Least Connections và Least Request</strong></a><a href="#/theory?topic=health-check"><span>Bài tiếp theo</span><strong>Health Check, Failover và Recovery</strong></a></nav>
+      </article>
+      <article class="theory-topic" data-topic="health-check" hidden aria-labelledby="title-health-check">
+        <div class="theory-topic-heading"><div class="theory-breadcrumb"><span>Lý thuyết</span><span aria-hidden="true">/</span><span>Vận hành và giao thức</span></div><p>Mục 2.6 và 4.9 · Phát hiện, chuyển tải và phục hồi</p><h2 tabindex="-1" id="title-health-check">Health Check, Failover và Recovery</h2></div>
+        <p class="theory-lead">Khi backend đăng ký mất phản hồi, proxy có thể chuyển yêu cầu đủ điều kiện sang backend còn khỏe. Backend đã phục hồi cần đạt điều kiện kiểm tra của proxy trước khi nhận tải lại.</p>
+        <nav class="article-toc" aria-label="Trong bài này"><a href="#/theory?topic=health-check&amp;section=principles">Nguyên lý và đánh đổi</a><a href="#/theory?topic=health-check&amp;section=example">Tình huống áp dụng</a><a href="#/theory?topic=health-check&amp;section=lab">Trong lab</a><a href="#/theory?topic=health-check&amp;section=summary">Kiến thức cần nhớ</a></nav>
+        <h3 tabindex="-1" data-topic-section="principles">Nguyên lý và đánh đổi</h3><p>Kiểm tra chủ động chạy định kỳ. Kiểm tra thụ động dựa vào lỗi trong lưu lượng thật. Trong khoảng phát hiện lỗi, báo cáo ghi nhận HTTP 503 ở một số lượt. Sau khi trạng thái ổn định, lượt kiểm chứng Envoy ghi nhận 20/20 phản hồi HTTP 200 từ backend còn lại. Backend phục hồi chỉ nhận tải khi đáp ứng chính sách của proxy.</p>
+        <figure><figcaption>Ví dụ minh họa</figcaption><div class="theory-flow"><span>Hai backend khỏe</span><b aria-hidden="true">→</b><span>Một backend dừng</span><b aria-hidden="true">→</b><span>Chuyển tải</span><b aria-hidden="true">→</b><span>Khôi phục</span></div></figure>
+        <h3 tabindex="-1" data-topic-section="example">Tình huống áp dụng</h3><p>Một chuỗi thử nghiệm gồm bốn bước. Gửi request khi cả hai backend khỏe, quan sát sau khi B1 dừng, kiểm tra B2 phục vụ khi trạng thái ổn định, rồi kiểm tra B1 sau phục hồi. Một probe TCP thành công chỉ xác nhận khả năng mở kết nối. Phản hồi HTTP và phân phối thực tế là bằng chứng riêng.</p>
+        <h3 tabindex="-1" data-topic-section="lab">Trong lab</h3><p>Nginx dùng phát hiện lỗi thụ động, HAProxy và Envoy có kiểm tra chủ động. Demo theo dõi phản hồi HTTP và trạng thái Docker.</p>
+        <a class="site-button" href="#/demo?tab=health">Xem Demo</a>
+        <aside class="theory-summary"><h3 tabindex="-1" data-topic-section="summary">Kiến thức cần nhớ</h3><p>Lỗi có thể xảy ra giữa lúc backend dừng và lúc proxy đánh dấu không khả dụng.</p></aside>
+        <nav class="theory-adjacent"><a href="#/theory?topic=ip-hash"><span>Bài trước</span><strong>IP Hash và Source-IP Affinity</strong></a><a href="#/theory?topic=protocols"><span>Bài tiếp theo</span><strong>REST API, Keep-Alive, HTTP/2 và gRPC</strong></a></nav>
+      </article>
+      <article class="theory-topic" data-topic="protocols" hidden aria-labelledby="title-protocols">
+        <div class="theory-topic-heading"><div class="theory-breadcrumb"><span>Lý thuyết</span><span aria-hidden="true">/</span><span>Vận hành và giao thức</span></div><p>Mục 2.7–2.9 và 4.10 · Kết nối và thông điệp</p><h2 tabindex="-1" id="title-protocols">REST API, Keep-Alive, HTTP/2 và gRPC</h2></div>
+        <p class="theory-lead">REST trong lab trả JSON qua HTTP. Keep-Alive cho phép tái sử dụng kết nối. HTTP/2 ghép nhiều luồng trên một kết nối. gRPC Unary trao đổi một thông điệp yêu cầu và một phản hồi.</p>
+        <nav class="article-toc" aria-label="Trong bài này"><a href="#/theory?topic=protocols&amp;section=principles">Nguyên lý và đánh đổi</a><a href="#/theory?topic=protocols&amp;section=example">Tình huống áp dụng</a><a href="#/theory?topic=protocols&amp;section=lab">Trong lab</a><a href="#/theory?topic=protocols&amp;section=summary">Kiến thức cần nhớ</a></nav>
+        <h3 tabindex="-1" data-topic-section="principles">Nguyên lý và đánh đổi</h3><p>Keep-Alive giảm chi phí mở kết nối mới. Kịch bản ON/OFF đổi tái sử dụng giữa k6 và proxy và nghỉ 50 ms mỗi vòng. HTTP/2 dùng nhiều stream và nén header, còn gRPC Unary dùng lời gọi một yêu cầu, một phản hồi theo giao diện Protobuf. Các workload có nhịp gửi và đường xử lý riêng.</p>
+        <figure><figcaption>Ví dụ minh họa</figcaption><div class="theory-flow"><span>Xem lớp qua GET /api</span></div><div class="theory-flow"><span>Gọi thử SayHello qua gRPC</span></div></figure>
+        <h3 tabindex="-1" data-topic-section="example">Tình huống áp dụng</h3><p>Mở trang đăng ký có thể phát sinh nhiều lượt đọc JSON. HTTP/1.1 Keep-Alive dùng lại kết nối, còn HTTP/2 ghép các lượt đọc trên nhiều stream. gRPC Unary gọi một phương thức định kiểu. Script HTTP/2 kiểm tra giao thức phản hồi, còn script gRPC kiểm tra trạng thái, payload và dấu nhận diện cả hai backend.</p>
+        <h3 tabindex="-1" data-topic-section="lab">Trong lab</h3><p>Lab có năm workload riêng. HTTP/2 REST qua TLS dùng cổng 8440–8442 và gRPC qua TLS dùng cổng 9440–9442. Keep-Alive ON/OFF khác nhau ở tái sử dụng kết nối.</p>
+        <a class="site-button" href="#/benchmark">Xem Benchmark</a>
+        <aside class="theory-summary"><h3 tabindex="-1" data-topic-section="summary">Kiến thức cần nhớ</h3><p>Kiểm tra giao thức thực tế và điều kiện workload trước khi diễn giải kết quả đo.</p></aside>
+        <nav class="theory-adjacent"><a href="#/theory?topic=health-check"><span>Bài trước</span><strong>Health Check, Failover và Recovery</strong></a><span></span></nav>
+      </article>
+    </div>
+  </div>
+  <section class="study-section"><h2>Nguồn nội dung</h2><p>Báo cáo Word của nhóm, chương 1–4, đối chiếu với cấu hình proxy, Docker Compose và tài liệu kiểm thử trong repository.</p></section>
 </div>
 
 <footer class="site-footer"><span>LB Lab · Đồ án chuyên ngành</span><span>Khoa Công nghệ Thông tin · Trường Đại học Đà Lạt</span></footer></main></body></html>

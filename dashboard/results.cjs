@@ -66,7 +66,8 @@ async function loadResults(root = ROOT, sourcePrefix = 'benchmark/results') {
       try {
         const normalized = normalize(await readJSON(path.join(dir, file.name)), workload, meta?.exitCode);
         if (meta?.status === 'FAIL') normalized.status = 'FAIL';
-        groups.get(group).push({ balancer, workload, source, ...normalized });
+        groups.get(group).push({ balancer, workload, source, ...normalized,
+          startedAt: meta?.startedAt, finishedAt: meta?.finishedAt, duration: meta?.duration, vus: meta?.vus });
       }
       catch { warnings.push(`${source}: JSON không hợp lệ hoặc thiếu metrics`); groups.get(group).push({ balancer, workload, source, status: meta?.status === 'FAIL' ? 'FAIL' : 'N/A', issue: 'Không đọc được JSON' }); }
     }
