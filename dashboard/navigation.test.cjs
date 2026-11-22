@@ -116,11 +116,19 @@ test('Project pages preserve dashboard controls and support direct links and his
   assert.equal(articles.length, 15);
   for (const [article] of articles) {
     assert.match(article, /theory-lead/);
+    assert.match(article, /Trong lab/);
+    assert.match(article, /Kiến thức cần nhớ/);
+    if (article.includes('data-topic="proxy"')) {
+      assert.match(article, /id="title-proxy">Reverse Proxy<\/h2>/);
+      assert.match(article, /Nguyên lý hoạt động/);
+      assert.match(article, /Vai trò và lợi ích/);
+      assert.match(article, /Ví dụ đăng ký học phần/);
+      assert.doesNotMatch(article, /forward proxy/i);
+      continue;
+    }
     assert.match(article, /Nguyên lý và đánh đổi/);
     assert.match(article, /Ví dụ minh họa/);
-    assert.match(article, /Trong lab/);
     assert.match(article, /Tình huống áp dụng/);
-    assert.match(article, /Kiến thức cần nhớ/);
   }
   assert.match(theoryMarkup, /id="title-nginx"[\s\S]*?Master nạp cấu hình/);
   const app = open('#/demo');

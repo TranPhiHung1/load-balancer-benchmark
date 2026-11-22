@@ -500,6 +500,26 @@ html[data-language="en"]:not(.language-ready) body { visibility: hidden; }
 .deployment-upstreams [data-from="haproxy"] { stroke: var(--series-haproxy); }
 .deployment-upstreams [data-from="envoy"] { stroke: var(--series-envoy); }
 .deployment-map figcaption { color: var(--muted); font-size: 13px; margin: 14px 0 0; }
+.lb-video {
+  margin: 22px 0 0;
+  padding: clamp(12px, 2.5vw, 24px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--bg);
+  text-align: center;
+}
+.lb-video video {
+  display: block;
+  width: min(100%, 360px, 42.75vh);
+  aspect-ratio: 9 / 16;
+  height: auto;
+  margin-inline: auto;
+  border-radius: 10px;
+  background: #000;
+  object-fit: contain;
+}
+.lb-video figcaption { margin-top: 14px; color: var(--muted); font-size: 13px; }
+.lb-video figcaption p { margin: 4px 0 0; }
 .theory-layout { grid-template-columns: minmax(185px, 250px) minmax(0, 1fr); gap: clamp(15px, 3vw, 30px); }
 .theory-index { top: 96px; max-height: calc(100dvh - 108px); padding: 8px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
 .theory-category h2 { font-size: 12px; font-weight: 700; color: var(--muted); margin: 8px 5px 4px; }

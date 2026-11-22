@@ -90,6 +90,20 @@
   </figure>
 </section>
 
+<section class="study-section" aria-labelledby="lb-video-title">
+  <h2 id="lb-video-title">Video cách hoạt động Load Balancer</h2>
+  <p>Video minh họa nguyên lý hoạt động của Load Balancer: tiếp nhận yêu cầu từ client và phân phối đến các máy chủ backend.</p>
+  <figure class="lb-video">
+    <video controls muted preload="metadata" playsinline aria-labelledby="lb-video-title" aria-describedby="lb-video-caption">
+      <source src="./media/load-balancer-explained.mp4" type="video/mp4">
+    </video>
+    <figcaption id="lb-video-caption">
+      <p>Video minh họa nguyên lý hoạt động, không phải kết quả kiểm thử thực nghiệm.</p>
+      <p>Nguồn: Reels của bên thứ ba.</p>
+    </figcaption>
+  </figure>
+</section>
+
 <section class="study-section">
 <h2>Thuật toán cân bằng tải</h2>
 <div class="algorithm-links">
@@ -221,9 +235,9 @@
   <div class="page-heading"><h1 tabindex="-1">Lý thuyết</h1><p>Từ bài toán quá tải đến cấu hình lab</p></div>
   <p class="site-note">Các ví dụ đăng ký học phần minh họa khái niệm. Kết quả đo thật nằm ở trang Benchmark và thuộc cấu hình Round Robin.</p>
   <div class="theory-layout">
-    <div class="theory-chooser"><label for="theory-select">Chọn chủ đề</label><select id="theory-select"><optgroup label="Nền tảng"><option value="load-balancer">Load Balancer và quá tải</option><option value="proxy">Reverse Proxy và Forward Proxy</option><option value="layers">Cân bằng tải Layer 4 và Layer 7</option></optgroup><optgroup label="Proxy trong đồ án"><option value="nginx">Nginx</option><option value="haproxy">HAProxy</option><option value="envoy">Envoy</option></optgroup><optgroup label="Công cụ lab"><option value="docker">Docker và Docker Compose</option><option value="nodejs">Node.js và Express.js</option><option value="k6">Grafana k6 và chỉ số benchmark</option></optgroup><optgroup label="Thuật toán phân phối"><option value="round-robin">Round Robin</option><option value="weighted-round-robin">Weighted Round Robin</option><option value="least">Least Connections và Least Request</option><option value="ip-hash">IP Hash và Source-IP Affinity</option></optgroup><optgroup label="Vận hành và giao thức"><option value="health-check">Health Check, Failover và Recovery</option><option value="protocols">REST API, Keep-Alive, HTTP/2 và gRPC</option></optgroup></select></div>
+    <div class="theory-chooser"><label for="theory-select">Chọn chủ đề</label><select id="theory-select"><optgroup label="Nền tảng"><option value="load-balancer">Load Balancer và quá tải</option><option value="proxy">Reverse Proxy</option><option value="layers">Cân bằng tải Layer 4 và Layer 7</option></optgroup><optgroup label="Proxy trong đồ án"><option value="nginx">Nginx</option><option value="haproxy">HAProxy</option><option value="envoy">Envoy</option></optgroup><optgroup label="Công cụ lab"><option value="docker">Docker và Docker Compose</option><option value="nodejs">Node.js và Express.js</option><option value="k6">Grafana k6 và chỉ số benchmark</option></optgroup><optgroup label="Thuật toán phân phối"><option value="round-robin">Round Robin</option><option value="weighted-round-robin">Weighted Round Robin</option><option value="least">Least Connections và Least Request</option><option value="ip-hash">IP Hash và Source-IP Affinity</option></optgroup><optgroup label="Vận hành và giao thức"><option value="health-check">Health Check, Failover và Recovery</option><option value="protocols">REST API, Keep-Alive, HTTP/2 và gRPC</option></optgroup></select></div>
     <nav id="theory-index" class="theory-index" aria-label="Mục lục lý thuyết">
-<div class="theory-category"><h2>Nền tảng</h2><a data-topic-link="load-balancer" href="#/theory?topic=load-balancer">Load Balancer và quá tải</a><a data-topic-link="proxy" href="#/theory?topic=proxy">Reverse Proxy và Forward Proxy</a><a data-topic-link="layers" href="#/theory?topic=layers">Cân bằng tải Layer 4 và Layer 7</a></div>
+<div class="theory-category"><h2>Nền tảng</h2><a data-topic-link="load-balancer" href="#/theory?topic=load-balancer">Load Balancer và quá tải</a><a data-topic-link="proxy" href="#/theory?topic=proxy">Reverse Proxy</a><a data-topic-link="layers" href="#/theory?topic=layers">Cân bằng tải Layer 4 và Layer 7</a></div>
 <div class="theory-category"><h2>Proxy trong đồ án</h2><a data-topic-link="nginx" href="#/theory?topic=nginx">Nginx</a><a data-topic-link="haproxy" href="#/theory?topic=haproxy">HAProxy</a><a data-topic-link="envoy" href="#/theory?topic=envoy">Envoy</a></div>
 <div class="theory-category"><h2>Công cụ lab</h2><a data-topic-link="docker" href="#/theory?topic=docker">Docker và Docker Compose</a><a data-topic-link="nodejs" href="#/theory?topic=nodejs">Node.js và Express.js</a><a data-topic-link="k6" href="#/theory?topic=k6">Grafana k6 và chỉ số benchmark</a></div>
 <div class="theory-category"><h2>Thuật toán phân phối</h2><a data-topic-link="round-robin" href="#/theory?topic=round-robin">Round Robin</a><a data-topic-link="weighted-round-robin" href="#/theory?topic=weighted-round-robin">Weighted Round Robin</a><a data-topic-link="least" href="#/theory?topic=least">Least Connections và Least Request</a><a data-topic-link="ip-hash" href="#/theory?topic=ip-hash">IP Hash và Source-IP Affinity</a></div>
@@ -240,17 +254,32 @@
         <h3 tabindex="-1" data-topic-section="lab">Trong lab</h3><p>Ba proxy chạy độc lập trong Compose và dùng chung hai backend mô phỏng.</p>
         <a class="site-button" href="#/demo">Xem Demo</a>
         <aside class="theory-summary"><h3 tabindex="-1" data-topic-section="summary">Kiến thức cần nhớ</h3><p>Xem độ trễ đuôi, hàng đợi và tỷ lệ lỗi trước khi quyết định mở rộng tầng nào.</p></aside>
-        <nav class="theory-adjacent"><span></span><a href="#/theory?topic=proxy"><span>Bài tiếp theo</span><strong>Reverse Proxy và Forward Proxy</strong></a></nav>
+        <nav class="theory-adjacent"><span></span><a href="#/theory?topic=proxy"><span>Bài tiếp theo</span><strong>Reverse Proxy</strong></a></nav>
       </article>
       <article class="theory-topic" data-topic="proxy" hidden aria-labelledby="title-proxy">
-        <div class="theory-topic-heading"><div class="theory-breadcrumb"><span>Lý thuyết</span><span aria-hidden="true">/</span><span>Nền tảng</span></div><p>Mục 2.1 · Vai trò của proxy</p><h2 tabindex="-1" id="title-proxy">Reverse Proxy và Forward Proxy</h2></div>
-        <p class="theory-lead">Forward proxy đại diện cho máy khách khi truy cập dịch vụ phía ngoài. Reverse proxy đứng trước máy chủ, nhận yêu cầu đến và chuyển tiếp đến backend.</p>
-        <nav class="article-toc" aria-label="Trong bài này"><a href="#/theory?topic=proxy&amp;section=principles">Nguyên lý và đánh đổi</a><a href="#/theory?topic=proxy&amp;section=example">Tình huống áp dụng</a><a href="#/theory?topic=proxy&amp;section=lab">Trong lab</a><a href="#/theory?topic=proxy&amp;section=summary">Kiến thức cần nhớ</a></nav>
-        <h3 tabindex="-1" data-topic-section="principles">Nguyên lý và đánh đổi</h3><p>Reverse proxy có thể kết thúc TLS, kiểm soát truy cập và che địa chỉ backend. Cân bằng tải là quyết định chọn nơi xử lý, nên một reverse proxy có thể làm cả hai việc. Forward proxy phù hợp khi trường cần áp dụng chính sách cho lưu lượng đi ra từ mạng nội bộ.</p>
-        <figure><figcaption>Ví dụ minh họa</figcaption><div class="theory-flow"><span>Mạng máy khách</span><b aria-hidden="true">→</b><span>Forward proxy</span><b aria-hidden="true">→</b><span>Internet</span></div><div class="theory-flow"><span>Sinh viên</span><b aria-hidden="true">→</b><span>Reverse proxy</span><b aria-hidden="true">→</b><span>Dịch vụ đăng ký</span></div></figure>
-        <h3 tabindex="-1" data-topic-section="example">Tình huống áp dụng</h3><p>Máy tính phòng lab có thể dùng forward proxy để truy cập Internet theo chính sách trường. Cùng máy đó truy cập cổng học phần qua reverse proxy do bên vận hành cổng quản lý. Hai proxy đại diện cho hai phía khác nhau của cùng luồng.</p>
-        <h3 tabindex="-1" data-topic-section="lab">Trong lab</h3><p>Nginx, HAProxy và Envoy trong lab đều nhận yêu cầu phía dịch vụ qua listener riêng.</p>
-        <aside class="theory-summary"><h3 tabindex="-1" data-topic-section="summary">Kiến thức cần nhớ</h3><p>TLS termination cần quyền truy cập chứng chỉ và khóa phía dịch vụ. Caching chỉ phù hợp với phản hồi có chính sách cache cho phép.</p></aside>
+        <div class="theory-topic-heading"><div class="theory-breadcrumb"><span>Lý thuyết</span><span aria-hidden="true">/</span><span>Nền tảng</span></div><p>Mục 2.1 · Reverse Proxy</p><h2 tabindex="-1" id="title-proxy">Reverse Proxy</h2></div>
+        <p class="theory-lead">Reverse Proxy là máy chủ trung gian đứng trước dịch vụ backend. Trình duyệt hoặc ứng dụng gửi yêu cầu đến địa chỉ của Reverse Proxy, nơi tiếp nhận yêu cầu thay mặt dịch vụ.</p>
+        <nav class="article-toc" aria-label="Trong bài này">
+          <a href="#/theory?topic=proxy&amp;section=principles">Nguyên lý hoạt động</a>
+          <a href="#/theory?topic=proxy&amp;section=benefits">Vai trò và lợi ích</a>
+          <a href="#/theory?topic=proxy&amp;section=example">Ví dụ đăng ký học phần</a>
+          <a href="#/theory?topic=proxy&amp;section=lab">Trong lab</a>
+          <a href="#/theory?topic=proxy&amp;section=summary">Kiến thức cần nhớ</a>
+        </nav>
+        <h3 tabindex="-1" data-topic-section="principles">Nguyên lý hoạt động</h3>
+        <ol>
+          <li>Client gửi yêu cầu HTTP hoặc HTTPS đến địa chỉ công khai của dịch vụ.</li>
+          <li>Reverse Proxy nhận yêu cầu, áp dụng quy tắc định tuyến đã cấu hình, chẳng hạn theo tên miền hoặc đường dẫn, rồi chuyển tiếp yêu cầu đến backend tương ứng.</li>
+          <li>Backend xử lý yêu cầu và trả phản hồi về Reverse Proxy. Reverse Proxy gửi phản hồi đó về client.</li>
+        </ol>
+        <figure>
+          <figcaption>Luồng chuyển tiếp yêu cầu</figcaption>
+          <div class="theory-flow"><span>Client</span><b aria-hidden="true">→</b><span>Reverse Proxy</span><b aria-hidden="true">→</b><span>Backend</span></div>
+        </figure>
+        <h3 tabindex="-1" data-topic-section="benefits">Vai trò và lợi ích</h3><p>Reverse Proxy cung cấp một địa chỉ truy cập ổn định và giúp giữ địa chỉ backend trong mạng nội bộ. Khi được cấu hình, nó có thể xử lý HTTPS bằng chứng chỉ của dịch vụ, áp dụng chính sách truy cập và ghi nhật ký yêu cầu tại một điểm chung.</p>
+        <h3 tabindex="-1" data-topic-section="example">Ví dụ đăng ký học phần</h3><p>Khi sinh viên bấm Đăng ký, trình duyệt gửi yêu cầu POST /api/registrations đến cổng học phần. Reverse Proxy chuyển tiếp yêu cầu đến dịch vụ đăng ký trong mạng nội bộ. Dịch vụ kiểm tra điều kiện và chỗ trống, lưu lượt đăng ký nếu hợp lệ, rồi gửi kết quả về trình duyệt qua Reverse Proxy.</p>
+        <h3 tabindex="-1" data-topic-section="lab">Trong lab</h3><p>Trong đồ án, Nginx, HAProxy và Envoy đều làm Reverse Proxy cho các backend Node.js. Mỗi công cụ nhận yêu cầu trên cổng riêng. Nginx chuyển tiếp bằng proxy_pass trong location, HAProxy chuyển từ frontend tới backend, còn Envoy dùng route để chuyển tới cluster đã cấu hình.</p>
+        <aside class="theory-summary"><h3 tabindex="-1" data-topic-section="summary">Kiến thức cần nhớ</h3><p>Client giao tiếp với địa chỉ công khai của Reverse Proxy. Backend thực thi nghiệp vụ, còn Reverse Proxy chuyển tiếp yêu cầu và phản hồi giữa hai bên.</p></aside>
         <nav class="theory-adjacent"><a href="#/theory?topic=load-balancer"><span>Bài trước</span><strong>Load Balancer và quá tải</strong></a><a href="#/theory?topic=layers"><span>Bài tiếp theo</span><strong>Cân bằng tải Layer 4 và Layer 7</strong></a></nav>
       </article>
       <article class="theory-topic" data-topic="layers" hidden aria-labelledby="title-layers">
@@ -268,7 +297,7 @@
         </table></div></figure>
         <h3 tabindex="-1" data-topic-section="lab">Trong lab</h3><p>Demo chọn nhóm backend theo đường dẫn HTTP. Kiểm tra TCP của Envoy là một cơ chế giám sát ở tầng vận chuyển.</p>
         <aside class="theory-summary"><h3 tabindex="-1" data-topic-section="summary">Kiến thức cần nhớ</h3><p>Chọn L4 khi chỉ cần chuyển tiếp ở tầng giao vận. Chọn L7 khi quyết định cần đọc nội dung HTTP.</p></aside>
-        <nav class="theory-adjacent"><a href="#/theory?topic=proxy"><span>Bài trước</span><strong>Reverse Proxy và Forward Proxy</strong></a><a href="#/theory?topic=nginx"><span>Bài tiếp theo</span><strong>Nginx</strong></a></nav>
+        <nav class="theory-adjacent"><a href="#/theory?topic=proxy"><span>Bài trước</span><strong>Reverse Proxy</strong></a><a href="#/theory?topic=nginx"><span>Bài tiếp theo</span><strong>Nginx</strong></a></nav>
       </article>
       <article class="theory-topic" data-topic="nginx" hidden aria-labelledby="title-nginx">
         <div class="theory-topic-heading"><div class="theory-breadcrumb"><span>Lý thuyết</span><span aria-hidden="true">/</span><span>Proxy trong đồ án</span></div><p>Mục 3.1 và 4.5 · Cách một request đi qua Nginx</p><h2 tabindex="-1" id="title-nginx">Nginx</h2></div>

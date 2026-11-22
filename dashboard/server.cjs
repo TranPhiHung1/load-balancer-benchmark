@@ -2,6 +2,7 @@ const http = require('node:http');
 const { isIP } = require('node:net');
 const fs = require('node:fs/promises');
 const path = require('node:path');
+const { pipeline } = require('node:stream/promises');
 const { performance } = require('node:perf_hooks');
 const { loadResults, csv, WORKLOADS } = require('./results.cjs');
 const { createBenchmarkRunner, OUTPUT } = require('./benchmark-runner.cjs');
@@ -12,6 +13,40 @@ const SPEEDS = Object.freeze({ fast: 150, normal: 1000, slow: 1800 });
 const DEMO_PATHS = Object.freeze({ 'round-robin': '/api', 'weighted-round-robin': '/api/wrr', 'least-connections': '/api/least', 'ip-hash': '/api/iphash' });
 const FAILOVER_BALANCERS = ['nginx', 'haproxy', 'envoy'];
 const FAILOVER_BACKENDS = ['backend-1', 'backend-2'];
+const VIDEO_URL = '/media/load-balancer-explained.mp4';
+
+async function serveVideo(req, res) {
+  const file = await fs.open(path.join(__dirname, 'public', VIDEO_URL.slice(1)), 'r');
+  try {
+    const { size } = await file.stat();
+    const headers = {
+      'Content-Type': 'video/mp4',
+      'Accept-Ranges': 'bytes',
+      'Cache-Control': 'no-store',
+      'X-Content-Type-Options': 'nosniff',
+    };
+    const range = /^bytes=(\d*)-(\d*)$/.exec(req.headers.range || '');
+    let start = 0;
+    let end = size - 1;
+    if (range && (range[1] || range[2]) && req.method === 'GET') {
+      const [, first, last] = range;
+      start = first ? Number(first) : Math.max(0, size - Number(last));
+      if (first && last) end = Math.min(end, Number(last));
+      if (start > end) {
+        res.writeHead(416, { ...headers, 'Content-Range': `bytes */${size}` });
+        return res.end();
+      }
+      headers['Content-Range'] = `bytes ${start}-${end}/${size}`;
+    }
+    headers['Content-Length'] = end - start + 1;
+    res.writeHead(headers['Content-Range'] ? 206 : 200, headers);
+    if (req.method === 'HEAD' || size === 0) return res.end();
+    await pipeline(file.createReadStream({ start, end }), res);
+  } finally {
+    await file.close();
+  }
+}
+
 function probe(port, timeout = 2000, requestPath = '/api', agent = false) {
   const start = performance.now();
   return new Promise(resolve => {
@@ -167,6 +202,14 @@ function createServer(options = {}) {
           for (let i = 1; i <= 10; i++) rows.push({ number: i, balancer: match[1], ...await probe(TARGETS[match[1]]) });
           return send(200, { rows });
         } finally { busy = false; }
+      }
+      if (url.pathname === VIDEO_URL && (req.method === 'GET' || req.method === 'HEAD')) {
+        try {
+          return await serveVideo(req, res);
+        } catch (error) {
+          if (error.code === 'ENOENT') return send(404, { error: 'Không tìm thấy tệp video cục bộ' });
+          throw error;
+        }
       }
       if (req.method !== 'GET') return send(405, { error: 'Method không được hỗ trợ' });
       if (url.pathname === '/api/failover/status') {
